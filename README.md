@@ -36,12 +36,12 @@ combinatorial-benchmark/
 - `human.py` provides code to evaluate the humanEval dataset samples
 
 ### Meta Benchmark
-- Features 10 meta-learning problems to assess LLMs' ability to generalize across problem patterns
+- Features 10 template problems to assess LLMs' ability to generalize across problem patterns
 - Problems in `meta_prompts/` include:
-  - Meta-pattern descriptions
+  - template descriptions
   - Instance generation rules
   - Evaluation metrics
-- Generated outputs capture model responses for meta-learning tasks
+
 
 ### Main Script
 The `main.py` script provides functionality for:
