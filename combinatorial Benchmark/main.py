@@ -11,8 +11,8 @@ import glob
 from typing import Dict, List, Any, Tuple
 
 # Replace with your API keys
-openai_api_key = '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'
-anthropic_api_key = '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'
+openai_api_key = 
+anthropic_api_key = 
 
 def load_problems(directory: str = 'meta_problems', problem_num: int = None) -> Dict[int, Any]:
     """
