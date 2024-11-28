@@ -1,0 +1,33 @@
+{
+    "prompt": "from typing import List\ndef filter_by_substring(strings: List[str], substring: str) -> List[str]:\n    \"\"\" Filter an input list of strings only for ones that contain given substring\n    >>> filter_by_substring([], 'a')\n    []\n    >>> filter_by_substring(['abc', 'bacd', 'cde', 'array'], 'a')\n    ['abc', 'bacd', 'array']\n    \"\"\"",
+    "assertions": [
+        {
+            "input": {
+                "strings": [],
+                "substring": "john"
+            },
+            "output": []
+        },
+        {
+            "input": {
+                "strings": ["xxx", "asd", "xxy", "john doe", "xxxAAA", "xxx"],
+                "substring": "xxx"
+            },
+            "output": ["xxx", "xxxAAA", "xxx"]
+        },
+        {
+            "input": {
+                "strings": ["xxx", "asd", "aaaxxy", "john doe", "xxxAAA", "xxx"],
+                "substring": "xx"
+            },
+            "output": ["xxx", "aaaxxy", "xxxAAA", "xxx"]
+        },
+        {
+            "input": {
+                "strings": ["grunt", "trumpet", "prune", "gruesome"],
+                "substring": "run"
+            },
+            "output": ["grunt", "prune"]
+        }
+    ]
+ }

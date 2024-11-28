@@ -1,0 +1,196 @@
+
+=== Testing Problem 1 ===
+Prompt: from typing import List
+def has_close_elements(numbers: List[float], threshold: float) -> bool:
+    ''' Check if in given list of numbers, are any two numbers closer to each other than
+    given threshold.
+    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)
+    False
+    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)
+    True
+    '''
+================================================================================
+
+--- Testing with openai (gpt-4) ---
+**Generated Response:**
+Here is the Python code for the problem:
+
+```python
+def has_close_elements(numbers: List[float], threshold: float) -> bool:
+    numbers.sort()
+    for i in range(len(numbers) - 1):
+        if abs(numbers[i] - numbers[i + 1]) < threshold:
+            return True
+    return False
+```
+
+This function first sorts the list of numbers. Then it iterates through the list, checking the difference between each pair of adjacent numbers. If the difference is less than the threshold, it returns `True`. If it goes through the entire list without finding any such pair, it returns `False`.
+
+**Extracted Code:**
+def has_close_elements(numbers: List[float], threshold: float) -> bool:
+    numbers.sort()
+    for i in range(len(numbers) - 1):
+        if abs(numbers[i] - numbers[i + 1]) < threshold:
+            return True
+    return False
+
+Error importing generated code: name 'List' is not defined
+✗ Some assertions failed
+
+--- Testing with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+def has_close_elements(numbers: List[float], threshold: float) -> bool:
+    for i in range(len(numbers)):
+        for j in range(i+1, len(numbers)):
+            if abs(numbers[i] - numbers[j]) < threshold:
+                return True
+    return False
+
+# Test cases
+print(has_close_elements([1.0, 2.0, 3.0], 0.5))  # False
+print(has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3))  # True
+
+**Extracted Code:**
+def has_close_elements(numbers: List[float], threshold: float) -> bool:
+    for i in range(len(numbers)):
+        for j in range(i+1, len(numbers)):
+            if abs(numbers[i] - numbers[j]) < threshold:
+                return True
+    return False
+
+# Test cases
+print(has_close_elements([1.0, 2.0, 3.0], 0.5))  # False
+print(has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3))  # True
+
+Error importing generated code: name 'List' is not defined
+✗ Some assertions failed
+
+--- Testing with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a solution for the has_close_elements function:
+
+```python
+def has_close_elements(numbers: List[float], threshold: float) -> bool:
+    for i in range(len(numbers)):
+        for j in range(i + 1, len(numbers)):
+            if abs(numbers[i] - numbers[j]) < threshold:
+                return True
+    return False
+```
+
+This solution:
+
+1. Uses nested loops to compare each number with all other numbers that come after it in the list.
+
+2. For each pair of numbers, calculates their absolute difference using abs().
+
+3. If any pair of numbers has a difference less than the threshold, returns True.
+
+4. If no such pair is found, returns False.
+
+The function works by:
+- Outer loop (i) selects the first number to compare
+- Inner loop (j) starts from i+1 to compare with all subsequent numbers
+- Checks if the absolute difference between any two numbers is less than the threshold
+- Returns True immediately if a close pair is found
+- Returns False if no close pairs are found after checking all combinations
+
+Example usage:
+```python
+print(has_close_elements([1.0, 2.0, 3.0], 0.5))  # False
+print(has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3))  # True
+```
+
+The time complexity is O(n²) where n is the length of the input list, as it needs to compare each number with all other numbers in the list.
+
+**Extracted Code:**
+def has_close_elements(numbers: List[float], threshold: float) -> bool:
+    for i in range(len(numbers)):
+        for j in range(i + 1, len(numbers)):
+            if abs(numbers[i] - numbers[j]) < threshold:
+                return True
+    return False
+
+Error importing generated code: name 'List' is not defined
+✗ Some assertions failed
+
+--- Testing with ollama (llama3.1:70b) ---
+**Generated Response:**
+Here is a simple and efficient solution to the problem:
+```python
+from typing import List
+
+def has_close_elements(numbers: List[float], threshold: float) -> bool:
+    """
+    Check if in given list of numbers, are any two numbers closer to each other than
+    given threshold.
+
+    Args:
+        numbers (List[float]): A list of floating point numbers.
+        threshold (float): The minimum distance between two numbers.
+
+    Returns:
+        bool: True if there are two numbers closer than the threshold, False otherwise.
+    """
+    # Sort the list in ascending order
+    numbers.sort()
+
+    # Iterate over the sorted list to find close elements
+    for i in range(len(numbers) - 1):
+        # If the difference between two adjacent numbers is less than or equal to the threshold
+        if numbers[i + 1] - numbers[i] <= threshold:
+            return True
+
+    # If no close elements are found, return False
+    return False
+```
+Here's an explanation of the code:
+
+1. We first sort the input list in ascending order using the `sort()` method.
+2. Then we iterate over the sorted list using a for loop.
+3. In each iteration, we calculate the difference between two adjacent numbers using `numbers[i + 1] - numbers[i]`.
+4. If this difference is less than or equal to the threshold, it means that these two numbers are closer than the threshold, so we return `True` immediately.
+5. If no such pair of close elements is found after iterating over the entire list, we return `False`.
+
+Here are some example use cases:
+```python
+print(has_close_elements([1.0, 2.0, 3.0], 0.5))  # False
+print(has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3))  # True
+```
+Note that this solution has a time complexity of O(n log n) due to the sorting step, where n is the length of the input list. However, it is still efficient for most practical use cases.
+
+**Extracted Code:**
+from typing import List
+
+def has_close_elements(numbers: List[float], threshold: float) -> bool:
+    """
+    Check if in given list of numbers, are any two numbers closer to each other than
+    given threshold.
+
+    Args:
+        numbers (List[float]): A list of floating point numbers.
+        threshold (float): The minimum distance between two numbers.
+
+    Returns:
+        bool: True if there are two numbers closer than the threshold, False otherwise.
+    """
+    # Sort the list in ascending order
+    numbers.sort()
+
+    # Iterate over the sorted list to find close elements
+    for i in range(len(numbers) - 1):
+        # If the difference between two adjacent numbers is less than or equal to the threshold
+        if numbers[i + 1] - numbers[i] <= threshold:
+            return True
+
+    # If no close elements are found, return False
+    return False
+
+✓ Assertion passed for input ([1.0, 2.0, 2.2, 3.9, 4.0, 5.0], 0.3)
+✓ Assertion passed for input ([1.0, 2.0, 2.2, 3.9, 4.0, 5.0], 0.05)
+✓ Assertion passed for input ([1.0, 2.0, 4.0, 5.0, 5.9], 0.95)
+✓ Assertion passed for input ([1.0, 2.0, 2.0, 4.0, 5.0, 5.9], 0.1)
+✓ Assertion passed for input ([1.0, 2.0, 4.0, 5.0, 5.9], 0.8)
+✓ Assertion passed for input ([1.1, 2.2, 3.1, 4.1, 5.1], 1.0)
+✓ Assertion passed for input ([1.1, 2.2, 3.1, 4.1, 5.1], 0.5)
+✓ All assertions passed

@@ -1,0 +1,195 @@
+
+=== Testing Problem 3 ===
+Prompt: def truncate_number(number: float) -> float:
+    """ Given a positive floating point number, it can be decomposed into and integer part (largest integer smaller than given number) and decimals (leftover part always smaller than 1).
+    Return the decimal part of the number.
+    >>> truncate_number(3.5)
+    0.5
+    """
+================================================================================
+
+--- Testing with openai (gpt-4) ---
+**Generated Response:**
+Sure, here is a simple Python function that does that:
+
+```python
+def truncate_number(number: float) -> float:
+    return number - int(number)
+```
+
+This function works by subtracting the integer part of the number from the original number, leaving only the decimal part.
+
+**Extracted Code:**
+def truncate_number(number: float) -> float:
+    return number - int(number)
+
+✓ Assertion passed for input {'number': 3.5}
+✓ Assertion passed for input {'number': 1.33}
+✓ Assertion passed for input {'number': 123.456}
+✓ All assertions passed
+
+--- Testing with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+def truncate_number(number: float) -> float:
+    return number - int(number)
+
+# Test the function
+print(truncate_number(3.5))  # Output: 0.5
+
+**Extracted Code:**
+def truncate_number(number: float) -> float:
+    return number - int(number)
+
+# Test the function
+print(truncate_number(3.5))  # Output: 0.5
+
+✓ Assertion passed for input {'number': 3.5}
+✓ Assertion passed for input {'number': 1.33}
+✓ Assertion passed for input {'number': 123.456}
+✓ All assertions passed
+
+--- Testing with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a solution for the truncate_number function:
+
+```python
+def truncate_number(number: float) -> float:
+    """
+    Given a positive floating point number, returns its decimal part.
+    
+    Args:
+        number (float): A positive floating point number
+        
+    Returns:
+        float: The decimal part of the number
+        
+    >>> truncate_number(3.5)
+    0.5
+    >>> truncate_number(1.33)
+    0.33
+    >>> truncate_number(5.0)
+    0.0
+    """
+    return number - int(number)
+```
+
+This solution works by:
+
+1. Taking a floating point number as input
+2. Using the int() function to get the integer part of the number (truncates decimal part)
+3. Subtracting the integer part from the original number to get the decimal part
+
+The function works because:
+- When we convert a float to int using int(), it drops the decimal part
+- Subtracting this integer from the original number leaves us with just the decimal part
+
+Examples:
+```python
+truncate_number(3.5)   # Returns 0.5
+truncate_number(1.33)  # Returns 0.33
+truncate_number(5.0)   # Returns 0.0
+truncate_number(2.71)  # Returns 0.71
+```
+
+This solution assumes the input is a positive number as specified in the problem description. For negative numbers, you would need additional logic to handle them correctly.
+
+Key points:
+- The function is simple and efficient
+- It handles both whole numbers and decimals correctly
+- It returns a float value between 0 and 1
+- It preserves the precision of the original decimal part
+
+The function satisfies the given test case where truncate_number(3.5) returns 0.5.
+
+**Extracted Code:**
+def truncate_number(number: float) -> float:
+    """
+    Given a positive floating point number, returns its decimal part.
+    
+    Args:
+        number (float): A positive floating point number
+        
+    Returns:
+        float: The decimal part of the number
+        
+    >>> truncate_number(3.5)
+    0.5
+    >>> truncate_number(1.33)
+    0.33
+    >>> truncate_number(5.0)
+    0.0
+    """
+    return number - int(number)
+
+✓ Assertion passed for input {'number': 3.5}
+✓ Assertion passed for input {'number': 1.33}
+✓ Assertion passed for input {'number': 123.456}
+✓ All assertions passed
+
+--- Testing with ollama (llama3.1:70b) ---
+**Generated Response:**
+Here's a simple function that accomplishes this:
+
+```python
+def truncate_number(number: float) -> float:
+    """
+    Given a positive floating point number, returns its decimal part.
+
+    Args:
+        number (float): A positive floating point number.
+
+    Returns:
+        float: The decimal part of the number.
+    """
+
+    # Ensure the input is non-negative to match problem constraints
+    if number < 0:
+        raise ValueError("Input must be a non-negative number")
+
+    # Calculate the integer part by converting to int and back to float
+    integer_part = float(int(number))
+
+    # The decimal part is what's left after subtracting the integer part
+    decimal_part = number - integer_part
+
+    return decimal_part
+
+# Test cases for validation
+print(truncate_number(3.5))   # Expected output: 0.5
+```
+
+This function takes advantage of how Python handles conversion between `int` and `float`. When you convert a float to an int, it effectively truncates the number (removes its decimal part). By then converting that integer back into a float, we get the integer part of our original number.
+
+Finally, by subtracting this integer part from our original number, we are left with just the decimal part.
+
+**Extracted Code:**
+def truncate_number(number: float) -> float:
+    """
+    Given a positive floating point number, returns its decimal part.
+
+    Args:
+        number (float): A positive floating point number.
+
+    Returns:
+        float: The decimal part of the number.
+    """
+
+    # Ensure the input is non-negative to match problem constraints
+    if number < 0:
+        raise ValueError("Input must be a non-negative number")
+
+    # Calculate the integer part by converting to int and back to float
+    integer_part = float(int(number))
+
+    # The decimal part is what's left after subtracting the integer part
+    decimal_part = number - integer_part
+
+    return decimal_part
+
+# Test cases for validation
+print(truncate_number(3.5))   # Expected output: 0.5
+
+✓ Assertion passed for input {'number': 3.5}
+✓ Assertion passed for input {'number': 1.33}
+✓ Assertion passed for input {'number': 123.456}
+✓ All assertions passed

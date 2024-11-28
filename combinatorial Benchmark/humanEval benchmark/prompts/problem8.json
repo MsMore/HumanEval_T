@@ -1,0 +1,21 @@
+{
+    "prompt": "from typing import List, Tuple\ndef sum_product(numbers: List[int]) -> Tuple[int, int]:\n    \"\"\" For a given list of integers, return a tuple consisting of a sum and a product of all the integers in a list.\n    Empty sum should be equal to 0 and empty product should be equal to 1.\n    >>> sum_product([])\n    (0, 1)\n    >>> sum_product([1, 2, 3, 4])\n    (10, 24)\n    \"\"\"",
+    "assertions": [
+        {
+            "input": {"numbers": []},
+            "output": [0, 1]
+        },
+        {
+            "input": {"numbers": [1, 1, 1]},
+            "output": [3, 1]
+        },
+        {
+            "input": {"numbers": [100, 0]},
+            "output": [100, 0]
+        },
+        {
+            "input": {"numbers": [3, 5, 7]},
+            "output": [15, 105]
+        }
+    ]
+ }

@@ -1,0 +1,17 @@
+{
+    "prompt": "from typing import List\ndef mean_absolute_deviation(numbers: List[float]) -> float:\n    \"\"\" For a given list of input numbers, calculate Mean Absolute Deviation around the mean of this dataset.\n    Mean Absolute Deviation is the average absolute difference between each element and a centerpoint (mean in this case):\n    MAD = average | x - x_mean |\n    >>> mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])\n    1.0\n    \"\"\"",
+    "assertions": [
+        {
+            "input": {"numbers": [1.0, 2.0, 3.0]},
+            "output": 0.6666666666666666
+        },
+        {
+            "input": {"numbers": [1.0, 2.0, 3.0, 4.0]},
+            "output": 1.0
+        },
+        {
+            "input": {"numbers": [1.0, 2.0, 3.0, 4.0, 5.0]},
+            "output": 1.2
+        }
+    ]
+ }

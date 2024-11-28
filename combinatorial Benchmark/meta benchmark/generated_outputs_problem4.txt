@@ -1,0 +1,1430 @@
+
+=== Testing Problem 4 ===
+Problem Description: Problem 4
+Meta Prompt: Given a list of <X> representing <Y>, detect if the <Z> falls <A> zero at any point, and return <B> if it does, otherwise return <C>.
+================================================================================
+
+--- Testing Version 1 with openai (gpt-4o) ---
+**Generated Response:**
+To solve this problem, you can iterate through the list of operations, updating the balance as you go. If at any point the balance falls below zero, you return `True`. If you finish processing all operations without the balance going below zero, you return `False`. Here's a Python function to achieve this:
+
+```python
+def is_balance_negative(operations):
+    balance = 0
+    for operation in operations:
+        balance += operation
+        if balance < 0:
+            return True
+    return False
+
+# Example usage:
+operations = [100, -50, -60, 20, -10]
+print(is_balance_negative(operations))  # Output: True
+```
+
+In this code:
+- `operations` is a list of integers where positive numbers represent deposits and negative numbers represent withdrawals.
+- We initialize `balance` to 0.
+- We iterate over each operation, updating the balance.
+- If the balance ever becomes negative, we immediately return `True`.
+- If the loop completes without the balance going negative, we return `False`.
+
+**Extracted Code:**
+def is_balance_negative(operations):
+    balance = 0
+    for operation in operations:
+        balance += operation
+        if balance < 0:
+            return True
+    return False
+
+# Example usage:
+operations = [100, -50, -60, 20, -10]
+print(is_balance_negative(operations))  # Output: True
+
+✓ Assertion passed for input [1, 2, 3]
+✓ Assertion passed for input [1, 2, -4, 5]
+✓ Assertion passed for input []
+✓ Assertion passed for input [1, -1, 2, -2, 5, -5, 4, -5]
+✓ All assertions passed for Version 1
+
+--- Testing Version 1 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is the Python code to solve the problem:
+
+```python
+def check_balance(operations):
+    balance = 0
+    for operation in operations:
+        if operation.startswith('D'):
+            balance += int(operation[1:])
+        elif operation.startswith('W'):
+            balance -= int(operation[1:])
+        
+        if balance < 0:
+            return True
+    
+    return False
+
+# Example usage
+operations = ['D100', 'D200', 'W50', 'D300']
+print(check_balance(operations))  # Output: False
+
+operations = ['D100', 'D200', 'W500', 'D300']
+print(check_balance(operations))  # Output: True
+```
+
+This code defines a function `check_balance` that takes a list of operations as input and iterates through each operation to update the balance. If the balance falls below zero at any point, the function returns True. Otherwise, it returns False.
+
+**Extracted Code:**
+def check_balance(operations):
+    balance = 0
+    for operation in operations:
+        if operation.startswith('D'):
+            balance += int(operation[1:])
+        elif operation.startswith('W'):
+            balance -= int(operation[1:])
+        
+        if balance < 0:
+            return True
+    
+    return False
+
+# Example usage
+operations = ['D100', 'D200', 'W50', 'D300']
+print(check_balance(operations))  # Output: False
+
+operations = ['D100', 'D200', 'W500', 'D300']
+print(check_balance(operations))  # Output: True
+
+✗ Error during assertion for input [1, 2, 3]: 'int' object has no attribute 'startswith'
+✗ Error during assertion for input [1, 2, -4, 5]: 'int' object has no attribute 'startswith'
+✓ Assertion passed for input []
+✗ Error during assertion for input [1, -1, 2, -2, 5, -5, 4, -5]: 'int' object has no attribute 'startswith'
+✗ Some assertions failed for Version 1
+
+--- Testing Version 1 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution to detect if a bank account balance falls below zero:
+
+```python
+def check_negative_balance(operations):
+    balance = 0
+    
+    for operation in operations:
+        balance += operation
+        if balance < 0:
+            return True
+            
+    return False
+
+# Alternative solution using running sum
+def check_negative_balance_alt(operations):
+    return any(sum(operations[:i+1]) < 0 for i in range(len(operations)))
+
+# Test cases
+def test_check_negative_balance():
+    # Test case 1: Balance goes negative
+    assert check_negative_balance([100, -200, 100]) == True
+    
+    # Test case 2: Balance stays positive
+    assert check_negative_balance([100, -50, 100, -50]) == False
+    
+    # Test case 3: Balance becomes exactly zero
+    assert check_negative_balance([50, -50]) == False
+    
+    # Test case 4: Single negative operation
+    assert check_negative_balance([-50]) == True
+    
+    # Test case 5: Empty list
+    assert check_negative_balance([]) == False
+    
+    # Test case 6: Multiple operations leading to negative
+    assert check_negative_balance([100, 100, -300, 100]) == True
+    
+    print("All test cases passed!")
+
+# Run tests
+test_check_negative_balance()
+```
+
+This solution provides two implementations:
+
+1. `check_negative_balance()`: This is the more efficient solution that:
+   - Keeps track of running balance
+   - Processes each operation sequentially
+   - Returns True as soon as balance goes negative
+   - Returns False if balance never goes negative
+
+2. `check_negative_balance_alt()`: An alternative solution using list slicing and sum()
+   - More concise but less efficient for large lists
+   - Uses running sum to check all intermediate balances
+
+The code includes test cases covering various scenarios:
+- Balance going negative
+- Balance staying positive
+- Balance becoming exactly zero
+- Single negative operation
+- Empty list
+- Multiple operations leading to negative balance
+
+Example usage:
+```python
+# Example 1
+operations1 = [100, -200, 100]  # Goes negative after second operation
+print(check_negative_balance(operations1))  # Output: True
+
+# Example 2
+operations2 = [100, -50, 100, -50]  # Never goes negative
+print(check_negative_balance(operations2))  # Output: False
+```
+
+Key points:
+1. The function takes a list of integers representing deposits (positive) and withdrawals (negative)
+2. It returns True if the balance ever goes below zero
+3. It returns False if the balance stays at or above zero throughout
+4. Empty list returns False as there are no operations to process
+5. The solution is efficient with O(n) time complexity
+6. It handles edge cases appropriately
+
+The first implementation is recommended for practical use as it:
+- Is more efficient (O(n) time complexity)
+- Stops as soon as negative balance is detected
+- Uses less memory
+- Is more readable and maintainable
+
+**Extracted Code:**
+def check_negative_balance(operations):
+    balance = 0
+    
+    for operation in operations:
+        balance += operation
+        if balance < 0:
+            return True
+            
+    return False
+
+# Alternative solution using running sum
+def check_negative_balance_alt(operations):
+    return any(sum(operations[:i+1]) < 0 for i in range(len(operations)))
+
+# Test cases
+def test_check_negative_balance():
+    # Test case 1: Balance goes negative
+    assert check_negative_balance([100, -200, 100]) == True
+    
+    # Test case 2: Balance stays positive
+    assert check_negative_balance([100, -50, 100, -50]) == False
+    
+    # Test case 3: Balance becomes exactly zero
+    assert check_negative_balance([50, -50]) == False
+    
+    # Test case 4: Single negative operation
+    assert check_negative_balance([-50]) == True
+    
+    # Test case 5: Empty list
+    assert check_negative_balance([]) == False
+    
+    # Test case 6: Multiple operations leading to negative
+    assert check_negative_balance([100, 100, -300, 100]) == True
+    
+    print("All test cases passed!")
+
+# Run tests
+test_check_negative_balance()
+
+✓ Assertion passed for input [1, 2, 3]
+✓ Assertion passed for input [1, 2, -4, 5]
+✓ Assertion passed for input []
+✓ Assertion passed for input [1, -1, 2, -2, 5, -5, 4, -5]
+✓ All assertions passed for Version 1
+
+--- Testing Version 1 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Detect Negative Balance**
+==========================
+
+### Problem Statement
+
+Given a list of operations representing bank account deposits and withdrawals, detect if the balance falls below zero at any point, and return `True` if it does, otherwise return `False`.
+
+### Solution
+```python
+def has_negative_balance(operations):
+    """
+    Detects if the balance falls below zero at any point.
+
+    Args:
+        operations (list): List of integers representing deposits (+) and withdrawals (-)
+
+    Returns:
+        bool: True if balance falls below zero, False otherwise
+    """
+    balance = 0
+    for operation in operations:
+        balance += operation
+        if balance < 0:
+            return True
+    return False
+```
+### Example Use Cases
+
+```python
+# Test case 1: Balance never falls below zero
+operations = [100, -50, 20, -30]
+print(has_negative_balance(operations))  # Output: False
+
+# Test case 2: Balance falls below zero
+operations = [100, -150, 20, -30]
+print(has_negative_balance(operations))  # Output: True
+```
+### Explanation
+
+1. Initialize a `balance` variable to keep track of the current balance.
+2. Iterate through each operation in the list.
+3. Add the operation to the balance (deposit or withdrawal).
+4. Check if the balance is less than zero after each operation. If it is, return `True`.
+5. If the loop completes without finding a negative balance, return `False`.
+
+This solution has a time complexity of O(n), where n is the number of operations in the list.
+
+**Extracted Code:**
+def has_negative_balance(operations):
+    """
+    Detects if the balance falls below zero at any point.
+
+    Args:
+        operations (list): List of integers representing deposits (+) and withdrawals (-)
+
+    Returns:
+        bool: True if balance falls below zero, False otherwise
+    """
+    balance = 0
+    for operation in operations:
+        balance += operation
+        if balance < 0:
+            return True
+    return False
+
+✓ Assertion passed for input [1, 2, 3]
+✓ Assertion passed for input [1, 2, -4, 5]
+✓ Assertion passed for input []
+✓ Assertion passed for input [1, -1, 2, -2, 5, -5, 4, -5]
+✓ All assertions passed for Version 1
+
+--- Testing Version 2 with openai (gpt-4o) ---
+**Generated Response:**
+Certainly! You can solve this problem by iterating through the list of transactions and maintaining a running total of the account balance. If at any point the balance falls below zero, you return "Yes". If you finish processing all transactions without the balance falling below zero, you return "No". Here's a Python function to achieve this:
+
+```python
+def is_account_negative(transactions):
+    balance = 0
+    for transaction in transactions:
+        balance += transaction
+        if balance < 0:
+            return "Yes"
+    return "No"
+
+# Example usage:
+transactions = [100, -50, -60, 20, -10]
+print(is_account_negative(transactions))  # Output: "Yes"
+```
+
+In this code:
+- We initialize `balance` to 0.
+- We iterate over each transaction in the list.
+- We update the `balance` by adding the current transaction amount.
+- We check if the `balance` is less than zero after each transaction. If it is, we return "Yes".
+- If the loop completes without the balance falling below zero, we return "No".
+
+**Extracted Code:**
+def is_account_negative(transactions):
+    balance = 0
+    for transaction in transactions:
+        balance += transaction
+        if balance < 0:
+            return "Yes"
+    return "No"
+
+# Example usage:
+transactions = [100, -50, -60, 20, -10]
+print(is_account_negative(transactions))  # Output: "Yes"
+
+✓ Assertion passed for input [10, -5, -6]
+✓ Assertion passed for input [5, 5, 5]
+✓ Assertion passed for input [7, -3, -10]
+✓ Assertion passed for input [1, -1, 1, -1, 1]
+✓ All assertions passed for Version 2
+
+--- Testing Version 2 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is the Python code to solve the problem:
+
+```python
+def detect_negative_balance(transactions):
+    balance = 0
+    for transaction in transactions:
+        if transaction[0] == 'credit':
+            balance += transaction[1]
+        elif transaction[0] == 'debit':
+            balance -= transaction[1]
+        
+        if balance < 0:
+            return "Yes"
+    
+    return "No"
+
+# Example transactions
+transactions = [('credit', 100), ('debit', 50), ('debit', 70), ('credit', 30)]
+
+print(detect_negative_balance(transactions))  # Output: Yes
+```
+
+You can replace the `transactions` list with your own list of transactions to test the function.
+
+**Extracted Code:**
+def detect_negative_balance(transactions):
+    balance = 0
+    for transaction in transactions:
+        if transaction[0] == 'credit':
+            balance += transaction[1]
+        elif transaction[0] == 'debit':
+            balance -= transaction[1]
+        
+        if balance < 0:
+            return "Yes"
+    
+    return "No"
+
+# Example transactions
+transactions = [('credit', 100), ('debit', 50), ('debit', 70), ('credit', 30)]
+
+print(detect_negative_balance(transactions))  # Output: Yes
+
+✗ Error during assertion for input [10, -5, -6]: 'int' object is not subscriptable
+✗ Error during assertion for input [5, 5, 5]: 'int' object is not subscriptable
+✗ Error during assertion for input [7, -3, -10]: 'int' object is not subscriptable
+✗ Error during assertion for input [1, -1, 1, -1, 1]: 'int' object is not subscriptable
+✗ Some assertions failed for Version 2
+
+--- Testing Version 2 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution to detect if an account balance falls below zero at any point given a list of transactions:
+
+```python
+def check_negative_balance(transactions):
+    balance = 0
+    
+    for transaction in transactions:
+        balance += transaction
+        if balance < 0:
+            return "Yes"
+    
+    return "No"
+
+# Example test cases
+def test_check_negative_balance():
+    # Test case 1: Balance goes negative
+    print(check_negative_balance([10, -15, 5]))  # Should return "Yes"
+    
+    # Test case 2: Balance stays positive
+    print(check_negative_balance([100, -20, -30, -10]))  # Should return "No"
+    
+    # Test case 3: Balance exactly zero
+    print(check_negative_balance([10, -10]))  # Should return "No"
+    
+    # Test case 4: Single negative transaction
+    print(check_negative_balance([-5]))  # Should return "Yes"
+    
+    # Test case 5: Empty transaction list
+    print(check_negative_balance([]))  # Should return "No"
+    
+    # Test case 6: Multiple negative points
+    print(check_negative_balance([10, -20, 15, -10]))  # Should return "Yes"
+
+# Run tests
+test_check_negative_balance()
+```
+
+This solution:
+
+1. Takes a list of transactions as input where:
+   - Positive numbers represent credits (money added)
+   - Negative numbers represent debits (money subtracted)
+
+2. Maintains a running balance by adding each transaction
+
+3. Checks if the balance goes negative at any point
+
+4. Returns:
+   - "Yes" if the balance ever goes below zero
+   - "No" if the balance stays at or above zero throughout
+
+The time complexity is O(n) where n is the number of transactions.
+The space complexity is O(1) as we only need one variable to track the balance.
+
+Example outputs:
+```
+Yes    # [10, -15, 5] -> balance goes to -5 after second transaction
+No     # [100, -20, -30, -10] -> balance stays positive
+No     # [10, -10] -> balance goes to 0 but never negative
+Yes    # [-5] -> immediately goes negative
+No     # [] -> empty list, starts at 0
+Yes    # [10, -20, 15, -10] -> goes negative after second transaction
+```
+
+You can add more test cases or modify the existing ones based on your specific requirements.
+
+**Extracted Code:**
+def check_negative_balance(transactions):
+    balance = 0
+    
+    for transaction in transactions:
+        balance += transaction
+        if balance < 0:
+            return "Yes"
+    
+    return "No"
+
+# Example test cases
+def test_check_negative_balance():
+    # Test case 1: Balance goes negative
+    print(check_negative_balance([10, -15, 5]))  # Should return "Yes"
+    
+    # Test case 2: Balance stays positive
+    print(check_negative_balance([100, -20, -30, -10]))  # Should return "No"
+    
+    # Test case 3: Balance exactly zero
+    print(check_negative_balance([10, -10]))  # Should return "No"
+    
+    # Test case 4: Single negative transaction
+    print(check_negative_balance([-5]))  # Should return "Yes"
+    
+    # Test case 5: Empty transaction list
+    print(check_negative_balance([]))  # Should return "No"
+    
+    # Test case 6: Multiple negative points
+    print(check_negative_balance([10, -20, 15, -10]))  # Should return "Yes"
+
+# Run tests
+test_check_negative_balance()
+
+✓ Assertion passed for input [10, -5, -6]
+✓ Assertion passed for input [5, 5, 5]
+✓ Assertion passed for input [7, -3, -10]
+✓ Assertion passed for input [1, -1, 1, -1, 1]
+✓ All assertions passed for Version 2
+
+--- Testing Version 2 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Detecting Negative Account Balances**
+======================================
+
+Here is a Python function that solves the problem:
+```python
+def detect_negative_balance(transactions):
+    """
+    Detects if an account balance falls under zero at any point given a list of transactions.
+
+    Args:
+        transactions (list): A list of integers representing account credits and debits.
+
+    Returns:
+        str: "Yes" if the account balance falls under zero, otherwise "No".
+    """
+    balance = 0
+    for transaction in transactions:
+        balance += transaction
+        if balance < 0:
+            return "Yes"
+    return "No"
+```
+**Example Use Cases**
+--------------------
+
+```python
+# Example 1: Account balance never falls under zero
+transactions = [100, -50, 20, -10]
+print(detect_negative_balance(transactions))  # Output: No
+
+# Example 2: Account balance falls under zero
+transactions = [100, -150, 20, -10]
+print(detect_negative_balance(transactions))  # Output: Yes
+```
+**Explanation**
+
+The function `detect_negative_balance` initializes a variable `balance` to 0 and then iterates over the list of transactions. For each transaction, it adds the transaction amount to the balance. If at any point the balance falls under zero, the function immediately returns "Yes". If the loop completes without finding a negative balance, the function returns "No".
+
+Note that this implementation assumes that the input transactions are valid (i.e., they represent credits or debits) and do not contain invalid values such as non-numeric data.
+
+**Extracted Code:**
+def detect_negative_balance(transactions):
+    """
+    Detects if an account balance falls under zero at any point given a list of transactions.
+
+    Args:
+        transactions (list): A list of integers representing account credits and debits.
+
+    Returns:
+        str: "Yes" if the account balance falls under zero, otherwise "No".
+    """
+    balance = 0
+    for transaction in transactions:
+        balance += transaction
+        if balance < 0:
+            return "Yes"
+    return "No"
+
+✓ Assertion passed for input [10, -5, -6]
+✓ Assertion passed for input [5, 5, 5]
+✓ Assertion passed for input [7, -3, -10]
+✓ Assertion passed for input [1, -1, 1, -1, 1]
+✓ All assertions passed for Version 2
+
+--- Testing Version 3 with openai (gpt-4o) ---
+**Generated Response:**
+Certainly! You can solve this problem by iterating through the list of financial activities and maintaining a running total. If at any point the running total falls below zero, you return `True`. If you finish iterating through the list without the total falling below zero, you return `False`. Here's a Python function to achieve this:
+
+```python
+def is_balance_negative(activities):
+    current_sum = 0
+    for activity in activities:
+        current_sum += activity
+        if current_sum < 0:
+            return True
+    return False
+
+# Example usage:
+activities = [100, -50, -60, 20, -10]
+print(is_balance_negative(activities))  # Output: True
+```
+
+In this code:
+- `activities` is a list of integers representing financial activities (positive for income, negative for expenses).
+- `current_sum` keeps track of the running total.
+- The loop iterates through each activity, updating the `current_sum`.
+- If `current_sum` falls below zero at any point, the function returns `True`.
+- If the loop completes without the sum falling below zero, the function returns `False`.
+
+**Extracted Code:**
+def is_balance_negative(activities):
+    current_sum = 0
+    for activity in activities:
+        current_sum += activity
+        if current_sum < 0:
+            return True
+    return False
+
+# Example usage:
+activities = [100, -50, -60, 20, -10]
+print(is_balance_negative(activities))  # Output: True
+
+✗ Assertion failed for input [2, -3, 5]
+  Expected: False
+  Got:      True
+✓ Assertion passed for input [5, -6, 2]
+✓ Assertion passed for input [1, 1, 1]
+✓ Assertion passed for input [4, -4, -1]
+✗ Some assertions failed for Version 3
+
+--- Testing Version 3 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is the Python code to detect if the current sum falls below zero at any point in a list of financial activities:
+
+```python
+def check_negative_sum(entries):
+    current_sum = 0
+    for entry in entries:
+        current_sum += entry
+        if current_sum < 0:
+            return True
+    return False
+
+# Example usage
+entries = [100, -50, 30, -80, 20]
+result = check_negative_sum(entries)
+print(result)  # Output: True
+```
+
+You can replace the `entries` list with your own list of financial activities to check if the current sum falls below zero at any point.
+
+**Extracted Code:**
+def check_negative_sum(entries):
+    current_sum = 0
+    for entry in entries:
+        current_sum += entry
+        if current_sum < 0:
+            return True
+    return False
+
+# Example usage
+entries = [100, -50, 30, -80, 20]
+result = check_negative_sum(entries)
+print(result)  # Output: True
+
+✗ Assertion failed for input [2, -3, 5]
+  Expected: False
+  Got:      True
+✓ Assertion passed for input [5, -6, 2]
+✓ Assertion passed for input [1, 1, 1]
+✓ Assertion passed for input [4, -4, -1]
+✗ Some assertions failed for Version 3
+
+--- Testing Version 3 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution to detect if the running sum of financial activities falls below zero at any point:
+
+```python
+def falls_below_zero(transactions):
+    current_sum = 0
+    
+    for amount in transactions:
+        current_sum += amount
+        if current_sum < 0:
+            return True
+    
+    return False
+```
+
+Alternative solution with error handling and type checking:
+
+```python
+def falls_below_zero(transactions):
+    """
+    Check if the running sum of transactions falls below zero at any point.
+    
+    Args:
+        transactions: List or iterable of numbers representing financial activities
+        
+    Returns:
+        bool: True if balance falls below zero at any point, False otherwise
+        
+    Raises:
+        TypeError: If input contains non-numeric values
+    """
+    try:
+        current_sum = 0
+        
+        for amount in transactions:
+            if not isinstance(amount, (int, float)):
+                raise TypeError(f"Non-numeric value found: {amount}")
+                
+            current_sum += amount
+            if current_sum < 0:
+                return True
+                
+        return False
+        
+    except TypeError as e:
+        raise TypeError(f"Invalid input: {str(e)}")
+```
+
+Example usage:
+
+```python
+# Test cases
+print(falls_below_zero([100, -50, -60]))  # True (falls to -10)
+print(falls_below_zero([100, -40, -50]))  # False (lowest is 10)
+print(falls_below_zero([-50, 100]))       # True (starts at -50)
+print(falls_below_zero([50, 50, -20]))    # False (never below 0)
+print(falls_below_zero([]))               # False (empty list)
+
+# With the error handling version:
+try:
+    print(falls_below_zero([100, "50", -60]))  # Raises TypeError
+except TypeError as e:
+    print(e)
+```
+
+Key features of the code:
+
+1. The basic version:
+   - Simple and straightforward implementation
+   - Takes a list of numbers as input
+   - Returns True/False based on whether the running sum ever goes below zero
+
+2. The error-handling version:
+   - Includes input validation
+   - Handles type errors
+   - Provides more detailed error messages
+   - Includes docstring with usage information
+
+The function keeps track of the running sum and checks at each step whether it has fallen below zero. As soon as it detects a negative balance, it returns True. If it completes the iteration without finding a negative balance, it returns False.
+
+Time Complexity: O(n) where n is the length of the input list
+Space Complexity: O(1) as it only uses a single variable for tracking
+
+This code can be useful for:
+- Bank balance checking
+- Credit limit monitoring
+- Resource usage tracking
+- Budget planning
+
+**Extracted Code:**
+def falls_below_zero(transactions):
+    current_sum = 0
+    
+    for amount in transactions:
+        current_sum += amount
+        if current_sum < 0:
+            return True
+    
+    return False
+
+✗ Assertion failed for input [2, -3, 5]
+  Expected: False
+  Got:      True
+✓ Assertion passed for input [5, -6, 2]
+✓ Assertion passed for input [1, 1, 1]
+✓ Assertion passed for input [4, -4, -1]
+✗ Some assertions failed for Version 3
+
+--- Testing Version 3 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Detecting Negative Balance**
+=====================================
+
+Here is a Python function that solves the problem:
+
+```python
+def has_negative_balance(entries):
+    """
+    Detects if the current sum falls below zero at any point in the given list of entries.
+
+    Args:
+        entries (list): A list of integers representing financial activities.
+
+    Returns:
+        bool: True if the current sum falls below zero, False otherwise.
+    """
+    balance = 0
+    for entry in entries:
+        balance += entry
+        if balance < 0:
+            return True
+    return False
+```
+
+**Example Use Cases**
+--------------------
+
+```python
+# Test case with negative balance
+entries1 = [100, -150, 50]
+print(has_negative_balance(entries1))  # Output: True
+
+# Test case without negative balance
+entries2 = [100, 50, 200]
+print(has_negative_balance(entries2))  # Output: False
+```
+
+**Explanation**
+---------------
+
+The function iterates over the list of entries, keeping a running total (`balance`) of the financial activities. If at any point the `balance` falls below zero, the function immediately returns `True`. If the iteration completes without finding a negative balance, the function returns `False`.
+
+This solution has a time complexity of O(n), where n is the number of entries in the list, making it efficient for large inputs.
+
+**Extracted Code:**
+def has_negative_balance(entries):
+    """
+    Detects if the current sum falls below zero at any point in the given list of entries.
+
+    Args:
+        entries (list): A list of integers representing financial activities.
+
+    Returns:
+        bool: True if the current sum falls below zero, False otherwise.
+    """
+    balance = 0
+    for entry in entries:
+        balance += entry
+        if balance < 0:
+            return True
+    return False
+
+✗ Assertion failed for input [2, -3, 5]
+  Expected: False
+  Got:      True
+✓ Assertion passed for input [5, -6, 2]
+✓ Assertion passed for input [1, 1, 1]
+✓ Assertion passed for input [4, -4, -1]
+✗ Some assertions failed for Version 3
+
+--- Testing Version 4 with openai (gpt-4o) ---
+**Generated Response:**
+Certainly! You can solve this problem by iterating through the list of balance changes and maintaining a running total. If at any point the running total becomes negative, you return `True`. If you finish iterating through the list without the running total falling below zero, you return `False`. Here's a Python function to achieve this:
+
+```python
+def is_balance_negative(changes):
+    running_total = 0
+    for change in changes:
+        running_total += change
+        if running_total < 0:
+            return True
+    return False
+
+# Example usage:
+balance_changes = [100, -50, -60, 20, -10]
+print(is_balance_negative(balance_changes))  # Output: True
+```
+
+In this example, the function `is_balance_negative` takes a list of balance changes as input and returns `True` if the running total ever falls below zero, otherwise it returns `False`.
+
+**Extracted Code:**
+def is_balance_negative(changes):
+    running_total = 0
+    for change in changes:
+        running_total += change
+        if running_total < 0:
+            return True
+    return False
+
+# Example usage:
+balance_changes = [100, -50, -60, 20, -10]
+print(is_balance_negative(balance_changes))  # Output: True
+
+✓ Assertion passed for input [5, -2, -4, 1]
+✓ Assertion passed for input [10, -10, 10, -10]
+✓ Assertion passed for input [3, -1, -2, 4]
+✓ Assertion passed for input [10, -15, 5]
+✓ All assertions passed for Version 4
+
+--- Testing Version 4 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is the Python code to solve the problem:
+
+```python
+def check_balance_changes(balance_changes):
+    running_total = 0
+    for change in balance_changes:
+        running_total += change
+        if running_total < 0:
+            return True
+    return False
+
+# Test the function
+balance_changes = [10, -5, 3, -8, 2]
+print(check_balance_changes(balance_changes))  # Output: True
+
+balance_changes = [10, 20, 30, -15, -25]
+print(check_balance_changes(balance_changes))  # Output: False
+```
+
+This code defines a function `check_balance_changes` that takes a list of balance changes as input and iterates through each change, updating the running total. If the running total falls below zero at any point, the function returns True. Otherwise, it returns False.
+
+**Extracted Code:**
+def check_balance_changes(balance_changes):
+    running_total = 0
+    for change in balance_changes:
+        running_total += change
+        if running_total < 0:
+            return True
+    return False
+
+# Test the function
+balance_changes = [10, -5, 3, -8, 2]
+print(check_balance_changes(balance_changes))  # Output: True
+
+balance_changes = [10, 20, 30, -15, -25]
+print(check_balance_changes(balance_changes))  # Output: False
+
+✓ Assertion passed for input [5, -2, -4, 1]
+✓ Assertion passed for input [10, -10, 10, -10]
+✓ Assertion passed for input [3, -1, -2, 4]
+✓ Assertion passed for input [10, -15, 5]
+✓ All assertions passed for Version 4
+
+--- Testing Version 4 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution to detect if a running balance falls below zero at any point:
+
+```python
+def check_negative_balance(transactions):
+    balance = 0
+    
+    for transaction in transactions:
+        balance += transaction
+        if balance < 0:
+            return True
+    
+    return False
+
+# Example usage and test cases
+def test_check_negative_balance():
+    # Test case 1: Balance never goes negative
+    assert check_negative_balance([10, -5, 7, -3]) == False
+    
+    # Test case 2: Balance goes negative
+    assert check_negative_balance([10, -15, 7, -3]) == True
+    
+    # Test case 3: Empty list
+    assert check_negative_balance([]) == False
+    
+    # Test case 4: Single positive transaction
+    assert check_negative_balance([5]) == False
+    
+    # Test case 5: Single negative transaction
+    assert check_negative_balance([-5]) == True
+    
+    # Test case 6: Balance exactly zero
+    assert check_negative_balance([10, -10]) == False
+    
+    # Test case 7: Multiple negative points
+    assert check_negative_balance([2, -3, 5, -10, 8]) == True
+    
+    print("All test cases passed!")
+
+# Run tests
+test_check_negative_balance()
+```
+
+This solution:
+
+1. Takes a list of transactions as input where:
+   - Positive numbers represent credits (additions to balance)
+   - Negative numbers represent debits (subtractions from balance)
+
+2. Maintains a running balance by adding each transaction
+
+3. Checks if the balance becomes negative at any point
+
+4. Returns True if the balance ever goes negative, False otherwise
+
+Key features:
+- Simple and efficient: O(n) time complexity where n is the number of transactions
+- Handles empty lists
+- Handles single transactions
+- Handles multiple transactions
+- Handles edge cases like zero balance
+
+Example usage:
+```python
+# Balance stays positive
+print(check_negative_balance([10, -5, 7, -3]))  # Output: False
+
+# Balance goes negative after second transaction
+print(check_negative_balance([10, -15, 7, -3]))  # Output: True
+
+# Empty list
+print(check_negative_balance([]))  # Output: False
+
+# Single negative transaction
+print(check_negative_balance([-5]))  # Output: True
+```
+
+The test cases cover various scenarios:
+1. Normal case where balance stays positive
+2. Case where balance goes negative
+3. Empty list
+4. Single positive transaction
+5. Single negative transaction
+6. Balance exactly zero
+7. Multiple points where balance could go negative
+
+You can add more test cases as needed for your specific use case.
+
+**Extracted Code:**
+def check_negative_balance(transactions):
+    balance = 0
+    
+    for transaction in transactions:
+        balance += transaction
+        if balance < 0:
+            return True
+    
+    return False
+
+# Example usage and test cases
+def test_check_negative_balance():
+    # Test case 1: Balance never goes negative
+    assert check_negative_balance([10, -5, 7, -3]) == False
+    
+    # Test case 2: Balance goes negative
+    assert check_negative_balance([10, -15, 7, -3]) == True
+    
+    # Test case 3: Empty list
+    assert check_negative_balance([]) == False
+    
+    # Test case 4: Single positive transaction
+    assert check_negative_balance([5]) == False
+    
+    # Test case 5: Single negative transaction
+    assert check_negative_balance([-5]) == True
+    
+    # Test case 6: Balance exactly zero
+    assert check_negative_balance([10, -10]) == False
+    
+    # Test case 7: Multiple negative points
+    assert check_negative_balance([2, -3, 5, -10, 8]) == True
+    
+    print("All test cases passed!")
+
+# Run tests
+test_check_negative_balance()
+
+✓ Assertion passed for input [5, -2, -4, 1]
+✓ Assertion passed for input [10, -10, 10, -10]
+✓ Assertion passed for input [3, -1, -2, 4]
+✓ Assertion passed for input [10, -15, 5]
+✓ All assertions passed for Version 4
+
+--- Testing Version 4 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Detect Negative Balance**
+=====================================
+
+Here's a simple Python function that checks if a list of balance changes will result in a negative balance at any point:
+
+```python
+def detect_negative_balance(changes):
+    """
+    Detects if a sequence of account credits and debits results in a negative balance.
+
+    Args:
+        changes (list): A list of integers representing account credits (positive) and debits (negative).
+
+    Returns:
+        bool: True if the running total falls below zero, False otherwise.
+    """
+    balance = 0
+    for change in changes:
+        balance += change
+        if balance < 0:
+            return True
+    return False
+```
+
+**Example Use Cases**
+--------------------
+
+```python
+# Test case with a negative balance
+print(detect_negative_balance([100, -150, 50]))  # Output: True
+
+# Test case without a negative balance
+print(detect_negative_balance([100, -50, 50]))  # Output: False
+```
+
+This function works by maintaining a running total (balance) and updating it with each change in the input list. If at any point the balance falls below zero, the function immediately returns `True`. Otherwise, it returns `False` after iterating through all changes.
+
+**Step-by-Step Solution**
+-------------------------
+
+1. Initialize a variable `balance` to keep track of the running total.
+2. Iterate through each change in the input list.
+3. For each change, update the balance by adding the change value.
+4. Check if the updated balance is less than zero. If so, return `True`.
+5. After iterating through all changes, return `False` if no negative balances were found.
+
+Note: This function assumes that the input list only contains integers representing account credits (positive) and debits (negative).
+
+**Extracted Code:**
+def detect_negative_balance(changes):
+    """
+    Detects if a sequence of account credits and debits results in a negative balance.
+
+    Args:
+        changes (list): A list of integers representing account credits (positive) and debits (negative).
+
+    Returns:
+        bool: True if the running total falls below zero, False otherwise.
+    """
+    balance = 0
+    for change in changes:
+        balance += change
+        if balance < 0:
+            return True
+    return False
+
+✓ Assertion passed for input [5, -2, -4, 1]
+✓ Assertion passed for input [10, -10, 10, -10]
+✓ Assertion passed for input [3, -1, -2, 4]
+✓ Assertion passed for input [10, -15, 5]
+✓ All assertions passed for Version 4
+
+--- Testing Version 5 with openai (gpt-4o) ---
+**Generated Response:**
+Certainly! You can solve this problem by iterating through the list of operations and maintaining a running balance. If at any point the balance falls below zero, you return "Yes". If you finish processing all operations without the balance going below zero, you return "No". Here's a Python function to achieve this:
+
+```python
+def is_balance_negative(operations):
+    balance = 0
+    for operation in operations:
+        balance += operation
+        if balance < 0:
+            return "Yes"
+    return "No"
+
+# Example usage:
+operations = [10, -5, -10, 5, -1]
+print(is_balance_negative(operations))  # Output: "Yes"
+```
+
+In this code:
+- We initialize `balance` to 0.
+- We iterate over each operation in the `operations` list.
+- We update the `balance` by adding the current operation.
+- We check if the `balance` is less than 0. If it is, we return "Yes".
+- If the loop completes without the balance falling below zero, we return "No".
+
+**Extracted Code:**
+def is_balance_negative(operations):
+    balance = 0
+    for operation in operations:
+        balance += operation
+        if balance < 0:
+            return "Yes"
+    return "No"
+
+# Example usage:
+operations = [10, -5, -10, 5, -1]
+print(is_balance_negative(operations))  # Output: "Yes"
+
+✓ Assertion passed for input [1, -2, 1]
+✓ Assertion passed for input [1, 2, 3, -5, 1]
+✓ Assertion passed for input [10, -20, 10]
+✓ Assertion passed for input [5, -5, 5, -5]
+✓ All assertions passed for Version 5
+
+--- Testing Version 5 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is the Python code to solve the problem:
+
+```python
+def detect_negative_balance(operations):
+    balance = 0
+    for op in operations:
+        balance += op
+        if balance < 0:
+            return "Yes"
+    return "No"
+
+# Example usage
+operations = [10, -5, 3, -8, 2]
+print(detect_negative_balance(operations))  # Output: Yes
+```
+
+You can call the `detect_negative_balance` function with a list of operations as input to check if the balance falls under zero at any point.
+
+**Extracted Code:**
+def detect_negative_balance(operations):
+    balance = 0
+    for op in operations:
+        balance += op
+        if balance < 0:
+            return "Yes"
+    return "No"
+
+# Example usage
+operations = [10, -5, 3, -8, 2]
+print(detect_negative_balance(operations))  # Output: Yes
+
+✓ Assertion passed for input [1, -2, 1]
+✓ Assertion passed for input [1, 2, 3, -5, 1]
+✓ Assertion passed for input [10, -20, 10]
+✓ Assertion passed for input [5, -5, 5, -5]
+✓ All assertions passed for Version 5
+
+--- Testing Version 5 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution to detect if the balance falls under zero at any point:
+
+```python
+def check_negative_balance(operations):
+    balance = 0
+    
+    for operation in operations:
+        balance += operation
+        if balance < 0:
+            return "Yes"
+    
+    return "No"
+
+# Test cases
+def test_check_negative_balance():
+    # Test case 1: Balance goes negative
+    test1 = [5, -10, 4]
+    print("Test 1:", check_negative_balance(test1))  # Should print "Yes"
+
+    # Test case 2: Balance stays positive
+    test2 = [10, -5, 4]
+    print("Test 2:", check_negative_balance(test2))  # Should print "No"
+
+    # Test case 3: Balance hits exactly zero
+    test3 = [5, -5, 5]
+    print("Test 3:", check_negative_balance(test3))  # Should print "No"
+
+    # Test case 4: Empty list
+    test4 = []
+    print("Test 4:", check_negative_balance(test4))  # Should print "No"
+
+    # Test case 5: Single negative operation
+    test5 = [-5]
+    print("Test 5:", check_negative_balance(test5))  # Should print "Yes"
+
+    # Test case 6: Multiple operations with negative result
+    test6 = [10, -15, 10, -20]
+    print("Test 6:", check_negative_balance(test6))  # Should print "Yes"
+
+# Run the tests
+if __name__ == "__main__":
+    test_check_negative_balance()
+```
+
+This solution:
+
+1. Takes a list of operations as input where:
+   - Positive numbers represent deposits/credits
+   - Negative numbers represent withdrawals/debits
+
+2. Maintains a running balance by adding each operation
+
+3. Checks after each operation if the balance becomes negative
+
+4. Returns:
+   - "Yes" if the balance goes negative at any point
+   - "No" if the balance stays non-negative throughout
+
+The time complexity is O(n) where n is the number of operations, as we need to process each operation at most once.
+The space complexity is O(1) as we only need to store the running balance.
+
+Example outputs:
+```
+Test 1: Yes    # Balance goes: 5 → -5 → -1
+Test 2: No     # Balance goes: 10 → 5 → 9
+Test 3: No     # Balance goes: 5 → 0 → 5
+Test 4: No     # Empty list, starting balance of 0 never changes
+Test 5: Yes    # Balance immediately goes to -5
+Test 6: Yes    # Balance goes: 10 → -5 → 5 → -15
+```
+
+You can also use it with your own test cases like this:
+```python
+custom_operations = [100, -20, -50, -40]
+result = check_negative_balance(custom_operations)
+print(result)  # Will print "No"
+```
+
+The code is easily modifiable if you need to:
+- Start with a different initial balance
+- Change the output format
+- Add additional conditions
+- Track when exactly the balance went negative
+
+**Extracted Code:**
+def check_negative_balance(operations):
+    balance = 0
+    
+    for operation in operations:
+        balance += operation
+        if balance < 0:
+            return "Yes"
+    
+    return "No"
+
+# Test cases
+def test_check_negative_balance():
+    # Test case 1: Balance goes negative
+    test1 = [5, -10, 4]
+    print("Test 1:", check_negative_balance(test1))  # Should print "Yes"
+
+    # Test case 2: Balance stays positive
+    test2 = [10, -5, 4]
+    print("Test 2:", check_negative_balance(test2))  # Should print "No"
+
+    # Test case 3: Balance hits exactly zero
+    test3 = [5, -5, 5]
+    print("Test 3:", check_negative_balance(test3))  # Should print "No"
+
+    # Test case 4: Empty list
+    test4 = []
+    print("Test 4:", check_negative_balance(test4))  # Should print "No"
+
+    # Test case 5: Single negative operation
+    test5 = [-5]
+    print("Test 5:", check_negative_balance(test5))  # Should print "Yes"
+
+    # Test case 6: Multiple operations with negative result
+    test6 = [10, -15, 10, -20]
+    print("Test 6:", check_negative_balance(test6))  # Should print "Yes"
+
+# Run the tests
+if __name__ == "__main__":
+    test_check_negative_balance()
+
+✓ Assertion passed for input [1, -2, 1]
+✓ Assertion passed for input [1, 2, 3, -5, 1]
+✓ Assertion passed for input [10, -20, 10]
+✓ Assertion passed for input [5, -5, 5, -5]
+✓ All assertions passed for Version 5
+
+--- Testing Version 5 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Balance Update Detector**
+=====================================
+
+Here is a Python function that detects if the balance falls under zero at any point given a list of operations:
+```python
+def detect_negative_balance(operations):
+    """
+    Detects if the balance falls under zero at any point.
+
+    Args:
+        operations (list): List of balance updates (integers).
+
+    Returns:
+        str: "Yes" if balance falls under zero, otherwise "No".
+    """
+    balance = 0
+    for update in operations:
+        balance += update
+        if balance < 0:
+            return "Yes"
+    return "No"
+```
+**Example Use Cases**
+--------------------
+
+```python
+# Test case 1: Balance never falls under zero
+operations = [10, -5, 3, 2]
+print(detect_negative_balance(operations))  # Output: No
+
+# Test case 2: Balance falls under zero
+operations = [10, -15, 3, 2]
+print(detect_negative_balance(operations))  # Output: Yes
+```
+**Explanation**
+---------------
+
+1. Initialize a variable `balance` to keep track of the current balance.
+2. Iterate through each operation in the list.
+3. Update the balance by adding the current operation's value.
+4. Check if the balance is less than zero after the update.
+5. If it is, return "Yes" immediately.
+6. If the iteration completes without finding a negative balance, return "No".
+
+**Extracted Code:**
+def detect_negative_balance(operations):
+    """
+    Detects if the balance falls under zero at any point.
+
+    Args:
+        operations (list): List of balance updates (integers).
+
+    Returns:
+        str: "Yes" if balance falls under zero, otherwise "No".
+    """
+    balance = 0
+    for update in operations:
+        balance += update
+        if balance < 0:
+            return "Yes"
+    return "No"
+
+✓ Assertion passed for input [1, -2, 1]
+✓ Assertion passed for input [1, 2, 3, -5, 1]
+✓ Assertion passed for input [10, -20, 10]
+✓ Assertion passed for input [5, -5, 5, -5]
+✓ All assertions passed for Version 5

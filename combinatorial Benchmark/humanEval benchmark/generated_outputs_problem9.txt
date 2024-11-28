@@ -1,0 +1,245 @@
+
+=== Testing Problem 9 ===
+Prompt: from typing import List, Tuple
+def rolling_max(numbers: List[int]) -> List[int]:
+    """ From a given list of integers, generate a list of rolling maximum element found until given moment in the sequence.
+    >>> rolling_max([1, 2, 3, 2, 3, 4, 2])
+    [1, 2, 3, 3, 3, 4, 4]
+    """
+================================================================================
+
+--- Testing with openai (gpt-4) ---
+**Generated Response:**
+Here is a Python solution for the problem:
+
+```python
+def rolling_max(numbers: List[int]) -> List[int]:
+    max_so_far = numbers[0]
+    result = [max_so_far]
+    for num in numbers[1:]:
+        if num > max_so_far:
+            max_so_far = num
+        result.append(max_so_far)
+    return result
+```
+
+This function works by keeping track of the maximum number seen so far in the list. For each number in the list, it checks if the number is greater than the current maximum. If it is, it updates the maximum. Then it appends the current maximum to the result list. The result list will therefore always contain the maximum number seen so far at each position in the list.
+
+**Extracted Code:**
+def rolling_max(numbers: List[int]) -> List[int]:
+    max_so_far = numbers[0]
+    result = [max_so_far]
+    for num in numbers[1:]:
+        if num > max_so_far:
+            max_so_far = num
+        result.append(max_so_far)
+    return result
+
+Error importing generated code: name 'List' is not defined
+✗ Some assertions failed
+
+--- Testing with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+def rolling_max(numbers: List[int]) -> List[int]:
+    if not numbers:
+        return []
+    
+    max_num = numbers[0]
+    result = [max_num]
+    
+    for num in numbers[1:]:
+        max_num = max(max_num, num)
+        result.append(max_num)
+    
+    return result
+
+# Test the function
+print(rolling_max([1, 2, 3, 2, 3, 4, 2])) # Output: [1, 2, 3, 3, 3, 4, 4]
+
+**Extracted Code:**
+def rolling_max(numbers: List[int]) -> List[int]:
+    if not numbers:
+        return []
+    
+    max_num = numbers[0]
+    result = [max_num]
+    
+    for num in numbers[1:]:
+        max_num = max(max_num, num)
+        result.append(max_num)
+    
+    return result
+
+# Test the function
+print(rolling_max([1, 2, 3, 2, 3, 4, 2])) # Output: [1, 2, 3, 3, 3, 4, 4]
+
+Error importing generated code: name 'List' is not defined
+✗ Some assertions failed
+
+--- Testing with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's the Python code to solve the rolling maximum problem:
+
+```python
+from typing import List
+
+def rolling_max(numbers: List[int]) -> List[int]:
+    """ From a given list of integers, generate a list of rolling maximum element found until given moment in the sequence.
+    >>> rolling_max([1, 2, 3, 2, 3, 4, 2])
+    [1, 2, 3, 3, 3, 4, 4]
+    """
+    if not numbers:  # Handle empty list case
+        return []
+    
+    result = []
+    current_max = numbers[0]
+    
+    for num in numbers:
+        current_max = max(current_max, num)
+        result.append(current_max)
+    
+    return result
+```
+
+This solution:
+
+1. Takes a list of integers as input
+
+2. Returns a list where each element is the maximum value encountered up to that position in the input list
+
+3. Works by:
+   - Keeping track of the current maximum value seen so far
+   - For each number in the input list:
+     * Updates the current maximum if the new number is larger
+     * Adds the current maximum to the result list
+
+4. Handles edge cases:
+   - Empty list returns empty list
+   - Works with both positive and negative numbers
+   - Works with repeated numbers
+
+Example usage:
+```python
+>>> rolling_max([1, 2, 3, 2, 3, 4, 2])
+[1, 2, 3, 3, 3, 4, 4]
+
+>>> rolling_max([5, 3, 1, 2, 4])
+[5, 5, 5, 5, 5]
+
+>>> rolling_max([-1, -2, -3])
+[-1, -1, -1]
+
+>>> rolling_max([])
+[]
+```
+
+Time complexity: O(n) where n is the length of the input list
+Space complexity: O(n) for the result list
+
+**Extracted Code:**
+from typing import List
+
+def rolling_max(numbers: List[int]) -> List[int]:
+    """ From a given list of integers, generate a list of rolling maximum element found until given moment in the sequence.
+    >>> rolling_max([1, 2, 3, 2, 3, 4, 2])
+    [1, 2, 3, 3, 3, 4, 4]
+    """
+    if not numbers:  # Handle empty list case
+        return []
+    
+    result = []
+    current_max = numbers[0]
+    
+    for num in numbers:
+        current_max = max(current_max, num)
+        result.append(current_max)
+    
+    return result
+
+✓ Assertion passed for input {'numbers': []}
+✓ Assertion passed for input {'numbers': [1, 2, 3, 4]}
+✓ Assertion passed for input {'numbers': [4, 3, 2, 1]}
+✓ Assertion passed for input {'numbers': [3, 2, 3, 100, 3]}
+✓ All assertions passed
+
+--- Testing with ollama (llama3.1:70b) ---
+**Generated Response:**
+Here is a Python function that solves the problem:
+
+```python
+from typing import List
+
+def rolling_max(numbers: List[int]) -> List[int]:
+    """
+    From a given list of integers, generate a list of rolling maximum element found until given moment in the sequence.
+
+    Args:
+        numbers (List[int]): A list of integers.
+
+    Returns:
+        List[int]: A list of rolling maximum elements.
+    """
+    
+    # Check if input is empty
+    if not numbers:
+        return []
+
+    # Initialize result list with first number
+    result = [numbers[0]]
+
+    # Iterate through the rest of the list
+    for i in range(1, len(numbers)):
+        # Compare current element with the last rolling maximum found so far
+        max_so_far = max(result[-1], numbers[i])
+        
+        # Add the new rolling maximum to the result list
+        result.append(max_so_far)
+
+    return result
+
+# Example usage:
+print(rolling_max([1, 2, 3, 2, 3, 4, 2]))  # Output: [1, 2, 3, 3, 3, 4, 4]
+```
+This function iterates through the list of numbers, keeping track of the maximum value seen so far. At each step, it compares the current number with the last rolling maximum found and adds the greater one to the result list.
+
+Let me know if you have any questions or need further clarification!
+
+**Extracted Code:**
+from typing import List
+
+def rolling_max(numbers: List[int]) -> List[int]:
+    """
+    From a given list of integers, generate a list of rolling maximum element found until given moment in the sequence.
+
+    Args:
+        numbers (List[int]): A list of integers.
+
+    Returns:
+        List[int]: A list of rolling maximum elements.
+    """
+    
+    # Check if input is empty
+    if not numbers:
+        return []
+
+    # Initialize result list with first number
+    result = [numbers[0]]
+
+    # Iterate through the rest of the list
+    for i in range(1, len(numbers)):
+        # Compare current element with the last rolling maximum found so far
+        max_so_far = max(result[-1], numbers[i])
+        
+        # Add the new rolling maximum to the result list
+        result.append(max_so_far)
+
+    return result
+
+# Example usage:
+print(rolling_max([1, 2, 3, 2, 3, 4, 2]))  # Output: [1, 2, 3, 3, 3, 4, 4]
+
+✓ Assertion passed for input {'numbers': []}
+✓ Assertion passed for input {'numbers': [1, 2, 3, 4]}
+✓ Assertion passed for input {'numbers': [4, 3, 2, 1]}
+✓ Assertion passed for input {'numbers': [3, 2, 3, 100, 3]}
+✓ All assertions passed

@@ -1,0 +1,29 @@
+{
+    "prompt": "from typing import List\ndef below_zero(operations: List[int]) -> bool:\n    \"\"\" You're given a list of deposit and withdrawal operations on a bank account that starts with zero balance.\n    Your task is to detect if at any point the balance of account fallls below zero, and at that point function should return True.\n    Otherwise it should return False.\n    >>> below_zero([1, 2, 3])\n    False\n    >>> below_zero([1, 2, -4, 5])\n    True\n    \"\"\"",
+    "assertions": [
+        {
+            "input": {"operations": []},
+            "output": false
+        },
+        {
+            "input": {"operations": [1, 2, -3, 1, 2, -3]},
+            "output": false
+        },
+        {
+            "input": {"operations": [1, 2, -4, 5, 6]},
+            "output": true
+        },
+        {
+            "input": {"operations": [1, -1, 2, -2, 5, -5, 4, -4]},
+            "output": false
+        },
+        {
+            "input": {"operations": [1, -1, 2, -2, 5, -5, 4, -5]},
+            "output": true
+        },
+        {
+            "input": {"operations": [1, -2, 2, -2, 5, -5, 4, -4]},
+            "output": true
+        }
+    ]
+ }

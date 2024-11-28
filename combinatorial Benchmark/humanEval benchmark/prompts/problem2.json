@@ -1,0 +1,21 @@
+{
+    "prompt": "from typing import List\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this function is a string containing multiple groups of nested parentheses. Your goal is to separate those group into separate strings and return the list of those.\n    Separate groups are balanced (each open brace is properly closed) and not nested within each other\n    Ignore any spaces in the input string.\n    >>> separate_paren_groups('( ) (( )) (( )( ))')\n    ['()', '(())', '(()())']\n    \"\"\"",
+    "assertions": [
+        {
+            "input": {"paren_string": "(()()) ((())) () ((())()())"},
+            "output": ["(()())", "((()))", "()", "((())()())"]
+        },
+        {
+            "input": {"paren_string": "() (()) ((())) (((())))"},
+            "output": ["()", "(())", "((()))", "(((())))"]
+        },
+        {
+            "input": {"paren_string": "(()(())((())))"},
+            "output": ["(()(())((())))" ]
+        },
+        {
+            "input": {"paren_string": "( ) (( )) (( )( ))"},
+            "output": ["()", "(())", "(()())"]
+        }
+    ]
+}

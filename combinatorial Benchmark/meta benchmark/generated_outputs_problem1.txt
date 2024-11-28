@@ -1,0 +1,1393 @@
+
+=== Testing Problem 1 ===
+Problem Description: Problem 1
+Meta Prompt: Given a list of <X> and a <Y>, check if any two <Z> are closer than <A> in the list.
+================================================================================
+
+--- Testing Version 1 with openai (gpt-4o) ---
+**Generated Response:**
+Certainly! You can solve this problem by iterating through the list and checking the difference between each pair of numbers to see if it is less than the given threshold. Here's a Python function to do that:
+
+```python
+def are_any_two_values_closer_than_threshold(numbers, threshold):
+    # Sort the list to make it easier to find close values
+    numbers.sort()
+    
+    # Iterate through the sorted list and check adjacent pairs
+    for i in range(len(numbers) - 1):
+        if abs(numbers[i] - numbers[i + 1]) < threshold:
+            return True
+    
+    return False
+
+# Example usage:
+numbers = [1.5, 3.2, 4.8, 2.9, 5.1]
+threshold = 0.5
+result = are_any_two_values_closer_than_threshold(numbers, threshold)
+print(result)  # Output: True
+```
+
+### Explanation:
+1. **Sorting the List**: The list is sorted to ensure that any two numbers that are close to each other will be adjacent in the sorted list. This reduces the number of comparisons needed.
+2. **Iterating and Comparing**: The function iterates through the sorted list and checks the difference between each pair of adjacent numbers.
+3. **Threshold Check**: If the difference between any two adjacent numbers is less than the threshold, the function returns `True`.
+4. **Return False**: If no such pair is found, the function returns `False`.
+
+This approach is efficient with a time complexity of \(O(n \log n)\) due to the sorting step, followed by a linear scan of the list.
+
+**Extracted Code:**
+def are_any_two_values_closer_than_threshold(numbers, threshold):
+    # Sort the list to make it easier to find close values
+    numbers.sort()
+    
+    # Iterate through the sorted list and check adjacent pairs
+    for i in range(len(numbers) - 1):
+        if abs(numbers[i] - numbers[i + 1]) < threshold:
+            return True
+    
+    return False
+
+# Example usage:
+numbers = [1.5, 3.2, 4.8, 2.9, 5.1]
+threshold = 0.5
+result = are_any_two_values_closer_than_threshold(numbers, threshold)
+print(result)  # Output: True
+
+✓ Assertion passed for input ([1.0, 2.0, 2.2, 3.9, 4.0, 5.0], 0.3)
+✓ Assertion passed for input ([1.0, 2.0, 2.2, 3.9, 4.0, 5.0], 0.05)
+✓ Assertion passed for input ([1.0, 2.0, 4.0, 5.0, 5.9], 0.95)
+✓ Assertion passed for input ([1.0, 2.0, 4.0, 5.0, 5.9], 0.8)
+✓ Assertion passed for input ([1.1, 2.2, 3.1, 4.1, 5.1], 1.0)
+✓ All assertions passed for Version 1
+
+--- Testing Version 1 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is the Python code to check if any two values in a list are closer than a given threshold:
+
+```python
+def check_closeness(numbers, threshold):
+    for i in range(len(numbers)):
+        for j in range(i+1, len(numbers)):
+            if abs(numbers[i] - numbers[j]) < threshold:
+                return True
+    return False
+
+# Example usage
+numbers = [1, 5, 9, 12, 15]
+threshold = 3
+result = check_closeness(numbers, threshold)
+if result:
+    print("There are two numbers in the list that are closer than the threshold.")
+else:
+    print("No two numbers in the list are closer than the threshold.")
+```
+
+You can replace the `numbers` list and `threshold` value with your own values to test the function.
+
+**Extracted Code:**
+def check_closeness(numbers, threshold):
+    for i in range(len(numbers)):
+        for j in range(i+1, len(numbers)):
+            if abs(numbers[i] - numbers[j]) < threshold:
+                return True
+    return False
+
+# Example usage
+numbers = [1, 5, 9, 12, 15]
+threshold = 3
+result = check_closeness(numbers, threshold)
+if result:
+    print("There are two numbers in the list that are closer than the threshold.")
+else:
+    print("No two numbers in the list are closer than the threshold.")
+
+✓ Assertion passed for input ([1.0, 2.0, 2.2, 3.9, 4.0, 5.0], 0.3)
+✓ Assertion passed for input ([1.0, 2.0, 2.2, 3.9, 4.0, 5.0], 0.05)
+✓ Assertion passed for input ([1.0, 2.0, 4.0, 5.0, 5.9], 0.95)
+✓ Assertion passed for input ([1.0, 2.0, 4.0, 5.0, 5.9], 0.8)
+✓ Assertion passed for input ([1.1, 2.2, 3.1, 4.1, 5.1], 1.0)
+✓ All assertions passed for Version 1
+
+--- Testing Version 1 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here are two different approaches to solve this problem:
+
+1. Using nested loops (Simple approach):
+```python
+def has_close_pairs(numbers, threshold):
+    n = len(numbers)
+    for i in range(n):
+        for j in range(i + 1, n):
+            if abs(numbers[i] - numbers[j]) < threshold:
+                return True
+    return False
+
+# Example usage:
+numbers = [1.5, 3.2, 6.7, 3.5, 2.1]
+threshold = 0.5
+result = has_close_pairs(numbers, threshold)
+print(result)  # Output: True (because 3.2 and 3.5 are closer than 0.5)
+```
+
+2. Using sorting (More efficient for larger lists):
+```python
+def has_close_pairs_sorted(numbers, threshold):
+    # Handle empty or single-element lists
+    if len(numbers) < 2:
+        return False
+    
+    # Sort the list
+    sorted_nums = sorted(numbers)
+    
+    # Check adjacent pairs in sorted list
+    for i in range(len(sorted_nums) - 1):
+        if sorted_nums[i + 1] - sorted_nums[i] < threshold:
+            return True
+    
+    return False
+
+# Example usage:
+numbers = [1.5, 3.2, 6.7, 3.5, 2.1]
+threshold = 0.5
+result = has_close_pairs_sorted(numbers, threshold)
+print(result)  # Output: True (because 3.2 and 3.5 are closer than 0.5)
+```
+
+Both functions will work, but they have different characteristics:
+
+1. The first approach (`has_close_pairs`):
+   - Time complexity: O(n²)
+   - Space complexity: O(1)
+   - Better for small lists
+   - Simpler to understand
+
+2. The second approach (`has_close_pairs_sorted`):
+   - Time complexity: O(n log n) due to sorting
+   - Space complexity: O(n) if using a non-in-place sorting algorithm
+   - Better for larger lists
+   - More efficient for large datasets
+
+Here's a more complete example with various test cases:
+
+```python
+def test_close_pairs():
+    # Test cases
+    test_cases = [
+        ([1.5, 3.2, 6.7, 3.5, 2.1], 0.5, True),  # Close pairs exist
+        ([1.0, 2.0, 3.0, 4.0], 0.5, False),      # No close pairs
+        ([1.0, 1.0], 0.1, True),                  # Equal numbers
+        ([1.0], 0.1, False),                      # Single element
+        ([], 0.1, False),                         # Empty list
+        ([1.0, 2.0, 3.0, 3.1], 0.2, True),       # Close pairs at end
+    ]
+
+    for numbers, threshold, expected in test_cases:
+        result = has_close_pairs_sorted(numbers, threshold)
+        print(f"Numbers: {numbers}")
+        print(f"Threshold: {threshold}")
+        print(f"Expected: {expected}")
+        print(f"Result: {result}")
+        print(f"Test {'passed' if result == expected else 'failed'}")
+        print("-" * 50)
+
+# Run the tests
+test_close_pairs()
+```
+
+This will output results for various test cases, helping to verify the function works correctly in different scenarios.
+
+Choose the implementation that best fits your needs:
+- Use the first approach for small lists or when simplicity is preferred
+- Use the second approach for larger lists where performance is important
+
+Note that both implementations assume the input list contains numeric values (integers or floats) and the threshold is a positive number.
+
+**Extracted Code:**
+def has_close_pairs(numbers, threshold):
+    n = len(numbers)
+    for i in range(n):
+        for j in range(i + 1, n):
+            if abs(numbers[i] - numbers[j]) < threshold:
+                return True
+    return False
+
+# Example usage:
+numbers = [1.5, 3.2, 6.7, 3.5, 2.1]
+threshold = 0.5
+result = has_close_pairs(numbers, threshold)
+print(result)  # Output: True (because 3.2 and 3.5 are closer than 0.5)
+
+✓ Assertion passed for input ([1.0, 2.0, 2.2, 3.9, 4.0, 5.0], 0.3)
+✓ Assertion passed for input ([1.0, 2.0, 2.2, 3.9, 4.0, 5.0], 0.05)
+✓ Assertion passed for input ([1.0, 2.0, 4.0, 5.0, 5.9], 0.95)
+✓ Assertion passed for input ([1.0, 2.0, 4.0, 5.0, 5.9], 0.8)
+✓ Assertion passed for input ([1.1, 2.2, 3.1, 4.1, 5.1], 1.0)
+✓ All assertions passed for Version 1
+
+--- Testing Version 1 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Close Values Checker**
+=====================================
+
+This function checks if any two values in a given list are closer than a specified threshold.
+
+### Code
+```python
+def has_close_values(numbers, threshold):
+    """
+    Check if any two values in the list are closer than the given threshold.
+
+    Args:
+        numbers (list): List of numbers to check.
+        threshold (float): Minimum distance between two values.
+
+    Returns:
+        bool: True if any two values are closer than the threshold, False otherwise.
+    """
+    numbers.sort()  # Sort the list for efficient comparison
+    for i in range(len(numbers) - 1):
+        if abs(numbers[i] - numbers[i + 1]) < threshold:
+            return True
+    return False
+```
+
+### Example Use Cases
+
+```python
+# Test case 1: No close values
+numbers = [10, 20, 30, 40]
+threshold = 5
+print(has_close_values(numbers, threshold))  # Output: False
+
+# Test case 2: Close values exist
+numbers = [10.5, 11.8, 12.3, 15.6]
+threshold = 1
+print(has_close_values(numbers, threshold))  # Output: True
+```
+
+### Explanation
+
+This function works by first sorting the input list of numbers in ascending order. Then, it iterates through the sorted list, comparing each pair of adjacent values to check if their absolute difference is less than the given threshold. If a pair with a smaller difference is found, the function immediately returns `True`, indicating that there are close values. If no such pairs are found after checking all values, the function returns `False`.
+
+**Extracted Code:**
+def has_close_values(numbers, threshold):
+    """
+    Check if any two values in the list are closer than the given threshold.
+
+    Args:
+        numbers (list): List of numbers to check.
+        threshold (float): Minimum distance between two values.
+
+    Returns:
+        bool: True if any two values are closer than the threshold, False otherwise.
+    """
+    numbers.sort()  # Sort the list for efficient comparison
+    for i in range(len(numbers) - 1):
+        if abs(numbers[i] - numbers[i + 1]) < threshold:
+            return True
+    return False
+
+✓ Assertion passed for input ([1.0, 2.0, 2.2, 3.9, 4.0, 5.0], 0.3)
+✓ Assertion passed for input ([1.0, 2.0, 2.2, 3.9, 4.0, 5.0], 0.05)
+✓ Assertion passed for input ([1.0, 2.0, 4.0, 5.0, 5.9], 0.95)
+✓ Assertion passed for input ([1.0, 2.0, 4.0, 5.0, 5.9], 0.8)
+✓ Assertion passed for input ([1.1, 2.2, 3.1, 4.1, 5.1], 1.0)
+✓ All assertions passed for Version 1
+
+--- Testing Version 2 with openai (gpt-4o) ---
+**Generated Response:**
+To solve this problem, you can iterate through the list of measurements and check the distance between each pair of data points. If any pair is closer than the specified minimum distance, you can return `True`. Otherwise, return `False`. Here's a Python function to achieve this:
+
+```python
+def are_points_too_close(measurements, min_distance):
+    """
+    Check if any two data points in the list are closer than the specified minimum distance.
+
+    :param measurements: List of measurements (assumed to be numeric).
+    :param min_distance: Minimum allowable distance between any two points.
+    :return: True if any two points are closer than min_distance, False otherwise.
+    """
+    n = len(measurements)
+    for i in range(n):
+        for j in range(i + 1, n):
+            if abs(measurements[i] - measurements[j]) < min_distance:
+                return True
+    return False
+
+# Example usage:
+measurements = [1.0, 2.5, 3.8, 5.0]
+min_distance = 1.5
+print(are_points_too_close(measurements, min_distance))  # Output: True
+```
+
+### Explanation:
+- The function `are_points_too_close` takes a list of measurements and a minimum distance as input.
+- It uses a nested loop to compare each pair of measurements.
+- The `abs` function is used to calculate the absolute difference between two points.
+- If any pair of points is found to be closer than the specified minimum distance, the function returns `True`.
+- If no such pair is found after checking all pairs, the function returns `False`.
+
+**Extracted Code:**
+def are_points_too_close(measurements, min_distance):
+    """
+    Check if any two data points in the list are closer than the specified minimum distance.
+
+    :param measurements: List of measurements (assumed to be numeric).
+    :param min_distance: Minimum allowable distance between any two points.
+    :return: True if any two points are closer than min_distance, False otherwise.
+    """
+    n = len(measurements)
+    for i in range(n):
+        for j in range(i + 1, n):
+            if abs(measurements[i] - measurements[j]) < min_distance:
+                return True
+    return False
+
+# Example usage:
+measurements = [1.0, 2.5, 3.8, 5.0]
+min_distance = 1.5
+print(are_points_too_close(measurements, min_distance))  # Output: True
+
+✓ Assertion passed for input ([1.0, 2.5, 3.5, 5.0, 7.5], 1.0)
+✓ Assertion passed for input ([10.0, 10.5, 15.0, 20.0], 0.6)
+✓ Assertion passed for input ([1.0, 2.1, 3.0, 4.1, 6.2], 1.1)
+✓ Assertion passed for input ([2.0, 3.1, 4.2, 5.3], 0.05)
+✓ All assertions passed for Version 2
+
+--- Testing Version 2 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is a Python code that checks if any two data points in a list are closer than a given minimum distance:
+
+```python
+def check_min_distance(data, min_distance):
+    for i in range(len(data)):
+        for j in range(i+1, len(data)):
+            if abs(data[i] - data[j]) < min_distance:
+                return True
+    return False
+
+# Example usage
+data = [1, 3, 5, 7, 9]
+min_distance = 2
+
+if check_min_distance(data, min_distance):
+    print("There are two data points closer than the minimum distance.")
+else:
+    print("No two data points are closer than the minimum distance.")
+```
+
+You can replace the `data` list and `min_distance` variable with your own values to test the code.
+
+**Extracted Code:**
+def check_min_distance(data, min_distance):
+    for i in range(len(data)):
+        for j in range(i+1, len(data)):
+            if abs(data[i] - data[j]) < min_distance:
+                return True
+    return False
+
+# Example usage
+data = [1, 3, 5, 7, 9]
+min_distance = 2
+
+if check_min_distance(data, min_distance):
+    print("There are two data points closer than the minimum distance.")
+else:
+    print("No two data points are closer than the minimum distance.")
+
+✓ Assertion passed for input ([1.0, 2.5, 3.5, 5.0, 7.5], 1.0)
+✓ Assertion passed for input ([10.0, 10.5, 15.0, 20.0], 0.6)
+✓ Assertion passed for input ([1.0, 2.1, 3.0, 4.1, 6.2], 1.1)
+✓ Assertion passed for input ([2.0, 3.1, 4.2, 5.3], 0.05)
+✓ All assertions passed for Version 2
+
+--- Testing Version 2 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution to check if any two data points in a list are closer than a minimum distance:
+
+```python
+def has_close_points(measurements, min_distance):
+    """
+    Check if any two points in the list are closer than min_distance
+    
+    Args:
+    measurements (list): List of numerical measurements
+    min_distance (float): Minimum allowed distance between any two points
+    
+    Returns:
+    bool: True if points closer than min_distance exist, False otherwise
+    """
+    # Sort the measurements first for efficiency
+    sorted_measurements = sorted(measurements)
+    
+    # Compare adjacent points in sorted list
+    for i in range(len(sorted_measurements) - 1):
+        if abs(sorted_measurements[i] - sorted_measurements[i + 1]) < min_distance:
+            return True
+    
+    return False
+
+# Example usage:
+def main():
+    # Test cases
+    test_cases = [
+        ([1, 5, 8, 12, 15], 3),  # No close points
+        ([1, 2, 6, 8, 9], 2),    # Has close points (1 and 2)
+        ([1.1, 1.2, 1.3], 0.15), # Has close points (all points)
+        ([10], 1),               # Single point
+        ([], 1)                  # Empty list
+    ]
+    
+    for measurements, min_distance in test_cases:
+        result = has_close_points(measurements, min_distance)
+        print(f"Measurements: {measurements}")
+        print(f"Minimum distance: {min_distance}")
+        print(f"Has close points: {result}")
+        print()
+
+if __name__ == "__main__":
+    main()
+```
+
+This solution:
+
+1. Takes a list of measurements and a minimum distance as input
+
+2. Uses a sorted list approach which is efficient because:
+   - After sorting, we only need to compare adjacent elements
+   - If any two points are closer than min_distance, they will be adjacent in the sorted list
+
+3. Returns:
+   - True if any two points are closer than the minimum distance
+   - False if no such points exist
+
+4. Has a time complexity of O(n log n) due to sorting
+   - Space complexity is O(n) for storing the sorted list
+
+Example output:
+```
+Measurements: [1, 5, 8, 12, 15]
+Minimum distance: 3
+Has close points: False
+
+Measurements: [1, 2, 6, 8, 9]
+Minimum distance: 2
+Has close points: True
+
+Measurements: [1.1, 1.2, 1.3]
+Minimum distance: 0.15
+Has close points: True
+
+Measurements: [10]
+Minimum distance: 1
+Has close points: False
+
+Measurements: []
+Minimum distance: 1
+Has close points: False
+```
+
+Alternative version with detailed point information:
+
+```python
+def find_close_points(measurements, min_distance):
+    """
+    Find all pairs of points that are closer than min_distance
+    
+    Args:
+    measurements (list): List of numerical measurements
+    min_distance (float): Minimum allowed distance between any two points
+    
+    Returns:
+    list: List of tuples containing pairs of close points
+    """
+    sorted_measurements = sorted(measurements)
+    close_pairs = []
+    
+    for i in range(len(sorted_measurements) - 1):
+        if abs(sorted_measurements[i] - sorted_measurements[i + 1]) < min_distance:
+            close_pairs.append((sorted_measurements[i], sorted_measurements[i + 1]))
+    
+    return close_pairs
+
+# Example usage:
+def main():
+    measurements = [1, 2, 6, 8, 9]
+    min_distance = 2
+    
+    close_pairs = find_close_points(measurements, min_distance)
+    if close_pairs:
+        print(f"Found close points:")
+        for pair in close_pairs:
+            print(f"Points {pair[0]} and {pair[1]} are closer than {min_distance}")
+    else:
+        print("No
+
+**Extracted Code:**
+def has_close_points(measurements, min_distance):
+    """
+    Check if any two points in the list are closer than min_distance
+    
+    Args:
+    measurements (list): List of numerical measurements
+    min_distance (float): Minimum allowed distance between any two points
+    
+    Returns:
+    bool: True if points closer than min_distance exist, False otherwise
+    """
+    # Sort the measurements first for efficiency
+    sorted_measurements = sorted(measurements)
+    
+    # Compare adjacent points in sorted list
+    for i in range(len(sorted_measurements) - 1):
+        if abs(sorted_measurements[i] - sorted_measurements[i + 1]) < min_distance:
+            return True
+    
+    return False
+
+# Example usage:
+def main():
+    # Test cases
+    test_cases = [
+        ([1, 5, 8, 12, 15], 3),  # No close points
+        ([1, 2, 6, 8, 9], 2),    # Has close points (1 and 2)
+        ([1.1, 1.2, 1.3], 0.15), # Has close points (all points)
+        ([10], 1),               # Single point
+        ([], 1)                  # Empty list
+    ]
+    
+    for measurements, min_distance in test_cases:
+        result = has_close_points(measurements, min_distance)
+        print(f"Measurements: {measurements}")
+        print(f"Minimum distance: {min_distance}")
+        print(f"Has close points: {result}")
+        print()
+
+if __name__ == "__main__":
+    main()
+
+✓ Assertion passed for input ([1.0, 2.5, 3.5, 5.0, 7.5], 1.0)
+✓ Assertion passed for input ([10.0, 10.5, 15.0, 20.0], 0.6)
+✓ Assertion passed for input ([1.0, 2.1, 3.0, 4.1, 6.2], 1.1)
+✓ Assertion passed for input ([2.0, 3.1, 4.2, 5.3], 0.05)
+✓ All assertions passed for Version 2
+
+--- Testing Version 2 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Closest Pair Detection**
+==========================
+
+### Problem Statement
+
+Given a list of measurements and a minimum distance, check if any two data points are closer than this minimum distance in the list.
+
+### Solution
+```python
+def has_close_pair(measurements, min_distance):
+    """
+    Check if any two data points are closer than the minimum distance.
+
+    Args:
+        measurements (list): List of measurement values.
+        min_distance (float): Minimum allowed distance between data points.
+
+    Returns:
+        bool: True if a pair with distance less than min_distance is found, False otherwise.
+    """
+    for i in range(len(measurements)):
+        for j in range(i + 1, len(measurements)):
+            distance = abs(measurements[i] - measurements[j])
+            if distance < min_distance:
+                return True
+    return False
+
+# Example usage:
+measurements = [10, 20, 30, 40, 50]
+min_distance = 5.0
+print(has_close_pair(measurements, min_distance))  # Output: False
+
+measurements = [10, 15, 30, 40, 50]
+min_distance = 5.0
+print(has_close_pair(measurements, min_distance))  # Output: True
+```
+### Explanation
+
+The `has_close_pair` function takes a list of measurements and a minimum distance as input. It iterates over the list using two nested loops to compare each pair of data points. For each pair, it calculates the absolute difference between the values and checks if this distance is less than the minimum allowed distance. If such a pair is found, the function returns `True`. If no such pair is found after iterating over all pairs, the function returns `False`.
+
+### Notes
+
+* This solution has a time complexity of O(n^2), where n is the length of the input list.
+* For larger lists or more efficient solutions, consider using data structures like k-d trees or ball trees to reduce the number of comparisons.
+
+**Extracted Code:**
+def has_close_pair(measurements, min_distance):
+    """
+    Check if any two data points are closer than the minimum distance.
+
+    Args:
+        measurements (list): List of measurement values.
+        min_distance (float): Minimum allowed distance between data points.
+
+    Returns:
+        bool: True if a pair with distance less than min_distance is found, False otherwise.
+    """
+    for i in range(len(measurements)):
+        for j in range(i + 1, len(measurements)):
+            distance = abs(measurements[i] - measurements[j])
+            if distance < min_distance:
+                return True
+    return False
+
+# Example usage:
+measurements = [10, 20, 30, 40, 50]
+min_distance = 5.0
+print(has_close_pair(measurements, min_distance))  # Output: False
+
+measurements = [10, 15, 30, 40, 50]
+min_distance = 5.0
+print(has_close_pair(measurements, min_distance))  # Output: True
+
+✓ Assertion passed for input ([1.0, 2.5, 3.5, 5.0, 7.5], 1.0)
+✓ Assertion passed for input ([10.0, 10.5, 15.0, 20.0], 0.6)
+✓ Assertion passed for input ([1.0, 2.1, 3.0, 4.1, 6.2], 1.1)
+✓ Assertion passed for input ([2.0, 3.1, 4.2, 5.3], 0.05)
+✓ All assertions passed for Version 2
+
+--- Testing Version 3 with openai (gpt-4o) ---
+**Generated Response:**
+To solve this problem, you can iterate through the list of float values and check if any two elements are closer than the specified tolerance. Here's a Python function that accomplishes this:
+
+```python
+def are_elements_close(float_list, tolerance):
+    # Sort the list to make it easier to find close elements
+    sorted_list = sorted(float_list)
+    
+    # Iterate through the sorted list and check adjacent elements
+    for i in range(len(sorted_list) - 1):
+        if abs(sorted_list[i] - sorted_list[i + 1]) < tolerance:
+            return True
+    
+    return False
+
+# Example usage:
+float_values = [0.1, 0.4, 0.35, 0.8, 1.2]
+tolerance = 0.05
+result = are_elements_close(float_values, tolerance)
+print("Are any two elements closer than the tolerance?", result)
+```
+
+### Explanation:
+1. **Sorting the List**: The list is sorted to ensure that any two elements that are close to each other will be adjacent in the sorted list. This reduces the number of comparisons needed.
+
+2. **Iterating and Comparing**: The function iterates through the sorted list and checks the difference between each pair of adjacent elements. If the difference is less than the specified tolerance, it returns `True`.
+
+3. **Return False**: If no such pair is found, the function returns `False`.
+
+This approach is efficient because sorting the list takes \(O(n \log n)\) time, and the subsequent single pass through the list takes \(O(n)\) time, where \(n\) is the number of elements in the list.
+
+**Extracted Code:**
+def are_elements_close(float_list, tolerance):
+    # Sort the list to make it easier to find close elements
+    sorted_list = sorted(float_list)
+    
+    # Iterate through the sorted list and check adjacent elements
+    for i in range(len(sorted_list) - 1):
+        if abs(sorted_list[i] - sorted_list[i + 1]) < tolerance:
+            return True
+    
+    return False
+
+# Example usage:
+float_values = [0.1, 0.4, 0.35, 0.8, 1.2]
+tolerance = 0.05
+result = are_elements_close(float_values, tolerance)
+print("Are any two elements closer than the tolerance?", result)
+
+✓ Assertion passed for input ([1.5, 2.5, 3.5, 4.5, 5.5], 0.4)
+✓ Assertion passed for input ([1.0, 2.0, 2.3, 4.0], 0.5)
+✓ Assertion passed for input ([0.1, 0.5, 0.9, 1.4, 2.1], 0.25)
+✓ Assertion passed for input ([1.2, 2.1, 2.2, 3.5, 4.9], 0.2)
+✓ All assertions passed for Version 3
+
+--- Testing Version 3 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is the Python code to check if any two elements in a list of float values are closer than a specified tolerance:
+
+```python
+def check_tolerance(lst, tolerance):
+    for i in range(len(lst)):
+        for j in range(i+1, len(lst)):
+            if abs(lst[i] - lst[j]) < tolerance:
+                return True
+    return False
+
+# Example usage
+float_list = [1.5, 2.3, 3.7, 4.1, 5.6]
+tolerance = 0.5
+
+if check_tolerance(float_list, tolerance):
+    print("There are elements closer than the tolerance in the list.")
+else:
+    print("No elements are closer than the tolerance in the list.")
+```
+
+You can replace the `float_list` and `tolerance` values with your own list of float values and tolerance to test the function.
+
+**Extracted Code:**
+def check_tolerance(lst, tolerance):
+    for i in range(len(lst)):
+        for j in range(i+1, len(lst)):
+            if abs(lst[i] - lst[j]) < tolerance:
+                return True
+    return False
+
+# Example usage
+float_list = [1.5, 2.3, 3.7, 4.1, 5.6]
+tolerance = 0.5
+
+if check_tolerance(float_list, tolerance):
+    print("There are elements closer than the tolerance in the list.")
+else:
+    print("No elements are closer than the tolerance in the list.")
+
+✓ Assertion passed for input ([1.5, 2.5, 3.5, 4.5, 5.5], 0.4)
+✓ Assertion passed for input ([1.0, 2.0, 2.3, 4.0], 0.5)
+✓ Assertion passed for input ([0.1, 0.5, 0.9, 1.4, 2.1], 0.25)
+✓ Assertion passed for input ([1.2, 2.1, 2.2, 3.5, 4.9], 0.2)
+✓ All assertions passed for Version 3
+
+--- Testing Version 3 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here are two different approaches to solve this problem:
+
+```python
+def has_close_elements_v1(numbers, tolerance):
+    """
+    Check if any two elements in the list are closer than the specified tolerance.
+    
+    Args:
+        numbers (list): List of float values
+        tolerance (float): Maximum allowed difference between elements
+        
+    Returns:
+        bool: True if close elements found, False otherwise
+    """
+    n = len(numbers)
+    # Compare each pair of elements
+    for i in range(n):
+        for j in range(i + 1, n):
+            if abs(numbers[i] - numbers[j]) < tolerance:
+                return True
+    return False
+
+def has_close_elements_v2(numbers, tolerance):
+    """
+    Alternative approach: Sort the list first and only compare adjacent elements.
+    This can be more efficient for larger lists.
+    
+    Args:
+        numbers (list): List of float values
+        tolerance (float): Maximum allowed difference between elements
+        
+    Returns:
+        bool: True if close elements found, False otherwise
+    """
+    if len(numbers) < 2:
+        return False
+        
+    # Sort the list
+    sorted_numbers = sorted(numbers)
+    
+    # Compare adjacent elements
+    for i in range(len(sorted_numbers) - 1):
+        if abs(sorted_numbers[i] - sorted_numbers[i + 1]) < tolerance:
+            return True
+    return False
+
+# Example usage:
+if __name__ == "__main__":
+    # Test cases
+    test_cases = [
+        ([1.0, 2.0, 3.0], 0.5),           # False
+        ([1.0, 2.0, 2.1, 3.0], 0.2),      # True
+        ([0.1, 0.2, 0.4, 0.3], 0.15),     # True
+        ([1.0], 0.5),                      # False
+        ([], 0.5),                         # False
+        ([1.0, 1.1, 1.2, 1.3], 0.11),     # True
+    ]
+    
+    print("Testing Version 1:")
+    for numbers, tolerance in test_cases:
+        result = has_close_elements_v1(numbers, tolerance)
+        print(f"Numbers: {numbers}, Tolerance: {tolerance}, Result: {result}")
+        
+    print("\nTesting Version 2:")
+    for numbers, tolerance in test_cases:
+        result = has_close_elements_v2(numbers, tolerance)
+        print(f"Numbers: {numbers}, Tolerance: {tolerance}, Result: {result}")
+```
+
+Key points about the two implementations:
+
+1. `has_close_elements_v1`:
+   - Uses nested loops to compare each pair of elements
+   - Time complexity: O(n²)
+   - Space complexity: O(1)
+   - More straightforward implementation
+   - Better for small lists
+
+2. `has_close_elements_v2`:
+   - Sorts the list first and then compares adjacent elements
+   - Time complexity: O(n log n) due to sorting
+   - Space complexity: O(n) due to creating a sorted copy
+   - More efficient for larger lists
+   - Less intuitive but faster for big datasets
+
+Example output:
+```
+Testing Version 1:
+Numbers: [1.0, 2.0, 3.0], Tolerance: 0.5, Result: False
+Numbers: [1.0, 2.0, 2.1, 3.0], Tolerance: 0.2, Result: True
+Numbers: [0.1, 0.2, 0.4, 0.3], Tolerance: 0.15, Result: True
+Numbers: [1.0], Tolerance: 0.5, Result: False
+Numbers: [], Tolerance: 0.5, Result: False
+Numbers: [1.0, 1.1, 1.2, 1.3], Tolerance: 0.11, Result: True
+
+Testing Version 2:
+Numbers: [1.0, 2.0, 3.0], Tolerance: 0.5, Result: False
+
+**Extracted Code:**
+def has_close_elements_v1(numbers, tolerance):
+    """
+    Check if any two elements in the list are closer than the specified tolerance.
+    
+    Args:
+        numbers (list): List of float values
+        tolerance (float): Maximum allowed difference between elements
+        
+    Returns:
+        bool: True if close elements found, False otherwise
+    """
+    n = len(numbers)
+    # Compare each pair of elements
+    for i in range(n):
+        for j in range(i + 1, n):
+            if abs(numbers[i] - numbers[j]) < tolerance:
+                return True
+    return False
+
+def has_close_elements_v2(numbers, tolerance):
+    """
+    Alternative approach: Sort the list first and only compare adjacent elements.
+    This can be more efficient for larger lists.
+    
+    Args:
+        numbers (list): List of float values
+        tolerance (float): Maximum allowed difference between elements
+        
+    Returns:
+        bool: True if close elements found, False otherwise
+    """
+    if len(numbers) < 2:
+        return False
+        
+    # Sort the list
+    sorted_numbers = sorted(numbers)
+    
+    # Compare adjacent elements
+    for i in range(len(sorted_numbers) - 1):
+        if abs(sorted_numbers[i] - sorted_numbers[i + 1]) < tolerance:
+            return True
+    return False
+
+# Example usage:
+if __name__ == "__main__":
+    # Test cases
+    test_cases = [
+        ([1.0, 2.0, 3.0], 0.5),           # False
+        ([1.0, 2.0, 2.1, 3.0], 0.2),      # True
+        ([0.1, 0.2, 0.4, 0.3], 0.15),     # True
+        ([1.0], 0.5),                      # False
+        ([], 0.5),                         # False
+        ([1.0, 1.1, 1.2, 1.3], 0.11),     # True
+    ]
+    
+    print("Testing Version 1:")
+    for numbers, tolerance in test_cases:
+        result = has_close_elements_v1(numbers, tolerance)
+        print(f"Numbers: {numbers}, Tolerance: {tolerance}, Result: {result}")
+        
+    print("\nTesting Version 2:")
+    for numbers, tolerance in test_cases:
+        result = has_close_elements_v2(numbers, tolerance)
+        print(f"Numbers: {numbers}, Tolerance: {tolerance}, Result: {result}")
+
+✓ Assertion passed for input ([1.5, 2.5, 3.5, 4.5, 5.5], 0.4)
+✓ Assertion passed for input ([1.0, 2.0, 2.3, 4.0], 0.5)
+✓ Assertion passed for input ([0.1, 0.5, 0.9, 1.4, 2.1], 0.25)
+✓ Assertion passed for input ([1.2, 2.1, 2.2, 3.5, 4.9], 0.2)
+✓ All assertions passed for Version 3
+
+--- Testing Version 3 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Checking for Close Elements in a List**
+=====================================================
+
+Here is a Python function that checks if any two elements in a list of floats are closer than a specified tolerance:
+
+```python
+def has_close_elements(numbers, tolerance):
+    """
+    Check if any two elements in the list are closer than the specified tolerance.
+
+    Args:
+        numbers (list[float]): A list of float values.
+        tolerance (float): The minimum distance between elements.
+
+    Returns:
+        bool: True if any two elements are closer than the tolerance, False otherwise.
+    """
+    for i in range(len(numbers)):
+        for j in range(i + 1, len(numbers)):
+            if abs(numbers[i] - numbers[j]) < tolerance:
+                return True
+    return False
+```
+
+**Example Use Cases**
+--------------------
+
+```python
+# Test case 1: Two elements are closer than the tolerance.
+numbers = [1.0, 2.01, 3.0]
+tolerance = 1.0
+print(has_close_elements(numbers, tolerance))  # Output: True
+
+# Test case 2: No two elements are closer than the tolerance.
+numbers = [1.0, 3.0, 5.0]
+tolerance = 1.9
+print(has_close_elements(numbers, tolerance))  # Output: False
+
+# Test case 3: Edge case - empty list.
+numbers = []
+tolerance = 1.0
+print(has_close_elements(numbers, tolerance))  # Output: False
+```
+
+**Optimization**
+---------------
+
+If the input list is large, this function may be slow due to its quadratic time complexity (O(n^2)). To improve performance, you can use a more efficient algorithm like sorting the list and then iterating through it once:
+
+```python
+def has_close_elements(numbers, tolerance):
+    numbers.sort()
+    for i in range(len(numbers) - 1):
+        if abs(numbers[i] - numbers[i + 1]) < tolerance:
+            return True
+    return False
+```
+
+This optimized version has a time complexity of O(n log n) due to the sorting operation.
+
+**Extracted Code:**
+def has_close_elements(numbers, tolerance):
+    """
+    Check if any two elements in the list are closer than the specified tolerance.
+
+    Args:
+        numbers (list[float]): A list of float values.
+        tolerance (float): The minimum distance between elements.
+
+    Returns:
+        bool: True if any two elements are closer than the tolerance, False otherwise.
+    """
+    for i in range(len(numbers)):
+        for j in range(i + 1, len(numbers)):
+            if abs(numbers[i] - numbers[j]) < tolerance:
+                return True
+    return False
+
+✓ Assertion passed for input ([1.5, 2.5, 3.5, 4.5, 5.5], 0.4)
+✓ Assertion passed for input ([1.0, 2.0, 2.3, 4.0], 0.5)
+✓ Assertion passed for input ([0.1, 0.5, 0.9, 1.4, 2.1], 0.25)
+✓ Assertion passed for input ([1.2, 2.1, 2.2, 3.5, 4.9], 0.2)
+✓ All assertions passed for Version 3
+
+--- Testing Version 4 with openai (gpt-4o) ---
+**Generated Response:**
+Certainly! You can solve this problem by iterating through the list of measurements and checking the distance between each pair of data points. If any two points are closer than the specified tolerance, you can return `True`. Otherwise, return `False`. Here's a Python function to achieve this:
+
+```python
+def are_points_too_close(measurements, tolerance):
+    # Iterate through each pair of measurements
+    for i in range(len(measurements)):
+        for j in range(i + 1, len(measurements)):
+            # Calculate the distance between the two points
+            distance = abs(measurements[i] - measurements[j])
+            # Check if the distance is less than the tolerance
+            if distance < tolerance:
+                return True
+    # If no pair is found that is too close, return False
+    return False
+
+# Example usage:
+measurements = [1.0, 2.5, 3.1, 4.0, 5.2]
+tolerance = 0.5
+result = are_points_too_close(measurements, tolerance)
+print(result)  # Output: True
+```
+
+This function uses a nested loop to compare each pair of measurements. The `abs` function is used to calculate the absolute difference between two points, and if this difference is less than the given tolerance, the function returns `True`. If no such pair is found, it returns `False`.
+
+**Extracted Code:**
+def are_points_too_close(measurements, tolerance):
+    # Iterate through each pair of measurements
+    for i in range(len(measurements)):
+        for j in range(i + 1, len(measurements)):
+            # Calculate the distance between the two points
+            distance = abs(measurements[i] - measurements[j])
+            # Check if the distance is less than the tolerance
+            if distance < tolerance:
+                return True
+    # If no pair is found that is too close, return False
+    return False
+
+# Example usage:
+measurements = [1.0, 2.5, 3.1, 4.0, 5.2]
+tolerance = 0.5
+result = are_points_too_close(measurements, tolerance)
+print(result)  # Output: True
+
+✓ Assertion passed for input ([0.99, 1.01, 2.0, 3.0], 0.02)
+✓ Assertion passed for input ([5.5, 6.6, 7.8, 8.9], 1.0)
+✓ Assertion passed for input ([3.0, 3.1, 3.5, 4.0], 0.05)
+✓ Assertion passed for input ([7.2, 7.3, 8.5, 9.1], 0.15)
+✓ All assertions passed for Version 4
+
+--- Testing Version 4 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is a Python code that checks if any two data points in a list are closer than a given tolerance:
+
+```python
+def check_min_distance(data, tolerance):
+    for i in range(len(data)):
+        for j in range(i+1, len(data)):
+            if abs(data[i] - data[j]) < tolerance:
+                return True
+    return False
+
+# Example usage
+data = [1, 3, 5, 7, 9]
+tolerance = 2
+
+if check_min_distance(data, tolerance):
+    print("There are data points closer than the tolerance.")
+else:
+    print("No data points are closer than the tolerance.")
+```
+
+You can replace the `data` list and `tolerance` value with your own data and tolerance to check if any two data points are closer than the specified tolerance.
+
+**Extracted Code:**
+def check_min_distance(data, tolerance):
+    for i in range(len(data)):
+        for j in range(i+1, len(data)):
+            if abs(data[i] - data[j]) < tolerance:
+                return True
+    return False
+
+# Example usage
+data = [1, 3, 5, 7, 9]
+tolerance = 2
+
+if check_min_distance(data, tolerance):
+    print("There are data points closer than the tolerance.")
+else:
+    print("No data points are closer than the tolerance.")
+
+✓ Assertion passed for input ([0.99, 1.01, 2.0, 3.0], 0.02)
+✓ Assertion passed for input ([5.5, 6.6, 7.8, 8.9], 1.0)
+✓ Assertion passed for input ([3.0, 3.1, 3.5, 4.0], 0.05)
+✓ Assertion passed for input ([7.2, 7.3, 8.5, 9.1], 0.15)
+✓ All assertions passed for Version 4
+
+--- Testing Version 4 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here are two different approaches to solve this problem in Python:
+
+```python
+def check_min_distance_simple(measurements, tolerance):
+    """
+    Simple approach: checks all pairs of measurements
+    
+    Args:
+        measurements (list): List of numerical measurements
+        tolerance (float): Minimum allowed distance between measurements
+    
+    Returns:
+        bool: True if any pair is closer than tolerance, False otherwise
+    """
+    n = len(measurements)
+    
+    # Check each pair of measurements
+    for i in range(n):
+        for j in range(i + 1, n):
+            if abs(measurements[i] - measurements[j]) < tolerance:
+                return True
+    
+    return False
+
+
+def check_min_distance_efficient(measurements, tolerance):
+    """
+    More efficient approach: sorts list first
+    
+    Args:
+        measurements (list): List of numerical measurements
+        tolerance (float): Minimum allowed distance between measurements
+    
+    Returns:
+        bool: True if any pair is closer than tolerance, False otherwise
+    """
+    # Sort the measurements
+    sorted_measurements = sorted(measurements)
+    
+    # Check adjacent pairs in sorted list
+    for i in range(len(sorted_measurements) - 1):
+        if sorted_measurements[i + 1] - sorted_measurements[i] < tolerance:
+            return True
+            
+    return False
+
+
+# Example usage:
+if __name__ == "__main__":
+    # Test cases
+    test_cases = [
+        ([1.0, 5.0, 2.0, 8.0, 3.0], 1.5),  # Should return True (2.0 and 1.0 are closer than 1.5)
+        ([1.0, 4.0, 7.0, 10.0], 2.0),      # Should return False
+        ([1.1, 1.2, 1.3], 0.05),           # Should return True
+        ([1.0], 1.0),                       # Should return False (single measurement)
+        ([], 1.0),                          # Should return False (empty list)
+    ]
+
+    # Test both implementations
+    for measurements, tolerance in test_cases:
+        print(f"\nMeasurements: {measurements}")
+        print(f"Tolerance: {tolerance}")
+        print(f"Simple approach result: {check_min_distance_simple(measurements, tolerance)}")
+        print(f"Efficient approach result: {check_min_distance_efficient(measurements, tolerance)}")
+```
+
+This code provides two different implementations:
+
+1. `check_min_distance_simple`:
+   - Uses a straightforward approach comparing all pairs of measurements
+   - Time complexity: O(n²)
+   - Space complexity: O(1)
+
+2. `check_min_distance_efficient`:
+   - First sorts the measurements, then only checks adjacent pairs
+   - Time complexity: O(n log n) due to sorting
+   - Space complexity: O(n) due to creating sorted copy
+   - More efficient for larger datasets
+
+Key features:
+- Both functions handle empty lists and single measurements
+- Input validation could be added if needed
+- The efficient version is generally faster for larger datasets
+- Both versions return True if any pair of measurements is closer than the tolerance
+
+Example output:
+```
+Measurements: [1.0, 5.0, 2.0, 8.0, 3.0]
+Tolerance: 1.5
+Simple approach result: True
+Efficient approach result: True
+
+Measurements: [1.0, 4.0, 7.0, 10.0]
+Tolerance: 2.0
+Simple approach result: False
+Efficient approach result: False
+
+Measurements: [1.1, 1.2, 1.3]
+Tolerance: 0.05
+Simple approach result: True
+Efficient approach result: True
+
+Measurements: [1.0]
+Tolerance: 1.0
+Simple approach result: False
+Efficient approach result: False
+
+Measurements: []
+Tolerance: 1.0
+Simple approach result: False
+Efficient approach result: False
+```
+
+Choose the implementation based on your needs:
+- Use simple version for small datasets or when code simplicity is priority
+- Use efficient version for larger datasets or when performance is critical
+
+**Extracted Code:**
+def check_min_distance_simple(measurements, tolerance):
+    """
+    Simple approach: checks all pairs of measurements
+    
+    Args:
+        measurements (list): List of numerical measurements
+        tolerance (float): Minimum allowed distance between measurements
+    
+    Returns:
+        bool: True if any pair is closer than tolerance, False otherwise
+    """
+    n = len(measurements)
+    
+    # Check each pair of measurements
+    for i in range(n):
+        for j in range(i + 1, n):
+            if abs(measurements[i] - measurements[j]) < tolerance:
+                return True
+    
+    return False
+
+
+def check_min_distance_efficient(measurements, tolerance):
+    """
+    More efficient approach: sorts list first
+    
+    Args:
+        measurements (list): List of numerical measurements
+        tolerance (float): Minimum allowed distance between measurements
+    
+    Returns:
+        bool: True if any pair is closer than tolerance, False otherwise
+    """
+    # Sort the measurements
+    sorted_measurements = sorted(measurements)
+    
+    # Check adjacent pairs in sorted list
+    for i in range(len(sorted_measurements) - 1):
+        if sorted_measurements[i + 1] - sorted_measurements[i] < tolerance:
+            return True
+            
+    return False
+
+
+# Example usage:
+if __name__ == "__main__":
+    # Test cases
+    test_cases = [
+        ([1.0, 5.0, 2.0, 8.0, 3.0], 1.5),  # Should return True (2.0 and 1.0 are closer than 1.5)
+        ([1.0, 4.0, 7.0, 10.0], 2.0),      # Should return False
+        ([1.1, 1.2, 1.3], 0.05),           # Should return True
+        ([1.0], 1.0),                       # Should return False (single measurement)
+        ([], 1.0),                          # Should return False (empty list)
+    ]
+
+    # Test both implementations
+    for measurements, tolerance in test_cases:
+        print(f"\nMeasurements: {measurements}")
+        print(f"Tolerance: {tolerance}")
+        print(f"Simple approach result: {check_min_distance_simple(measurements, tolerance)}")
+        print(f"Efficient approach result: {check_min_distance_efficient(measurements, tolerance)}")
+
+✓ Assertion passed for input ([0.99, 1.01, 2.0, 3.0], 0.02)
+✓ Assertion passed for input ([5.5, 6.6, 7.8, 8.9], 1.0)
+✓ Assertion passed for input ([3.0, 3.1, 3.5, 4.0], 0.05)
+✓ Assertion passed for input ([7.2, 7.3, 8.5, 9.1], 0.15)
+✓ All assertions passed for Version 4
+
+--- Testing Version 4 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Checking Minimum Distance Between Data Points**
+======================================================
+
+### Problem Statement
+
+Given a list of measurements and a tolerance, check if any two data points are closer than this minimum distance in the list.
+
+### Code
+```python
+def check_minimum_distance(measurements, tolerance):
+    """
+    Check if any two data points are closer than the specified tolerance.
+
+    Args:
+        measurements (list): A list of measurement values.
+        tolerance (float): The minimum allowed distance between data points.
+
+    Returns:
+        bool: True if any two data points are closer than the tolerance, False otherwise.
+    """
+    # Sort the measurements in ascending order
+    measurements.sort()
+
+    # Iterate through the sorted measurements and check distances
+    for i in range(len(measurements) - 1):
+        distance = measurements[i + 1] - measurements[i]
+        if distance < tolerance:
+            return True
+
+    return False
+
+# Example usage:
+measurements = [10.2, 20.5, 30.8, 40.3, 50.9]
+tolerance = 5.0
+if check_minimum_distance(measurements, tolerance):
+    print("At least two data points are closer than the tolerance.")
+else:
+    print("All data points are at least as far apart as the tolerance.")
+```
+
+### Explanation
+
+1. First, sort the `measurements` list in ascending order to ensure that we're checking distances between adjacent values.
+2. Then, iterate through the sorted list and calculate the distance between each pair of adjacent values using a simple subtraction.
+3. If any calculated distance is less than the specified `tolerance`, immediately return `True`.
+4. If no such distances are found after iterating through the entire list, return `False`.
+
+### Example Use Cases
+
+*   Checking for proximity between geographic coordinates (e.g., latitude and longitude).
+*   Validating data points in a scientific experiment to ensure they meet minimum distance requirements.
+*   Detecting anomalies or outliers in a dataset by checking for abnormally close values.
+
+**Extracted Code:**
+def check_minimum_distance(measurements, tolerance):
+    """
+    Check if any two data points are closer than the specified tolerance.
+
+    Args:
+        measurements (list): A list of measurement values.
+        tolerance (float): The minimum allowed distance between data points.
+
+    Returns:
+        bool: True if any two data points are closer than the tolerance, False otherwise.
+    """
+    # Sort the measurements in ascending order
+    measurements.sort()
+
+    # Iterate through the sorted measurements and check distances
+    for i in range(len(measurements) - 1):
+        distance = measurements[i + 1] - measurements[i]
+        if distance < tolerance:
+            return True
+
+    return False
+
+# Example usage:
+measurements = [10.2, 20.5, 30.8, 40.3, 50.9]
+tolerance = 5.0
+if check_minimum_distance(measurements, tolerance):
+    print("At least two data points are closer than the tolerance.")
+else:
+    print("All data points are at least as far apart as the tolerance.")
+
+✓ Assertion passed for input ([0.99, 1.01, 2.0, 3.0], 0.02)
+✓ Assertion passed for input ([5.5, 6.6, 7.8, 8.9], 1.0)
+✓ Assertion passed for input ([3.0, 3.1, 3.5, 4.0], 0.05)
+✓ Assertion passed for input ([7.2, 7.3, 8.5, 9.1], 0.15)
+✓ All assertions passed for Version 4

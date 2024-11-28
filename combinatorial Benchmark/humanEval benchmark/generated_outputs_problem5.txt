@@ -1,0 +1,238 @@
+
+=== Testing Problem 5 ===
+Prompt: from typing import List
+def mean_absolute_deviation(numbers: List[float]) -> float:
+    """ For a given list of input numbers, calculate Mean Absolute Deviation around the mean of this dataset.
+    Mean Absolute Deviation is the average absolute difference between each element and a centerpoint (mean in this case):
+    MAD = average | x - x_mean |
+    >>> mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])
+    1.0
+    """
+================================================================================
+
+--- Testing with openai (gpt-4) ---
+**Generated Response:**
+Here is the Python code for calculating the Mean Absolute Deviation (MAD) of a list of numbers:
+
+```python
+def mean_absolute_deviation(numbers: List[float]) -> float:
+    mean = sum(numbers) / len(numbers)
+    return sum(abs(x - mean) for x in numbers) / len(numbers)
+```
+
+This function first calculates the mean of the input numbers, then calculates the absolute difference between each number and the mean, and finally returns the average of these absolute differences.
+
+**Extracted Code:**
+def mean_absolute_deviation(numbers: List[float]) -> float:
+    mean = sum(numbers) / len(numbers)
+    return sum(abs(x - mean) for x in numbers) / len(numbers)
+
+Error importing generated code: name 'List' is not defined
+✗ Some assertions failed
+
+--- Testing with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+def mean_absolute_deviation(numbers: List[float]) -> float:
+    mean = sum(numbers) / len(numbers)
+    absolute_deviations = [abs(num - mean) for num in numbers]
+    return sum(absolute_deviations) / len(absolute_deviations)
+
+# Test the function
+print(mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])) # Output: 1.0
+
+**Extracted Code:**
+def mean_absolute_deviation(numbers: List[float]) -> float:
+    mean = sum(numbers) / len(numbers)
+    absolute_deviations = [abs(num - mean) for num in numbers]
+    return sum(absolute_deviations) / len(absolute_deviations)
+
+# Test the function
+print(mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])) # Output: 1.0
+
+Error importing generated code: name 'List' is not defined
+✗ Some assertions failed
+
+--- Testing with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution for calculating the Mean Absolute Deviation:
+
+```python
+from typing import List
+
+def mean_absolute_deviation(numbers: List[float]) -> float:
+    """
+    Calculate Mean Absolute Deviation around the mean of the dataset.
+    MAD = average | x - x_mean |
+    
+    Args:
+        numbers (List[float]): List of input numbers
+        
+    Returns:
+        float: Mean Absolute Deviation
+        
+    >>> mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])
+    1.0
+    """
+    # Check if the list is empty
+    if not numbers:
+        return 0.0
+    
+    # Calculate the mean of the dataset
+    mean = sum(numbers) / len(numbers)
+    
+    # Calculate absolute differences from mean and take their average
+    absolute_differences = [abs(x - mean) for x in numbers]
+    mad = sum(absolute_differences) / len(numbers)
+    
+    return mad
+```
+
+This solution works as follows:
+
+1. First, we check if the input list is empty. If it is, we return 0.0.
+
+2. We calculate the mean (average) of the dataset using `sum(numbers) / len(numbers)`.
+
+3. For each number in the input list, we:
+   - Calculate its difference from the mean
+   - Take the absolute value of this difference
+   This is done using a list comprehension: `[abs(x - mean) for x in numbers]`
+
+4. Finally, we calculate the average of these absolute differences to get the Mean Absolute Deviation.
+
+The function handles cases like:
+```python
+>>> mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])
+1.0
+>>> mean_absolute_deviation([1.0, 1.0, 1.0, 1.0])
+0.0
+>>> mean_absolute_deviation([])
+0.0
+>>> mean_absolute_deviation([2.0])
+0.0
+```
+
+The function follows the formula MAD = average|x - x_mean| where:
+- x represents each value in the dataset
+- x_mean is the mean (average) of all values
+- |...| represents the absolute value
+- average is taken over all absolute differences
+
+The solution is efficient with O(n) time complexity, where n is the length of the input list, as it needs to iterate through the list twice (once for mean calculation and once for absolute differences).
+
+**Extracted Code:**
+from typing import List
+
+def mean_absolute_deviation(numbers: List[float]) -> float:
+    """
+    Calculate Mean Absolute Deviation around the mean of the dataset.
+    MAD = average | x - x_mean |
+    
+    Args:
+        numbers (List[float]): List of input numbers
+        
+    Returns:
+        float: Mean Absolute Deviation
+        
+    >>> mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])
+    1.0
+    """
+    # Check if the list is empty
+    if not numbers:
+        return 0.0
+    
+    # Calculate the mean of the dataset
+    mean = sum(numbers) / len(numbers)
+    
+    # Calculate absolute differences from mean and take their average
+    absolute_differences = [abs(x - mean) for x in numbers]
+    mad = sum(absolute_differences) / len(numbers)
+    
+    return mad
+
+✓ Assertion passed for input {'numbers': [1.0, 2.0, 3.0]}
+✓ Assertion passed for input {'numbers': [1.0, 2.0, 3.0, 4.0]}
+✓ Assertion passed for input {'numbers': [1.0, 2.0, 3.0, 4.0, 5.0]}
+✓ All assertions passed
+
+--- Testing with ollama (llama3.1:70b) ---
+**Generated Response:**
+Here is a high-quality, readable, and well-documented Python solution using NumPy library:
+```python
+import numpy as np
+from typing import List
+
+def mean_absolute_deviation(numbers: List[float]) -> float:
+    """
+    Calculate Mean Absolute Deviation around the mean of a given list of numbers.
+
+    Args:
+        numbers (List[float]): A list of floating point numbers.
+
+    Returns:
+        float: The Mean Absolute Deviation.
+    """
+    # Convert the input list to a NumPy array for efficient computations
+    numbers_array = np.array(numbers)
+
+    # Calculate the mean of the input numbers
+    mean_value = np.mean(numbers_array)
+
+    # Calculate the absolute differences between each element and the mean
+    absolute_diffs = np.abs(numbers_array - mean_value)
+
+    # Calculate the Mean Absolute Deviation as the average of the absolute differences
+    mad = np.mean(absolute_diffs)
+
+    return mad
+
+# Example usage:
+numbers = [1.0, 2.0, 3.0, 4.0]
+result = mean_absolute_deviation(numbers)
+print(result)  # Output: 1.0
+```
+This code uses the NumPy library to efficiently calculate the Mean Absolute Deviation. The solution consists of three main steps:
+
+1. Calculate the mean of the input numbers using `np.mean`.
+2. Calculate the absolute differences between each element and the mean using `np.abs` and broadcasting.
+3. Calculate the Mean Absolute Deviation as the average of the absolute differences using `np.mean`.
+
+The code includes type hints, docstrings, and comments to ensure readability and maintainability. The example usage demonstrates how to use the function with a sample input list.
+
+**Extracted Code:**
+import numpy as np
+from typing import List
+
+def mean_absolute_deviation(numbers: List[float]) -> float:
+    """
+    Calculate Mean Absolute Deviation around the mean of a given list of numbers.
+
+    Args:
+        numbers (List[float]): A list of floating point numbers.
+
+    Returns:
+        float: The Mean Absolute Deviation.
+    """
+    # Convert the input list to a NumPy array for efficient computations
+    numbers_array = np.array(numbers)
+
+    # Calculate the mean of the input numbers
+    mean_value = np.mean(numbers_array)
+
+    # Calculate the absolute differences between each element and the mean
+    absolute_diffs = np.abs(numbers_array - mean_value)
+
+    # Calculate the Mean Absolute Deviation as the average of the absolute differences
+    mad = np.mean(absolute_diffs)
+
+    return mad
+
+# Example usage:
+numbers = [1.0, 2.0, 3.0, 4.0]
+result = mean_absolute_deviation(numbers)
+print(result)  # Output: 1.0
+
+✓ Assertion passed for input {'numbers': [1.0, 2.0, 3.0]}
+✓ Assertion passed for input {'numbers': [1.0, 2.0, 3.0, 4.0]}
+✓ Assertion passed for input {'numbers': [1.0, 2.0, 3.0, 4.0, 5.0]}
+✓ All assertions passed

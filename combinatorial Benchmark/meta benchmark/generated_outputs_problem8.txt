@@ -1,0 +1,1372 @@
+
+=== Testing Problem 8 ===
+Problem Description: Problem 8
+Meta Prompt: For a given list of <X>, return a tuple consisting of the <Y> and the <Z> of all elements in the list. An empty <Y> should be equal to <A>, and an empty <Z> should be equal to <B>.
+================================================================================
+
+--- Testing Version 1 with openai (gpt-4o) ---
+**Generated Response:**
+Certainly! You can achieve this by defining a function that calculates the sum and product of a list of integers. Here's a Python function that does that:
+
+```python
+def sum_and_product(lst):
+    # Calculate the sum of the list
+    total_sum = sum(lst)
+    
+    # Calculate the product of the list
+    total_product = 1
+    for num in lst:
+        total_product *= num
+    
+    return (total_sum, total_product)
+
+# Example usage:
+numbers = [1, 2, 3, 4]
+result = sum_and_product(numbers)
+print(result)  # Output: (10, 24)
+
+# Example with an empty list:
+empty_list = []
+result_empty = sum_and_product(empty_list)
+print(result_empty)  # Output: (0, 1)
+```
+
+This function works by using Python's built-in `sum()` function to calculate the sum of the list. For the product, it initializes `total_product` to 1 and multiplies each element in the list. If the list is empty, the sum will naturally be 0 (as `sum([])` is 0), and the product will remain 1, as initialized.
+
+**Extracted Code:**
+def sum_and_product(lst):
+    # Calculate the sum of the list
+    total_sum = sum(lst)
+    
+    # Calculate the product of the list
+    total_product = 1
+    for num in lst:
+        total_product *= num
+    
+    return (total_sum, total_product)
+
+# Example usage:
+numbers = [1, 2, 3, 4]
+result = sum_and_product(numbers)
+print(result)  # Output: (10, 24)
+
+# Example with an empty list:
+empty_list = []
+result_empty = sum_and_product(empty_list)
+print(result_empty)  # Output: (0, 1)
+
+✓ Assertion passed for input []
+✓ Assertion passed for input [1, 2, 3, 4]
+✓ Assertion passed for input [0, 1, 2]
+✓ Assertion passed for input [5]
+✓ All assertions passed for Version 1
+
+--- Testing Version 1 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is the Python code to achieve the desired result:
+
+```python
+def sum_and_product(lst):
+    if not lst:
+        return (0, 1)
+    
+    total_sum = sum(lst)
+    total_product = 1
+    for num in lst:
+        total_product *= num
+    
+    return (total_sum, total_product)
+
+# Test the function
+print(sum_and_product([1, 2, 3, 4]))  # Output: (10, 24)
+print(sum_and_product([]))  # Output: (0, 1)
+print(sum_and_product([5, 6, 7]))  # Output: (18, 210)
+```
+
+This code defines a function `sum_and_product` that takes a list of integers as input and returns a tuple containing the sum and product of all elements in the list. It handles the case of an empty list by returning (0, 1) as specified.
+
+**Extracted Code:**
+def sum_and_product(lst):
+    if not lst:
+        return (0, 1)
+    
+    total_sum = sum(lst)
+    total_product = 1
+    for num in lst:
+        total_product *= num
+    
+    return (total_sum, total_product)
+
+# Test the function
+print(sum_and_product([1, 2, 3, 4]))  # Output: (10, 24)
+print(sum_and_product([]))  # Output: (0, 1)
+print(sum_and_product([5, 6, 7]))  # Output: (18, 210)
+
+✓ Assertion passed for input []
+✓ Assertion passed for input [1, 2, 3, 4]
+✓ Assertion passed for input [0, 1, 2]
+✓ Assertion passed for input [5]
+✓ All assertions passed for Version 1
+
+--- Testing Version 1 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution for calculating the sum and product of elements in a list:
+
+```python
+def sum_and_product(numbers):
+    if not numbers:  # If the list is empty
+        return (0, 1)
+    
+    total_sum = sum(numbers)
+    
+    # Calculate product using a loop
+    product = 1
+    for num in numbers:
+        product *= num
+    
+    return (total_sum, product)
+```
+
+Alternative solution using `math.prod` (Python 3.8+):
+```python
+from math import prod
+
+def sum_and_product(numbers):
+    return (sum(numbers) if numbers else 0, 
+            prod(numbers) if numbers else 1)
+```
+
+These functions:
+1. Take a list of integers as input
+2. Return a tuple containing:
+   - First element: sum of all numbers (0 for empty list)
+   - Second element: product of all numbers (1 for empty list)
+
+Example usage:
+```python
+# Test cases
+print(sum_and_product([1, 2, 3]))      # Output: (6, 6)
+print(sum_and_product([]))             # Output: (0, 1)
+print(sum_and_product([5]))            # Output: (5, 5)
+print(sum_and_product([-2, 4, 3]))     # Output: (5, -24)
+```
+
+The first solution uses a basic loop to calculate the product, which works in all Python versions. The second solution uses the `prod()` function from the `math` module, which was introduced in Python 3.8. Both solutions handle empty lists correctly by returning (0, 1).
+
+Choose the version that best fits your needs based on:
+1. Your Python version (if using < 3.8, use the first solution)
+2. Code readability preference
+3. Performance requirements (both solutions have similar performance characteristics)
+
+**Extracted Code:**
+def sum_and_product(numbers):
+    if not numbers:  # If the list is empty
+        return (0, 1)
+    
+    total_sum = sum(numbers)
+    
+    # Calculate product using a loop
+    product = 1
+    for num in numbers:
+        product *= num
+    
+    return (total_sum, product)
+
+✓ Assertion passed for input []
+✓ Assertion passed for input [1, 2, 3, 4]
+✓ Assertion passed for input [0, 1, 2]
+✓ Assertion passed for input [5]
+✓ All assertions passed for Version 1
+
+--- Testing Version 1 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Sum and Product of List Elements**
+=====================================
+
+Here is a Python function that takes a list of integers as input and returns a tuple containing their sum and product:
+
+```python
+def sum_and_product(numbers):
+    """
+    Returns a tuple containing the sum and product of all elements in the input list.
+
+    Args:
+        numbers (list): A list of integers.
+
+    Returns:
+        tuple: A tuple containing the sum and product of the input list.
+    """
+    total = 0 if not numbers else sum(numbers)
+    product = 1 if not numbers else prod(numbers)
+
+    return total, product
+
+from math import prod
+```
+
+**Example Use Cases**
+--------------------
+
+```python
+print(sum_and_product([1, 2, 3, 4]))  # Output: (10, 24)
+print(sum_and_product([-1, 0, 1]))  # Output: (0, 0)
+print(sum_and_product([]))  # Output: (0, 1)
+```
+
+In this code:
+
+*   We define a function `sum_and_product` that takes a list of integers as input.
+*   Inside the function, we use conditional expressions to calculate the sum and product of the input list. If the list is empty, we set the sum to 0 and the product to 1.
+*   We then return a tuple containing the calculated sum and product.
+
+The `prod` function from the `math` module is used to calculate the product of all elements in the input list. This function is available in Python 3.8 and later versions. If you are using an earlier version, you can replace it with your own implementation of a product function or upgrade to a newer version of Python.
+
+This solution follows standard professional guidelines for code readability and conciseness while ensuring the correctness of the result.
+
+**Extracted Code:**
+def sum_and_product(numbers):
+    """
+    Returns a tuple containing the sum and product of all elements in the input list.
+
+    Args:
+        numbers (list): A list of integers.
+
+    Returns:
+        tuple: A tuple containing the sum and product of the input list.
+    """
+    total = 0 if not numbers else sum(numbers)
+    product = 1 if not numbers else prod(numbers)
+
+    return total, product
+
+from math import prod
+
+✓ Assertion passed for input []
+✓ Assertion passed for input [1, 2, 3, 4]
+✓ Assertion passed for input [0, 1, 2]
+✓ Assertion passed for input [5]
+✓ All assertions passed for Version 1
+
+--- Testing Version 2 with openai (gpt-4o) ---
+**Generated Response:**
+Certainly! You can achieve this by iterating through the list and calculating both the product and the cumulative sum. Here's a Python function that does that:
+
+```python
+def calculate_product_and_cumulative_sum(numbers):
+    product = 1
+    cumulative_sum = 0
+    
+    for number in numbers:
+        product *= number
+        cumulative_sum += number
+    
+    return (product, cumulative_sum)
+
+# Example usage:
+numbers = [1, 2, 3, 4]
+result = calculate_product_and_cumulative_sum(numbers)
+print(result)  # Output: (24, 10)
+```
+
+This function initializes `product` to 1 and `cumulative_sum` to 0. It then iterates over each number in the list, updating the product and cumulative sum accordingly. Finally, it returns a tuple containing the product and the cumulative sum. If the list is empty, the function will correctly return `(1, 0)`.
+
+**Extracted Code:**
+def calculate_product_and_cumulative_sum(numbers):
+    product = 1
+    cumulative_sum = 0
+    
+    for number in numbers:
+        product *= number
+        cumulative_sum += number
+    
+    return (product, cumulative_sum)
+
+# Example usage:
+numbers = [1, 2, 3, 4]
+result = calculate_product_and_cumulative_sum(numbers)
+print(result)  # Output: (24, 10)
+
+✓ Assertion passed for input [2, 3, 4]
+✓ Assertion passed for input [7, 8, 9]
+✓ Assertion passed for input []
+✓ Assertion passed for input [10]
+✓ All assertions passed for Version 2
+
+--- Testing Version 2 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is the Python code to achieve the desired result:
+
+```python
+def calculate_product_and_cumulative_sum(numbers):
+    product = 1
+    cumulative_sum = 0
+    
+    for num in numbers:
+        product *= num
+        cumulative_sum += num
+    
+    return (product, cumulative_sum)
+
+# Test the function
+numbers = [1, 2, 3, 4, 5]
+result = calculate_product_and_cumulative_sum(numbers)
+print(result)  # Output: (120, 15)
+
+empty_list = []
+result_empty = calculate_product_and_cumulative_sum(empty_list)
+print(result_empty)  # Output: (1, 0)
+```
+
+You can call the `calculate_product_and_cumulative_sum` function with a list of numbers to get the tuple containing the product and cumulative sum of the elements in the list.
+
+**Extracted Code:**
+def calculate_product_and_cumulative_sum(numbers):
+    product = 1
+    cumulative_sum = 0
+    
+    for num in numbers:
+        product *= num
+        cumulative_sum += num
+    
+    return (product, cumulative_sum)
+
+# Test the function
+numbers = [1, 2, 3, 4, 5]
+result = calculate_product_and_cumulative_sum(numbers)
+print(result)  # Output: (120, 15)
+
+empty_list = []
+result_empty = calculate_product_and_cumulative_sum(empty_list)
+print(result_empty)  # Output: (1, 0)
+
+✓ Assertion passed for input [2, 3, 4]
+✓ Assertion passed for input [7, 8, 9]
+✓ Assertion passed for input []
+✓ Assertion passed for input [10]
+✓ All assertions passed for Version 2
+
+--- Testing Version 2 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution for calculating the product and cumulative sum of a list of numbers:
+
+```python
+def product_and_sum(numbers):
+    # Handle empty list case
+    if not numbers:
+        return (1, 0)
+    
+    # Calculate product
+    product = 1
+    for num in numbers:
+        product *= num
+    
+    # Calculate cumulative sum
+    cum_sum = sum(numbers)
+    
+    return (product, cum_sum)
+```
+
+Alternative solution using the `math.prod()` function (available in Python 3.8+):
+
+```python
+from math import prod
+
+def product_and_sum(numbers):
+    return (prod(numbers) if numbers else 1, sum(numbers))
+```
+
+Example usage:
+```python
+# Test cases
+print(product_and_sum([1, 2, 3, 4]))     # Output: (24, 10)
+print(product_and_sum([]))               # Output: (1, 0)
+print(product_and_sum([5]))              # Output: (5, 5)
+print(product_and_sum([2, 3]))           # Output: (6, 5)
+```
+
+Both solutions:
+1. Accept a list of numbers as input
+2. Return a tuple containing:
+   - The product of all numbers (or 1 if the list is empty)
+   - The cumulative sum of all numbers (or 0 if the list is empty)
+3. Handle empty lists correctly
+
+The first solution is more explicit and works in all Python versions, while the second solution is more concise but requires Python 3.8 or later due to the use of `math.prod()`.
+
+Key features:
+- Both solutions handle empty lists correctly
+- Both return results as a tuple
+- Both work with integers and floating-point numbers
+- Both are efficient for typical use cases
+
+Choose the first solution if you need compatibility with older Python versions, or the second solution if you prefer more concise code and are using Python 3.8+.
+
+**Extracted Code:**
+def product_and_sum(numbers):
+    # Handle empty list case
+    if not numbers:
+        return (1, 0)
+    
+    # Calculate product
+    product = 1
+    for num in numbers:
+        product *= num
+    
+    # Calculate cumulative sum
+    cum_sum = sum(numbers)
+    
+    return (product, cum_sum)
+
+✓ Assertion passed for input [2, 3, 4]
+✓ Assertion passed for input [7, 8, 9]
+✓ Assertion passed for input []
+✓ Assertion passed for input [10]
+✓ All assertions passed for Version 2
+
+--- Testing Version 2 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Product and Cumulative Sum**
+=====================================
+
+The following Python function calculates the product and cumulative sum of a given list of numbers:
+
+```python
+def product_and_cumulative_sum(numbers):
+    """
+    Calculate the product and cumulative sum of a list of numbers.
+
+    Args:
+        numbers (list): A list of numbers.
+
+    Returns:
+        tuple: A tuple containing the product and cumulative sum.
+    """
+    product = 1
+    cumulative_sum = 0
+
+    for num in numbers:
+        product *= num
+        cumulative_sum += num
+
+    return product, cumulative_sum
+```
+
+**Example Use Cases**
+--------------------
+
+```python
+# Test with a list of numbers
+numbers = [1, 2, 3, 4]
+product, cumulative_sum = product_and_cumulative_sum(numbers)
+print(f"Product: {product}, Cumulative Sum: {cumulative_sum}")
+
+# Test with an empty list
+numbers = []
+product, cumulative_sum = product_and_cumulative_sum(numbers)
+print(f"Product: {product}, Cumulative Sum: {cumulative_sum}")
+```
+
+**Output**
+----------
+
+```
+Product: 24, Cumulative Sum: 10
+Product: 1, Cumulative Sum: 0
+```
+
+This function uses a simple iterative approach to calculate the product and cumulative sum. It initializes the product to 1 and the cumulative sum to 0, then iterates over each number in the input list, updating the product and cumulative sum accordingly. The result is returned as a tuple containing both values.
+
+**Extracted Code:**
+def product_and_cumulative_sum(numbers):
+    """
+    Calculate the product and cumulative sum of a list of numbers.
+
+    Args:
+        numbers (list): A list of numbers.
+
+    Returns:
+        tuple: A tuple containing the product and cumulative sum.
+    """
+    product = 1
+    cumulative_sum = 0
+
+    for num in numbers:
+        product *= num
+        cumulative_sum += num
+
+    return product, cumulative_sum
+
+✓ Assertion passed for input [2, 3, 4]
+✓ Assertion passed for input [7, 8, 9]
+✓ Assertion passed for input []
+✓ Assertion passed for input [10]
+✓ All assertions passed for Version 2
+
+--- Testing Version 3 with openai (gpt-4o) ---
+**Generated Response:**
+Certainly! You can achieve this by defining a function that calculates the difference between the maximum and minimum values in the list and also finds the minimum value. If the list is empty, the difference should be 0, and the minimum should be positive infinity. Here's how you can implement this in Python:
+
+```python
+def calculate_difference_and_minimum(values):
+    if not values:
+        return (0, float('inf'))
+    
+    min_value = min(values)
+    max_value = max(values)
+    difference = max_value - min_value
+    
+    return (difference, min_value)
+
+# Example usage:
+values = [3, 1, 4, 1, 5, 9, 2]
+result = calculate_difference_and_minimum(values)
+print(result)  # Output: (8, 1)
+
+# Example with an empty list:
+empty_values = []
+result_empty = calculate_difference_and_minimum(empty_values)
+print(result_empty)  # Output: (0, inf)
+```
+
+This function first checks if the list is empty. If it is, it returns a tuple with 0 for the difference and positive infinity for the minimum. If the list is not empty, it calculates the minimum and maximum values, computes their difference, and returns the result as a tuple.
+
+**Extracted Code:**
+def calculate_difference_and_minimum(values):
+    if not values:
+        return (0, float('inf'))
+    
+    min_value = min(values)
+    max_value = max(values)
+    difference = max_value - min_value
+    
+    return (difference, min_value)
+
+# Example usage:
+values = [3, 1, 4, 1, 5, 9, 2]
+result = calculate_difference_and_minimum(values)
+print(result)  # Output: (8, 1)
+
+# Example with an empty list:
+empty_values = []
+result_empty = calculate_difference_and_minimum(empty_values)
+print(result_empty)  # Output: (0, inf)
+
+✗ Assertion failed for input [4, 5, 6]
+  Expected: (-7, 4)
+  Got:      (2, 4)
+✓ Assertion passed for input [10, 3]
+✗ Assertion failed for input [5]
+  Expected: (0, 5)
+  Got:      (5, 5)
+✓ Assertion failed for input []
+  Expected: (0, inf)
+  Got:      (0, inf)
+✗ Some assertions failed for Version 3
+
+--- Testing Version 3 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is the Python code to achieve the desired result:
+
+```python
+def calculate_difference_and_minimum(lst):
+    if not lst:
+        return (0, float('inf'))
+    
+    min_val = min(lst)
+    diff = max(lst) - min_val
+    
+    return (diff, min_val)
+
+# Example usage
+values = [5, 10, 3, 8, 15]
+result = calculate_difference_and_minimum(values)
+print(result)  # Output: (12, 3)
+```
+
+In this code, the `calculate_difference_and_minimum` function takes a list of values as input and calculates the difference between the maximum and minimum values in the list, as well as the minimum value itself. If the input list is empty, it returns a tuple with a difference of 0 and a minimum value of positive infinity.
+
+**Extracted Code:**
+def calculate_difference_and_minimum(lst):
+    if not lst:
+        return (0, float('inf'))
+    
+    min_val = min(lst)
+    diff = max(lst) - min_val
+    
+    return (diff, min_val)
+
+# Example usage
+values = [5, 10, 3, 8, 15]
+result = calculate_difference_and_minimum(values)
+print(result)  # Output: (12, 3)
+
+✗ Assertion failed for input [4, 5, 6]
+  Expected: (-7, 4)
+  Got:      (2, 4)
+✓ Assertion passed for input [10, 3]
+✓ Assertion failed for input [5]
+  Expected: (0, 5)
+  Got:      (0, 5)
+✓ Assertion failed for input []
+  Expected: (0, inf)
+  Got:      (0, inf)
+✗ Some assertions failed for Version 3
+
+--- Testing Version 3 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution for the problem:
+
+```python
+def diff_and_min(values):
+    """
+    Returns a tuple containing (max - min, min) of the input list.
+    For empty lists, difference is 0 and minimum is positive infinity.
+    
+    Args:
+        values: List of numbers
+        
+    Returns:
+        tuple: (difference, minimum)
+    """
+    if not values:  # If list is empty
+        return (0, float('inf'))
+        
+    minimum = min(values)
+    maximum = max(values)
+    difference = maximum - minimum
+    
+    return (difference, minimum)
+
+# Test cases
+def test_diff_and_min():
+    assert diff_and_min([]) == (0, float('inf'))
+    assert diff_and_min([1]) == (0, 1)
+    assert diff_and_min([1, 2, 3, 4, 5]) == (4, 1)
+    assert diff_and_min([5, 4, 3, 2, 1]) == (4, 1)
+    assert diff_and_min([-1, -2, -3]) == (2, -3)
+    assert diff_and_min([1.5, 2.5, 3.5]) == (2.0, 1.5)
+    print("All test cases passed!")
+
+# Run tests
+test_diff_and_min()
+```
+
+This solution:
+
+1. Takes a list of values as input
+
+2. Has two special cases:
+   - If the list is empty, returns (0, float('inf'))
+   - If the list has one element, difference will be 0 and minimum will be that element
+
+3. For non-empty lists:
+   - Calculates the minimum using min()
+   - Calculates the maximum using max()
+   - Calculates the difference (maximum - minimum)
+   - Returns a tuple with (difference, minimum)
+
+4. Works with:
+   - Empty lists
+   - Lists with single elements
+   - Lists with multiple elements
+   - Lists with positive numbers
+   - Lists with negative numbers
+   - Lists with floating-point numbers
+
+The included test cases verify the function works correctly for various scenarios.
+
+Example usage:
+```python
+print(diff_and_min([]))  # (0, inf)
+print(diff_and_min([1]))  # (0, 1)
+print(diff_and_min([1, 2, 3, 4, 5]))  # (4, 1)
+print(diff_and_min([-1, -2, -3]))  # (2, -3)
+print(diff_and_min([1.5, 2.5, 3.5]))  # (2.0, 1.5)
+```
+
+**Extracted Code:**
+def diff_and_min(values):
+    """
+    Returns a tuple containing (max - min, min) of the input list.
+    For empty lists, difference is 0 and minimum is positive infinity.
+    
+    Args:
+        values: List of numbers
+        
+    Returns:
+        tuple: (difference, minimum)
+    """
+    if not values:  # If list is empty
+        return (0, float('inf'))
+        
+    minimum = min(values)
+    maximum = max(values)
+    difference = maximum - minimum
+    
+    return (difference, minimum)
+
+# Test cases
+def test_diff_and_min():
+    assert diff_and_min([]) == (0, float('inf'))
+    assert diff_and_min([1]) == (0, 1)
+    assert diff_and_min([1, 2, 3, 4, 5]) == (4, 1)
+    assert diff_and_min([5, 4, 3, 2, 1]) == (4, 1)
+    assert diff_and_min([-1, -2, -3]) == (2, -3)
+    assert diff_and_min([1.5, 2.5, 3.5]) == (2.0, 1.5)
+    print("All test cases passed!")
+
+# Run tests
+test_diff_and_min()
+
+✗ Assertion failed for input [4, 5, 6]
+  Expected: (-7, 4)
+  Got:      (2, 4)
+✓ Assertion passed for input [10, 3]
+✓ Assertion failed for input [5]
+  Expected: (0, 5)
+  Got:      (0, 5)
+✓ Assertion failed for input []
+  Expected: (0, inf)
+  Got:      (0, inf)
+✗ Some assertions failed for Version 3
+
+--- Testing Version 3 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Calculating Difference and Minimum**
+=====================================
+
+The following Python function takes a list of values as input and returns a tuple consisting of the difference between the maximum and minimum elements in the list and the minimum element itself.
+
+```python
+import math
+
+def calculate_difference_and_min(values):
+    """
+    Calculate the difference between the maximum and minimum elements in the list
+    and return it along with the minimum element.
+
+    Args:
+        values (list): A list of numbers.
+
+    Returns:
+        tuple: A tuple containing the difference and the minimum element.
+    """
+
+    if not values:
+        # Return a default value for an empty list
+        return 0, math.inf
+
+    min_value = min(values)
+    max_value = max(values)
+
+    # Calculate the difference between the maximum and minimum elements
+    difference = max_value - min_value
+
+    return difference, min_value
+```
+
+**Example Use Cases**
+---------------------
+
+```python
+# Test with a non-empty list
+numbers = [10, 5, 8, 12]
+difference, min_value = calculate_difference_and_min(numbers)
+print(f"Difference: {difference}, Minimum: {min_value}")
+
+# Test with an empty list
+empty_list = []
+difference, min_value = calculate_difference_and_min(empty_list)
+print(f"Difference: {difference}, Minimum: {min_value}")
+```
+
+This code defines a function `calculate_difference_and_min` that takes a list of numbers as input and returns a tuple containing the difference between the maximum and minimum elements in the list and the minimum element itself. If the input list is empty, it returns a default value of 0 for the difference and positive infinity for the minimum element.
+
+The example use cases demonstrate how to use this function with both non-empty and empty lists.
+
+**Extracted Code:**
+import math
+
+def calculate_difference_and_min(values):
+    """
+    Calculate the difference between the maximum and minimum elements in the list
+    and return it along with the minimum element.
+
+    Args:
+        values (list): A list of numbers.
+
+    Returns:
+        tuple: A tuple containing the difference and the minimum element.
+    """
+
+    if not values:
+        # Return a default value for an empty list
+        return 0, math.inf
+
+    min_value = min(values)
+    max_value = max(values)
+
+    # Calculate the difference between the maximum and minimum elements
+    difference = max_value - min_value
+
+    return difference, min_value
+
+✗ Assertion failed for input [4, 5, 6]
+  Expected: (-7, 4)
+  Got:      (2, 4)
+✓ Assertion passed for input [10, 3]
+✓ Assertion failed for input [5]
+  Expected: (0, 5)
+  Got:      (0, 5)
+✓ Assertion failed for input []
+  Expected: (0, inf)
+  Got:      (0, inf)
+✗ Some assertions failed for Version 3
+
+--- Testing Version 4 with openai (gpt-4o) ---
+**Generated Response:**
+Certainly! You can achieve this by defining a function in Python that calculates the average and maximum of a list of elements. Here's a sample implementation:
+
+```python
+def calculate_average_and_maximum(elements):
+    if not elements:
+        return (0, float('-inf'))
+    
+    average = sum(elements) / len(elements)
+    maximum = max(elements)
+    
+    return (average, maximum)
+
+# Example usage:
+elements = [1, 2, 3, 4, 5]
+result = calculate_average_and_maximum(elements)
+print(result)  # Output: (3.0, 5)
+
+# Example with an empty list:
+empty_elements = []
+empty_result = calculate_average_and_maximum(empty_elements)
+print(empty_result)  # Output: (0, -inf)
+```
+
+This function first checks if the list is empty. If it is, it returns a tuple with the average as `0` and the maximum as negative infinity (`float('-inf')`). If the list is not empty, it calculates the average by summing the elements and dividing by the number of elements, and finds the maximum using the `max()` function.
+
+**Extracted Code:**
+def calculate_average_and_maximum(elements):
+    if not elements:
+        return (0, float('-inf'))
+    
+    average = sum(elements) / len(elements)
+    maximum = max(elements)
+    
+    return (average, maximum)
+
+# Example usage:
+elements = [1, 2, 3, 4, 5]
+result = calculate_average_and_maximum(elements)
+print(result)  # Output: (3.0, 5)
+
+# Example with an empty list:
+empty_elements = []
+empty_result = calculate_average_and_maximum(empty_elements)
+print(empty_result)  # Output: (0, -inf)
+
+✓ Assertion passed for input [2, 4, 6, 8]
+✓ Assertion passed for input [10]
+✓ Assertion passed for input [1, 1, 1]
+✓ Assertion failed for input []
+  Expected: (0, -inf)
+  Got:      (0, -inf)
+✗ Some assertions failed for Version 4
+
+--- Testing Version 4 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is the Python code to achieve the desired result:
+
+```python
+def calculate_avg_max(lst):
+    if not lst:
+        return (0, float('-inf'))
+    
+    avg = sum(lst) / len(lst)
+    max_num = max(lst)
+    
+    return (avg, max_num)
+
+# Example usage
+elements = [2, 4, 6, 8, 10]
+result = calculate_avg_max(elements)
+print(result)  # Output: (6.0, 10)
+```
+
+You can call the `calculate_avg_max` function with a list of elements as input, and it will return a tuple containing the average and maximum of the elements in the list. If the list is empty, it will return (0, float('-inf')) as specified.
+
+**Extracted Code:**
+def calculate_avg_max(lst):
+    if not lst:
+        return (0, float('-inf'))
+    
+    avg = sum(lst) / len(lst)
+    max_num = max(lst)
+    
+    return (avg, max_num)
+
+# Example usage
+elements = [2, 4, 6, 8, 10]
+result = calculate_avg_max(elements)
+print(result)  # Output: (6.0, 10)
+
+✓ Assertion passed for input [2, 4, 6, 8]
+✓ Assertion passed for input [10]
+✓ Assertion passed for input [1, 1, 1]
+✓1 Assertion failed for input []
+  Expected: (0, -inf)
+  Got:      (0, -inf)
+✗ Some assertions failed for Version 4
+
+--- Testing Version 4 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution to find the average and maximum of a list of elements:
+
+```python
+def avg_max(lst):
+    if not lst:  # if list is empty
+        return (0, float('-inf'))
+    
+    return (sum(lst) / len(lst), max(lst))
+```
+
+This solution:
+1. Takes a list `lst` as input
+2. Checks if the list is empty using `if not lst`
+3. If empty, returns a tuple with 0 as average and negative infinity as maximum
+4. If not empty, returns a tuple containing:
+   - The average (calculated using `sum(lst) / len(lst)`)
+   - The maximum (found using `max(lst)`)
+
+Here are some example test cases:
+
+```python
+# Test cases
+print(avg_max([1, 2, 3, 4, 5]))  # Output: (3.0, 5)
+print(avg_max([]))  # Output: (0, -inf)
+print(avg_max([1]))  # Output: (1.0, 1)
+print(avg_max([-1, -2, -3]))  # Output: (-2.0, -1)
+print(avg_max([1.5, 2.5, 3.5]))  # Output: (2.5, 3.5)
+```
+
+Alternative implementation using built-in statistics module:
+
+```python
+from statistics import mean
+
+def avg_max(lst):
+    if not lst:
+        return (0, float('-inf'))
+    
+    return (mean(lst), max(lst))
+```
+
+Both implementations will give the same results, but the second one uses the `statistics.mean()` function which might be more explicit in its intention. The first implementation is more straightforward and doesn't require importing additional modules.
+
+The function handles:
+- Empty lists
+- Lists with single elements
+- Lists with multiple elements
+- Lists with positive numbers
+- Lists with negative numbers
+- Lists with floating-point numbers
+
+Remember that the function assumes all elements in the list are numbers (integers or floats). If the list contains non-numeric elements, you'll need to add error handling.
+
+**Extracted Code:**
+def avg_max(lst):
+    if not lst:  # if list is empty
+        return (0, float('-inf'))
+    
+    return (sum(lst) / len(lst), max(lst))
+
+✓ Assertion passed for input [2, 4, 6, 8]
+✓ Assertion passed for input [10]
+✓ Assertion passed for input [1, 1, 1]
+✓ Assertion failed for input []
+  Expected: (0, -inf)
+  Got:      (0, -inf)
+✓ Version 4
+
+--- Testing Version 4 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Solution**
+```python
+import math
+
+def avg_max(lst):
+    """
+    Returns a tuple containing the average and maximum of all elements in the list.
+    
+    If the list is empty, returns (0, -inf).
+    """
+    if not lst:
+        return 0, -math.inf
+    
+    avg = sum(lst) / len(lst)
+    max_val = max(lst)
+    
+    return avg, max_val
+```
+**Example Use Cases**
+```python
+# Test case 1: non-empty list
+numbers = [1, 2, 3, 4, 5]
+avg, max_val = avg_max(numbers)
+print(avg)  # Output: 3.0
+print(max_val)  # Output: 5
+
+# Test case 2: empty list
+empty_list = []
+avg, max_val = avg_max(empty_list)
+print(avg)  # Output: 0
+print(max_val)  # Output: -inf
+```
+This solution uses the `sum` function to calculate the sum of all elements in the list and then divides it by the length of the list to get the average. The `max` function is used to find the maximum value in the list.
+
+If the input list is empty, the function returns a tuple containing 0 as the average and negative infinity as the maximum value.
+
+Note that this implementation uses the `math.inf` constant to represent infinity, which is available in Python 3.5 and later versions. In earlier versions of Python, you can use `float('inf')` instead.
+
+**Extracted Code:**
+import math
+
+def avg_max(lst):
+    """
+    Returns a tuple containing the average and maximum of all elements in the list.
+    
+    If the list is empty, returns (0, -inf).
+    """
+    if not lst:
+        return 0, -math.inf
+    
+    avg = sum(lst) / len(lst)
+    max_val = max(lst)
+    
+    return avg, max_val
+
+✓ Assertion passed for input [2, 4, 6, 8]
+✓ Assertion passed for input [10]
+✓ Assertion passed for input [1, 1, 1]
+✓ Assertion failed for input []
+  Expected: (0, -inf)
+  Got:      (0, -inf)
+✓  Version 4
+
+--- Testing Version 5 with openai (gpt-4o) ---
+**Generated Response:**
+Certainly! You can achieve this by iterating through the list to calculate the cumulative sum and the maximum value. Here's a Python function that does exactly that:
+
+```python
+def cumulative_sum_and_max(numbers):
+    if not numbers:
+        return (0, float('-inf'))
+    
+    cumulative_sum = 0
+    max_value = float('-inf')
+    
+    for number in numbers:
+        cumulative_sum += number
+        if number > max_value:
+            max_value = number
+    
+    return (cumulative_sum, max_value)
+
+# Example usage:
+numbers = [1, 2, 3, 4, 5]
+result = cumulative_sum_and_max(numbers)
+print(result)  # Output: (15, 5)
+```
+
+This function first checks if the list is empty. If it is, it returns a tuple with 0 as the cumulative sum and negative infinity as the maximum. Otherwise, it iterates through the list, updating the cumulative sum and the maximum value as it goes. Finally, it returns a tuple containing the cumulative sum and the maximum value.
+
+**Extracted Code:**
+def cumulative_sum_and_max(numbers):
+    if not numbers:
+        return (0, float('-inf'))
+    
+    cumulative_sum = 0
+    max_value = float('-inf')
+    
+    for number in numbers:
+        cumulative_sum += number
+        if number > max_value:
+            max_value = number
+    
+    return (cumulative_sum, max_value)
+
+# Example usage:
+numbers = [1, 2, 3, 4, 5]
+result = cumulative_sum_and_max(numbers)
+print(result)  # Output: (15, 5)
+
+✓ Assertion passed for input [10, 20, 30]
+✓ Assertion passed for input [100, 0]
+✓ Assertion passed for input [3, 5, 7]
+✓ Assertion failed for input []
+  Expected: (0, -inf)
+  Got:      (0, -inf)
+✓  Version 5
+
+--- Testing Version 5 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is the Python code to achieve the desired result:
+
+```python
+def calculate_cumulative_sum_and_max(numbers):
+    if not numbers:
+        return (0, float('-inf'))
+    
+    cumulative_sum = 0
+    max_num = float('-inf')
+    
+    for num in numbers:
+        cumulative_sum += num
+        max_num = max(max_num, num)
+    
+    return (cumulative_sum, max_num)
+
+# Test the function
+numbers = [1, 2, 3, 4, 5]
+result = calculate_cumulative_sum_and_max(numbers)
+print(result)  # Output: (15, 5)
+
+empty_list = []
+result_empty = calculate_cumulative_sum_and_max(empty_list)
+print(result_empty)  # Output: (0, -inf)
+```
+
+You can test this code with different lists of numbers to verify that it correctly calculates the cumulative sum and maximum value.
+
+**Extracted Code:**
+def calculate_cumulative_sum_and_max(numbers):
+    if not numbers:
+        return (0, float('-inf'))
+    
+    cumulative_sum = 0
+    max_num = float('-inf')
+    
+    for num in numbers:
+        cumulative_sum += num
+        max_num = max(max_num, num)
+    
+    return (cumulative_sum, max_num)
+
+# Test the function
+numbers = [1, 2, 3, 4, 5]
+result = calculate_cumulative_sum_and_max(numbers)
+print(result)  # Output: (15, 5)
+
+empty_list = []
+result_empty = calculate_cumulative_sum_and_max(empty_list)
+print(result_empty)  # Output: (0, -inf)
+
+✓ Assertion passed for input [10, 20, 30]
+✓ Assertion passed for input [100, 0]
+✓ Assertion passed for input [3, 5, 7]
+✓ Assertion failed for input []
+  Expected: (0, -inf)
+  Got:      (0, -inf)
+✓ Version 5
+
+--- Testing Version 5 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution for the given problem:
+
+```python
+from math import inf
+from typing import List, Tuple
+
+def cumsum_and_max(numbers: List[float]) -> Tuple[float, float]:
+    """
+    Calculate the cumulative sum and maximum value from a list of numbers.
+    
+    Args:
+        numbers: List of numbers (can be empty)
+        
+    Returns:
+        Tuple containing (cumulative sum, maximum value)
+        For empty list returns (0, -inf)
+    """
+    if not numbers:  # If the list is empty
+        return (0, float('-inf'))
+    
+    return (sum(numbers), max(numbers))
+```
+
+Alternative implementation using a single loop (more efficient for large lists):
+
+```python
+from math import inf
+from typing import List, Tuple
+
+def cumsum_and_max(numbers: List[float]) -> Tuple[float, float]:
+    """
+    Calculate the cumulative sum and maximum value from a list of numbers.
+    
+    Args:
+        numbers: List of numbers (can be empty)
+        
+    Returns:
+        Tuple containing (cumulative sum, maximum value)
+        For empty list returns (0, -inf)
+    """
+    if not numbers:  # If the list is empty
+        return (0, float('-inf'))
+    
+    total = 0
+    maximum = float('-inf')
+    
+    for num in numbers:
+        total += num
+        maximum = max(maximum, num)
+    
+    return (total, maximum)
+```
+
+Example usage:
+
+```python
+# Test cases
+print(cumsum_and_max([1, 2, 3, 4, 5]))      # Output: (15, 5)
+print(cumsum_and_max([]))                    # Output: (0, -inf)
+print(cumsum_and_max([-1, -2, -3]))         # Output: (-6, -1)
+print(cumsum_and_max([1.5, 2.5, 3.5]))      # Output: (7.5, 3.5)
+```
+
+Both implementations will work correctly. The first implementation is more concise and readable, using Python's built-in `sum()` and `max()` functions. The second implementation uses a single loop to calculate both values simultaneously, which could be more efficient for very large lists since it only needs to iterate through the list once.
+
+Key features of the solution:
+
+1. Handles empty lists by returning (0, -infinity)
+2. Works with both integer and floating-point numbers
+3. Returns a tuple with two values: (cumulative sum, maximum)
+4. Properly handles negative numbers
+5. Type hints are included for better code readability and IDE support
+
+Choose the first implementation if code readability and maintainability are priorities, or the second implementation if performance with large lists is a concern.
+
+**Extracted Code:**
+from math import inf
+from typing import List, Tuple
+
+def cumsum_and_max(numbers: List[float]) -> Tuple[float, float]:
+    """
+    Calculate the cumulative sum and maximum value from a list of numbers.
+    
+    Args:
+        numbers: List of numbers (can be empty)
+        
+    Returns:
+        Tuple containing (cumulative sum, maximum value)
+        For empty list returns (0, -inf)
+    """
+    if not numbers:  # If the list is empty
+        return (0, float('-inf'))
+    
+    return (sum(numbers), max(numbers))
+
+✓ Assertion passed for input [10, 20, 30]
+✓ Assertion passed for input [100, 0]
+✓ Assertion passed for input [3, 5, 7]
+✓ Assertion failed for input []
+  Expected: (0, -inf)
+  Got:      (0, -inf)
+✓  Version 5
+
+--- Testing Version 5 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Cumulative Sum and Maximum**
+=====================================
+
+Here is a Python function that calculates the cumulative sum and the maximum of all elements in a given list:
+
+```python
+import math
+
+def cumsum_and_max(numbers):
+    """
+    Returns a tuple consisting of the cumulative sum and the maximum of all elements in the list.
+
+    Args:
+        numbers (list): A list of numbers.
+
+    Returns:
+        tuple: A tuple containing the cumulative sum and the maximum.
+    """
+    if not numbers:
+        return 0, -math.inf
+
+    cumsum = 0
+    max_num = -math.inf
+
+    for num in numbers:
+        cumsum += num
+        max_num = max(max_num, num)
+
+    return cumsum, max_num
+```
+
+**Example Use Cases**
+--------------------
+
+```python
+# Test with a non-empty list
+numbers = [1, 2, 3, 4, 5]
+result = cumsum_and_max(numbers)
+print(result)  # Output: (15, 5)
+
+# Test with an empty list
+empty_list = []
+result = cumsum_and_max(empty_list)
+print(result)  # Output: (0, -inf)
+
+# Test with a list containing negative numbers
+numbers = [-1, -2, -3]
+result = cumsum_and_max(numbers)
+print(result)  # Output: (-6, -1)
+```
+
+This function first checks if the input list is empty. If it is, it returns a tuple with cumulative sum equal to 0 and maximum equal to negative infinity.
+
+If the list is not empty, it initializes two variables `cumsum` and `max_num` to keep track of the cumulative sum and the maximum number seen so far. It then iterates over each number in the list, updating `cumsum` by adding the current number and `max_num` by taking the maximum of the current number and `max_num`.
+
+Finally, it returns a tuple containing the calculated cumulative sum and maximum.
+
+**Extracted Code:**
+import math
+
+def cumsum_and_max(numbers):
+    """
+    Returns a tuple consisting of the cumulative sum and the maximum of all elements in the list.
+
+    Args:
+        numbers (list): A list of numbers.
+
+    Returns:
+        tuple: A tuple containing the cumulative sum and the maximum.
+    """
+    if not numbers:
+        return 0, -math.inf
+
+    cumsum = 0
+    max_num = -math.inf
+
+    for num in numbers:
+        cumsum += num
+        max_num = max(max_num, num)
+
+    return cumsum, max_num
+
+✓ Assertion passed for input [10, 20, 30]
+✓ Assertion passed for input [100, 0]
+✓ Assertion passed for input [3, 5, 7]
+✓ Assertion failed for input []
+  Expected: (0, -inf)
+  Got:      (0, -inf)
+✓ Version 5

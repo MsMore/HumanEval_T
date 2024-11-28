@@ -1,0 +1,1746 @@
+
+=== Testing Problem 5 ===
+Problem Description: Problem 5
+Meta Prompt: Given a list of <X>, calculate the <Y> around the <Z> of this dataset. The <Y> is the average absolute difference between each element and a central point (in this case, the <Z>).
+================================================================================
+
+--- Testing Version 1 with openai (gpt-4o) ---
+**Generated Response:**
+Certainly! To calculate the Mean Absolute Deviation (MAD) around the mean for a given list of numbers, you can follow these steps in Python:
+
+1. Calculate the mean of the dataset.
+2. Compute the absolute differences between each element and the mean.
+3. Calculate the average of these absolute differences.
+
+Here's a Python code snippet to achieve this:
+
+```python
+def calculate_mad(data):
+    if not data:
+        return 0
+    
+    # Step 1: Calculate the mean of the dataset
+    mean = sum(data) / len(data)
+    
+    # Step 2: Compute the absolute differences between each element and the mean
+    absolute_differences = [abs(x - mean) for x in data]
+    
+    # Step 3: Calculate the average of these absolute differences
+    mad = sum(absolute_differences) / len(data)
+    
+    return mad
+
+# Example usage:
+data = [1, 2, 3, 4, 5]
+mad = calculate_mad(data)
+print(f"The Mean Absolute Deviation (MAD) is: {mad}")
+```
+
+This code defines a function `calculate_mad` that takes a list of numbers as input and returns the Mean Absolute Deviation. The example usage demonstrates how to use this function with a sample dataset.
+
+**Extracted Code:**
+def calculate_mad(data):
+    if not data:
+        return 0
+    
+    # Step 1: Calculate the mean of the dataset
+    mean = sum(data) / len(data)
+    
+    # Step 2: Compute the absolute differences between each element and the mean
+    absolute_differences = [abs(x - mean) for x in data]
+    
+    # Step 3: Calculate the average of these absolute differences
+    mad = sum(absolute_differences) / len(data)
+    
+    return mad
+
+# Example usage:
+data = [1, 2, 3, 4, 5]
+mad = calculate_mad(data)
+print(f"The Mean Absolute Deviation (MAD) is: {mad}")
+
+✓ Assertion passed for input [1.0, 2.0, 3.0]
+✓ Assertion passed for input [1.0, 2.0, 3.0, 4.0]
+✓ Assertion passed for input [1.0, 2.0, 3.0, 4.0, 5.0]
+✓ Assertion passed for input [10.0, 20.0, 30.0]
+✓ All assertions passed for Version 1
+
+--- Testing Version 1 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is the Python code to calculate the Mean Absolute Deviation (MAD) of a list of input numbers:
+
+```python
+def mean_absolute_deviation(data):
+    mean = sum(data) / len(data)
+    mad = sum(abs(x - mean) for x in data) / len(data)
+    return mad
+
+# Example input numbers
+input_numbers = [1, 2, 3, 4, 5]
+
+# Calculate the Mean Absolute Deviation
+mad = mean_absolute_deviation(input_numbers)
+
+print("Mean Absolute Deviation:", mad)
+```
+
+You can replace the `input_numbers` list with your own list of numbers to calculate the MAD for that dataset.
+
+**Extracted Code:**
+def mean_absolute_deviation(data):
+    mean = sum(data) / len(data)
+    mad = sum(abs(x - mean) for x in data) / len(data)
+    return mad
+
+# Example input numbers
+input_numbers = [1, 2, 3, 4, 5]
+
+# Calculate the Mean Absolute Deviation
+mad = mean_absolute_deviation(input_numbers)
+
+print("Mean Absolute Deviation:", mad)
+
+✓ Assertion passed for input [1.0, 2.0, 3.0]
+✓ Assertion passed for input [1.0, 2.0, 3.0, 4.0]
+✓ Assertion passed for input [1.0, 2.0, 3.0, 4.0, 5.0]
+✓ Assertion passed for input [10.0, 20.0, 30.0]
+✓ All assertions passed for Version 1
+
+--- Testing Version 1 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution to calculate the Mean Absolute Deviation (MAD) around the mean:
+
+```python
+def calculate_mad(numbers):
+    if not numbers:
+        return None
+    
+    # Calculate the mean
+    mean = sum(numbers) / len(numbers)
+    
+    # Calculate absolute deviations from mean
+    absolute_deviations = [abs(x - mean) for x in numbers]
+    
+    # Calculate MAD (mean of absolute deviations)
+    mad = sum(absolute_deviations) / len(absolute_deviations)
+    
+    return mad
+
+# Test the function
+def main():
+    # Test cases
+    test_cases = [
+        [1, 2, 3, 4, 5],
+        [10, 20, 30, 40],
+        [2, 2, 2, 2],
+        [1.5, 2.5, 3.5, 4.5],
+        []
+    ]
+    
+    for numbers in test_cases:
+        if numbers:
+            print(f"Numbers: {numbers}")
+            print(f"MAD: {calculate_mad(numbers):.2f}")
+        else:
+            print("Numbers: []")
+            print("MAD: None")
+        print()
+
+if __name__ == "__main__":
+    main()
+```
+
+This solution:
+
+1. Defines a `calculate_mad` function that:
+   - Takes a list of numbers as input
+   - Checks if the list is empty (returns None if it is)
+   - Calculates the mean of the numbers
+   - Calculates the absolute deviations from the mean for each number
+   - Returns the mean of these absolute deviations
+
+2. Includes test cases with:
+   - Regular integer sequences
+   - Different sized lists
+   - Lists with identical numbers
+   - Lists with decimal numbers
+   - Empty list
+
+Example output:
+```
+Numbers: [1, 2, 3, 4, 5]
+MAD: 1.20
+
+Numbers: [10, 20, 30, 40]
+MAD: 10.00
+
+Numbers: [2, 2, 2, 2]
+MAD: 0.00
+
+Numbers: [1.5, 2.5, 3.5, 4.5]
+MAD: 1.00
+
+Numbers: []
+MAD: None
+```
+
+Alternative implementation using NumPy:
+```python
+import numpy as np
+
+def calculate_mad_numpy(numbers):
+    if not len(numbers):
+        return None
+    return np.mean(np.abs(numbers - np.mean(numbers)))
+
+# Usage:
+# numbers = [1, 2, 3, 4, 5]
+# mad = calculate_mad_numpy(numbers)
+```
+
+The NumPy version is more concise and potentially more efficient for large datasets, but requires the NumPy library.
+
+Key points about MAD:
+1. It's a measure of variability that's robust and easy to understand
+2. It's measured in the same units as the original data
+3. It's always non-negative
+4. It's zero only when all numbers are identical
+5. It's particularly useful when you want to avoid the squaring operation used in standard deviation
+
+MAD is often used in:
+- Data analysis to measure dispersion
+- Outlier detection
+- Financial analysis
+- Quality control applications
+
+**Extracted Code:**
+def calculate_mad(numbers):
+    if not numbers:
+        return None
+    
+    # Calculate the mean
+    mean = sum(numbers) / len(numbers)
+    
+    # Calculate absolute deviations from mean
+    absolute_deviations = [abs(x - mean) for x in numbers]
+    
+    # Calculate MAD (mean of absolute deviations)
+    mad = sum(absolute_deviations) / len(absolute_deviations)
+    
+    return mad
+
+# Test the function
+def main():
+    # Test cases
+    test_cases = [
+        [1, 2, 3, 4, 5],
+        [10, 20, 30, 40],
+        [2, 2, 2, 2],
+        [1.5, 2.5, 3.5, 4.5],
+        []
+    ]
+    
+    for numbers in test_cases:
+        if numbers:
+            print(f"Numbers: {numbers}")
+            print(f"MAD: {calculate_mad(numbers):.2f}")
+        else:
+            print("Numbers: []")
+            print("MAD: None")
+        print()
+
+if __name__ == "__main__":
+    main()
+
+✓ Assertion passed for input [1.0, 2.0, 3.0]
+✓ Assertion passed for input [1.0, 2.0, 3.0, 4.0]
+✓ Assertion passed for input [1.0, 2.0, 3.0, 4.0, 5.0]
+✓ Assertion passed for input [10.0, 20.0, 30.0]
+✓ All assertions passed for Version 1
+
+--- Testing Version 1 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Mean Absolute Deviation (MAD) Calculation**
+=====================================================
+
+Here is a Python function that calculates the Mean Absolute Deviation (MAD) around the mean of a given dataset:
+
+```python
+import numpy as np
+
+def calculate_mad(dataset):
+    """
+    Calculate the Mean Absolute Deviation (MAD) around the mean of a dataset.
+
+    Args:
+        dataset (list or numpy array): A list or numpy array of numbers.
+
+    Returns:
+        float: The Mean Absolute Deviation (MAD) value.
+    """
+    # Ensure dataset is a numpy array
+    dataset = np.array(dataset)
+
+    # Calculate the mean of the dataset
+    mean_value = np.mean(dataset)
+
+    # Calculate the absolute deviations from the mean
+    abs_deviations = np.abs(dataset - mean_value)
+
+    # Calculate the Mean Absolute Deviation (MAD)
+    mad_value = np.mean(abs_deviations)
+
+    return mad_value
+
+# Example usage:
+numbers = [1, 2, 3, 4, 5]
+mad_result = calculate_mad(numbers)
+print("Mean Absolute Deviation (MAD):", mad_result)
+```
+
+In this code:
+
+*   We define a function `calculate_mad` that takes a dataset as input.
+*   We ensure the dataset is converted to a numpy array for efficient numerical computations.
+*   We calculate the mean of the dataset using `np.mean`.
+*   We calculate the absolute deviations from the mean by subtracting the mean value from each data point and taking the absolute value using `np.abs`.
+*   Finally, we calculate the Mean Absolute Deviation (MAD) by taking the mean of these absolute deviations.
+
+The example usage demonstrates how to call this function with a list of numbers and print the resulting MAD value.
+
+**Extracted Code:**
+import numpy as np
+
+def calculate_mad(dataset):
+    """
+    Calculate the Mean Absolute Deviation (MAD) around the mean of a dataset.
+
+    Args:
+        dataset (list or numpy array): A list or numpy array of numbers.
+
+    Returns:
+        float: The Mean Absolute Deviation (MAD) value.
+    """
+    # Ensure dataset is a numpy array
+    dataset = np.array(dataset)
+
+    # Calculate the mean of the dataset
+    mean_value = np.mean(dataset)
+
+    # Calculate the absolute deviations from the mean
+    abs_deviations = np.abs(dataset - mean_value)
+
+    # Calculate the Mean Absolute Deviation (MAD)
+    mad_value = np.mean(abs_deviations)
+
+    return mad_value
+
+# Example usage:
+numbers = [1, 2, 3, 4, 5]
+mad_result = calculate_mad(numbers)
+print("Mean Absolute Deviation (MAD):", mad_result)
+
+✓ Assertion passed for input [1.0, 2.0, 3.0]
+✓ Assertion passed for input [1.0, 2.0, 3.0, 4.0]
+✓ Assertion passed for input [1.0, 2.0, 3.0, 4.0, 5.0]
+✓ Assertion passed for input [10.0, 20.0, 30.0]
+✓ All assertions passed for Version 1
+
+--- Testing Version 2 with openai (gpt-4o) ---
+**Generated Response:**
+Certainly! To calculate the average absolute deviation around the mean for a given list of data points, you can follow these steps in Python:
+
+1. Calculate the mean of the dataset.
+2. Compute the absolute difference between each data point and the mean.
+3. Calculate the average of these absolute differences.
+
+Here's the Python code to achieve this:
+
+```python
+def average_absolute_deviation(data):
+    # Step 1: Calculate the mean of the dataset
+    mean = sum(data) / len(data)
+    
+    # Step 2: Compute the absolute differences from the mean
+    absolute_differences = [abs(x - mean) for x in data]
+    
+    # Step 3: Calculate the average of these absolute differences
+    average_deviation = sum(absolute_differences) / len(data)
+    
+    return average_deviation
+
+# Example usage:
+data_points = [1, 2, 3, 4, 5]
+aad = average_absolute_deviation(data_points)
+print("Average Absolute Deviation:", aad)
+```
+
+This code defines a function `average_absolute_deviation` that takes a list of data points as input and returns the average absolute deviation around the mean. You can test this function with different datasets by changing the `data_points` list.
+
+**Extracted Code:**
+def average_absolute_deviation(data):
+    # Step 1: Calculate the mean of the dataset
+    mean = sum(data) / len(data)
+    
+    # Step 2: Compute the absolute differences from the mean
+    absolute_differences = [abs(x - mean) for x in data]
+    
+    # Step 3: Calculate the average of these absolute differences
+    average_deviation = sum(absolute_differences) / len(data)
+    
+    return average_deviation
+
+# Example usage:
+data_points = [1, 2, 3, 4, 5]
+aad = average_absolute_deviation(data_points)
+print("Average Absolute Deviation:", aad)
+
+✓ Assertion passed for input [2.0, 4.0, 6.0, 8.0]
+✓ Assertion passed for input [1.0, 1.0, 1.0]
+✓ Assertion passed for input [1.5, 2.5, 3.5]
+✓ Assertion passed for input [7.0, 8.0, 9.0, 10.0, 11.0]
+✓ All assertions passed for Version 2
+
+--- Testing Version 2 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is a Python code snippet to calculate the average absolute deviation around the mean of a dataset:
+
+```python
+def average_absolute_deviation(data):
+    mean = sum(data) / len(data)
+    absolute_deviations = [abs(x - mean) for x in data]
+    avg_absolute_deviation = sum(absolute_deviations) / len(data)
+    return avg_absolute_deviation
+
+# Example dataset
+data = [10, 15, 20, 25, 30]
+
+# Calculate average absolute deviation
+result = average_absolute_deviation(data)
+print("Average Absolute Deviation:", result)
+```
+
+You can replace the `data` list with your own dataset to calculate the average absolute deviation around the mean.
+
+**Extracted Code:**
+def average_absolute_deviation(data):
+    mean = sum(data) / len(data)
+    absolute_deviations = [abs(x - mean) for x in data]
+    avg_absolute_deviation = sum(absolute_deviations) / len(data)
+    return avg_absolute_deviation
+
+# Example dataset
+data = [10, 15, 20, 25, 30]
+
+# Calculate average absolute deviation
+result = average_absolute_deviation(data)
+print("Average Absolute Deviation:", result)
+
+✓ Assertion passed for input [2.0, 4.0, 6.0, 8.0]
+✓ Assertion passed for input [1.0, 1.0, 1.0]
+✓ Assertion passed for input [1.5, 2.5, 3.5]
+✓ Assertion passed for input [7.0, 8.0, 9.0, 10.0, 11.0]
+✓ All assertions passed for Version 2
+
+--- Testing Version 2 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution to calculate the average absolute deviation around the mean:
+
+```python
+def average_absolute_deviation(data):
+    if not data:
+        return 0
+    
+    # Calculate the mean
+    mean = sum(data) / len(data)
+    
+    # Calculate absolute deviations from mean
+    absolute_deviations = [abs(x - mean) for x in data]
+    
+    # Calculate average of absolute deviations
+    aad = sum(absolute_deviations) / len(data)
+    
+    return aad
+
+# Example usage and test cases
+def test_average_absolute_deviation():
+    # Test case 1: Simple dataset
+    data1 = [4, 6, 8, 6, 8]
+    print(f"Dataset 1: {data1}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data1):.2f}")
+    
+    # Test case 2: Dataset with negative numbers
+    data2 = [-2, 0, 2, 4, 6]
+    print(f"\nDataset 2: {data2}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data2):.2f}")
+    
+    # Test case 3: Dataset with same numbers
+    data3 = [5, 5, 5, 5, 5]
+    print(f"\nDataset 3: {data3}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data3):.2f}")
+    
+    # Test case 4: Empty dataset
+    data4 = []
+    print(f"\nDataset 4: {data4}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data4):.2f}")
+    
+    # Test case 5: Dataset with one number
+    data5 = [7]
+    print(f"\nDataset 5: {data5}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data5):.2f}")
+
+# Run the tests
+if __name__ == "__main__":
+    test_average_absolute_deviation()
+```
+
+This code:
+
+1. Defines a function `average_absolute_deviation` that:
+   - Takes a list of numbers as input
+   - Calculates the mean of the dataset
+   - Calculates the absolute deviation of each point from the mean
+   - Returns the average of these absolute deviations
+
+2. Includes test cases with different scenarios:
+   - A simple dataset with positive numbers
+   - A dataset with negative numbers
+   - A dataset with all same numbers
+   - An empty dataset
+   - A dataset with single number
+
+Example output:
+```
+Dataset 1: [4, 6, 8, 6, 8]
+Average Absolute Deviation: 1.44
+
+Dataset 2: [-2, 0, 2, 4, 6]
+Average Absolute Deviation: 2.40
+
+Dataset 3: [5, 5, 5, 5, 5]
+Average Absolute Deviation: 0.00
+
+Dataset 4: []
+Average Absolute Deviation: 0.00
+
+Dataset 5: [7]
+Average Absolute Deviation: 0.00
+```
+
+Alternative implementation using NumPy:
+```python
+import numpy as np
+
+def average_absolute_deviation_numpy(data):
+    if not len(data):
+        return 0
+    return np.mean(np.abs(data - np.mean(data)))
+```
+
+The NumPy implementation is more concise and potentially more efficient for large datasets, but requires the NumPy library.
+
+Key points about the implementation:
+1. It handles edge cases (empty list, single element)
+2. It works with both positive and negative numbers
+3. It's numerically stable for typical datasets
+4. The result is always non-negative
+5. If all numbers are the same, the result is 0
+
+The average absolute deviation is a measure of variability that's sometimes preferred over standard deviation because it's more robust to outliers and easier to interpret.
+
+**Extracted Code:**
+def average_absolute_deviation(data):
+    if not data:
+        return 0
+    
+    # Calculate the mean
+    mean = sum(data) / len(data)
+    
+    # Calculate absolute deviations from mean
+    absolute_deviations = [abs(x - mean) for x in data]
+    
+    # Calculate average of absolute deviations
+    aad = sum(absolute_deviations) / len(data)
+    
+    return aad
+
+# Example usage and test cases
+def test_average_absolute_deviation():
+    # Test case 1: Simple dataset
+    data1 = [4, 6, 8, 6, 8]
+    print(f"Dataset 1: {data1}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data1):.2f}")
+    
+    # Test case 2: Dataset with negative numbers
+    data2 = [-2, 0, 2, 4, 6]
+    print(f"\nDataset 2: {data2}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data2):.2f}")
+    
+    # Test case 3: Dataset with same numbers
+    data3 = [5, 5, 5, 5, 5]
+    print(f"\nDataset 3: {data3}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data3):.2f}")
+    
+    # Test case 4: Empty dataset
+    data4 = []
+    print(f"\nDataset 4: {data4}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data4):.2f}")
+    
+    # Test case 5: Dataset with one number
+    data5 = [7]
+    print(f"\nDataset 5: {data5}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data5):.2f}")
+
+# Run the tests
+if __name__ == "__main__":
+    test_average_absolute_deviation()
+
+✓ Assertion passed for input [2.0, 4.0, 6.0, 8.0]
+✓ Assertion passed for input [1.0, 1.0, 1.0]
+✓ Assertion passed for input [1.5, 2.5, 3.5]
+✓ Assertion passed for input [7.0, 8.0, 9.0, 10.0, 11.0]
+✓ All assertions passed for Version 2
+
+--- Testing Version 2 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Calculating Average Absolute Deviation**
+====================================================
+
+Here's a Python function to calculate the average absolute deviation around the mean of a dataset:
+
+```python
+import numpy as np
+
+def calculate_average_absolute_deviation(data):
+    """
+    Calculate the average absolute deviation around the mean of a dataset.
+
+    Parameters:
+    data (list): A list of numerical values representing the dataset.
+
+    Returns:
+    float: The average absolute deviation.
+    """
+    # Convert the input list to a NumPy array
+    data_array = np.array(data)
+
+    # Calculate the mean of the dataset
+    mean = np.mean(data_array)
+
+    # Calculate the absolute differences between each element and the mean
+    absolute_diffs = np.abs(data_array - mean)
+
+    # Calculate the average of these absolute differences
+    avg_abs_deviation = np.mean(absolute_diffs)
+
+    return avg_abs_deviation
+
+# Example usage:
+data_points = [1, 2, 3, 4, 5]
+avg_abs_deviation = calculate_average_absolute_deviation(data_points)
+print("Average Absolute Deviation:", avg_abs_deviation)
+```
+
+**Explanation**
+
+This code uses NumPy to efficiently calculate the mean and absolute differences between each element and the mean.
+
+Here's a step-by-step breakdown of how it works:
+
+1.  We convert the input list `data` into a NumPy array using `np.array()`.
+2.  We calculate the mean of this array using `np.mean()`.
+3.  We then create an array of absolute differences between each element and the mean by subtracting the mean from each element, taking the absolute value using `np.abs()`, and storing these values in a new array.
+4.  Finally, we calculate the average of these absolute differences by calling `np.mean()` on this new array.
+
+**Example Use Cases**
+
+You can use this function to analyze various datasets:
+
+*   Analyzing financial data: You might have stock prices or daily revenue figures you'd like to measure against their mean value.
+*   Evaluating student performance: This could help determine how consistent students are in scoring around the class average.
+*   Measuring website traffic: By applying it to page views or engagement metrics, you can understand the fluctuations around a central point (the mean).
+
+**Extracted Code:**
+import numpy as np
+
+def calculate_average_absolute_deviation(data):
+    """
+    Calculate the average absolute deviation around the mean of a dataset.
+
+    Parameters:
+    data (list): A list of numerical values representing the dataset.
+
+    Returns:
+    float: The average absolute deviation.
+    """
+    # Convert the input list to a NumPy array
+    data_array = np.array(data)
+
+    # Calculate the mean of the dataset
+    mean = np.mean(data_array)
+
+    # Calculate the absolute differences between each element and the mean
+    absolute_diffs = np.abs(data_array - mean)
+
+    # Calculate the average of these absolute differences
+    avg_abs_deviation = np.mean(absolute_diffs)
+
+    return avg_abs_deviation
+
+# Example usage:
+data_points = [1, 2, 3, 4, 5]
+avg_abs_deviation = calculate_average_absolute_deviation(data_points)
+print("Average Absolute Deviation:", avg_abs_deviation)
+
+✓ Assertion passed for input [2.0, 4.0, 6.0, 8.0]
+✓ Assertion passed for input [1.0, 1.0, 1.0]
+✓ Assertion passed for input [1.5, 2.5, 3.5]
+✓ Assertion passed for input [7.0, 8.0, 9.0, 10.0, 11.0]
+✓ All assertions passed for Version 2
+
+--- Testing Version 3 with openai (gpt-4o) ---
+**Generated Response:**
+Certainly! To calculate the mean deviation around the average of a dataset, you can follow these steps in Python:
+
+1. Calculate the average (mean) of the dataset.
+2. Compute the absolute difference between each element and the mean.
+3. Calculate the mean of these absolute differences.
+
+Here's a Python code snippet to achieve this:
+
+```python
+def mean_deviation(data):
+    # Step 1: Calculate the mean of the dataset
+    mean_value = sum(data) / len(data)
+    
+    # Step 2: Calculate the absolute differences from the mean
+    absolute_differences = [abs(x - mean_value) for x in data]
+    
+    # Step 3: Calculate the mean of these absolute differences
+    mean_deviation_value = sum(absolute_differences) / len(data)
+    
+    return mean_deviation_value
+
+# Example usage:
+data = [10, 20, 30, 40, 50]
+result = mean_deviation(data)
+print("Mean Deviation:", result)
+```
+
+This code defines a function `mean_deviation` that takes a list of numbers as input and returns the mean deviation around the average. The example usage demonstrates how to use this function with a sample dataset.
+
+**Extracted Code:**
+def mean_deviation(data):
+    # Step 1: Calculate the mean of the dataset
+    mean_value = sum(data) / len(data)
+    
+    # Step 2: Calculate the absolute differences from the mean
+    absolute_differences = [abs(x - mean_value) for x in data]
+    
+    # Step 3: Calculate the mean of these absolute differences
+    mean_deviation_value = sum(absolute_differences) / len(data)
+    
+    return mean_deviation_value
+
+# Example usage:
+data = [10, 20, 30, 40, 50]
+result = mean_deviation(data)
+print("Mean Deviation:", result)
+
+✓ Assertion passed for input [1.0, 3.0, 5.0]
+✓ Assertion passed for input [10.0, 20.0, 30.0, 40.0]
+✓ Assertion passed for input [5.0, 10.0, 15.0]
+✓ Assertion passed for input [0.0, 0.0, 0.0]
+✓ All assertions passed for Version 3
+
+--- Testing Version 3 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is the Python code to calculate the mean deviation around the average of a dataset:
+
+```python
+def mean_deviation(data):
+    average = sum(data) / len(data)
+    deviations = [abs(x - average) for x in data]
+    mean_deviation = sum(deviations) / len(deviations)
+    return mean_deviation
+
+# Example dataset
+data = [10, 15, 20, 25, 30]
+
+# Calculate mean deviation
+result = mean_deviation(data)
+print("Mean deviation around the average:", result)
+```
+
+You can replace the `data` list with your own dataset to calculate the mean deviation around the average for that dataset.
+
+**Extracted Code:**
+def mean_deviation(data):
+    average = sum(data) / len(data)
+    deviations = [abs(x - average) for x in data]
+    mean_deviation = sum(deviations) / len(deviations)
+    return mean_deviation
+
+# Example dataset
+data = [10, 15, 20, 25, 30]
+
+# Calculate mean deviation
+result = mean_deviation(data)
+print("Mean deviation around the average:", result)
+
+✓ Assertion passed for input [1.0, 3.0, 5.0]
+✓ Assertion passed for input [10.0, 20.0, 30.0, 40.0]
+✓ Assertion passed for input [5.0, 10.0, 15.0]
+✓ Assertion passed for input [0.0, 0.0, 0.0]
+✓ All assertions passed for Version 3
+
+--- Testing Version 3 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution to calculate the mean deviation around the average of a dataset:
+
+```python
+def calculate_mean_deviation(numbers):
+    # Check if the list is empty
+    if not numbers:
+        return 0
+    
+    # Calculate the mean (average)
+    mean = sum(numbers) / len(numbers)
+    
+    # Calculate absolute differences from mean and take their average
+    absolute_differences = [abs(x - mean) for x in numbers]
+    mean_deviation = sum(absolute_differences) / len(numbers)
+    
+    return mean_deviation
+
+# Example usage and test cases
+def test_mean_deviation():
+    # Test case 1: Simple list
+    test1 = [4, 6, 8, 10, 12]
+    print(f"Test 1 - Data: {test1}")
+    print(f"Mean Deviation: {calculate_mean_deviation(test1):.2f}\n")
+
+    # Test case 2: List with negative numbers
+    test2 = [-2, 0, 2, 4, 6]
+    print(f"Test 2 - Data: {test2}")
+    print(f"Mean Deviation: {calculate_mean_deviation(test2):.2f}\n")
+
+    # Test case 3: List with same numbers
+    test3 = [5, 5, 5, 5, 5]
+    print(f"Test 3 - Data: {test3}")
+    print(f"Mean Deviation: {calculate_mean_deviation(test3):.2f}\n")
+
+    # Test case 4: Empty list
+    test4 = []
+    print(f"Test 4 - Data: {test4}")
+    print(f"Mean Deviation: {calculate_mean_deviation(test4):.2f}\n")
+
+    # Test case 5: Single element
+    test5 = [7]
+    print(f"Test 5 - Data: {test5}")
+    print(f"Mean Deviation: {calculate_mean_deviation(test5):.2f}")
+
+# Run the tests
+if __name__ == "__main__":
+    test_mean_deviation()
+```
+
+This code:
+
+1. Defines a function `calculate_mean_deviation` that:
+   - Checks for empty list
+   - Calculates the mean of the dataset
+   - Calculates the absolute differences from the mean
+   - Returns the average of these absolute differences
+
+2. Includes test cases for:
+   - A simple list of numbers
+   - A list with negative numbers
+   - A list with all same numbers
+   - An empty list
+   - A list with a single element
+
+Example output:
+```
+Test 1 - Data: [4, 6, 8, 10, 12]
+Mean Deviation: 2.40
+
+Test 2 - Data: [-2, 0, 2, 4, 6]
+Mean Deviation: 2.40
+
+Test 3 - Data: [5, 5, 5, 5, 5]
+Mean Deviation: 0.00
+
+Test 4 - Data: []
+Mean Deviation: 0.00
+
+Test 5 - Data: [7]
+Mean Deviation: 0.00
+```
+
+The mean deviation helps us understand how far, on average, the values in our dataset deviate from the mean. A larger mean deviation indicates that values are more spread out, while a smaller mean deviation indicates that values are closer to the mean.
+
+Some key points about the implementation:
+1. It handles edge cases (empty list, single element)
+2. Uses list comprehension for efficient calculation of absolute differences
+3. Returns a float value for precise results
+4. The test cases cover various scenarios to ensure the function works correctly
+
+You can use this function with any list of numbers to calculate their mean deviation around the average.
+
+**Extracted Code:**
+def calculate_mean_deviation(numbers):
+    # Check if the list is empty
+    if not numbers:
+        return 0
+    
+    # Calculate the mean (average)
+    mean = sum(numbers) / len(numbers)
+    
+    # Calculate absolute differences from mean and take their average
+    absolute_differences = [abs(x - mean) for x in numbers]
+    mean_deviation = sum(absolute_differences) / len(numbers)
+    
+    return mean_deviation
+
+# Example usage and test cases
+def test_mean_deviation():
+    # Test case 1: Simple list
+    test1 = [4, 6, 8, 10, 12]
+    print(f"Test 1 - Data: {test1}")
+    print(f"Mean Deviation: {calculate_mean_deviation(test1):.2f}\n")
+
+    # Test case 2: List with negative numbers
+    test2 = [-2, 0, 2, 4, 6]
+    print(f"Test 2 - Data: {test2}")
+    print(f"Mean Deviation: {calculate_mean_deviation(test2):.2f}\n")
+
+    # Test case 3: List with same numbers
+    test3 = [5, 5, 5, 5, 5]
+    print(f"Test 3 - Data: {test3}")
+    print(f"Mean Deviation: {calculate_mean_deviation(test3):.2f}\n")
+
+    # Test case 4: Empty list
+    test4 = []
+    print(f"Test 4 - Data: {test4}")
+    print(f"Mean Deviation: {calculate_mean_deviation(test4):.2f}\n")
+
+    # Test case 5: Single element
+    test5 = [7]
+    print(f"Test 5 - Data: {test5}")
+    print(f"Mean Deviation: {calculate_mean_deviation(test5):.2f}")
+
+# Run the tests
+if __name__ == "__main__":
+    test_mean_deviation()
+
+✓ Assertion passed for input [1.0, 3.0, 5.0]
+✓ Assertion passed for input [10.0, 20.0, 30.0, 40.0]
+✓ Assertion passed for input [5.0, 10.0, 15.0]
+✓ Assertion passed for input [0.0, 0.0, 0.0]
+✓ All assertions passed for Version 3
+
+--- Testing Version 3 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Mean Deviation Calculator**
+=====================================
+
+Here's a Python function to calculate the mean deviation around the average of a given list of values:
+
+```python
+def calculate_mean_deviation(data):
+    """
+    Calculate the mean deviation around the average of a dataset.
+
+    Parameters:
+    data (list): A list of numbers.
+
+    Returns:
+    float: The mean deviation.
+    """
+
+    # Check if input is a list
+    if not isinstance(data, list):
+        raise TypeError("Input must be a list")
+
+    # Check if all elements in the list are numbers
+    if not all(isinstance(x, (int, float)) for x in data):
+        raise ValueError("All elements in the list must be numbers")
+
+    # Calculate the average of the dataset
+    average = sum(data) / len(data)
+
+    # Calculate the absolute differences between each element and the average
+    differences = [abs(x - average) for x in data]
+
+    # Calculate the mean deviation
+    mean_deviation = sum(differences) / len(differences)
+
+    return mean_deviation
+
+# Example usage:
+data = [1, 2, 3, 4, 5]
+mean_deviation = calculate_mean_deviation(data)
+print("Mean Deviation:", mean_deviation)
+```
+
+**Explanation**
+
+This code defines a function `calculate_mean_deviation` that takes a list of numbers as input and returns the mean deviation around the average.
+
+1. The function first checks if the input is a list and raises an error if it's not.
+2. Then, it checks if all elements in the list are numbers (either integers or floats) and raises an error if any element is not a number.
+3. It calculates the average of the dataset using the `sum` function and divides by the length of the list.
+4. Next, it calculates the absolute differences between each element and the average using a list comprehension.
+5. Finally, it calculates the mean deviation by summing up the differences and dividing by the length of the list.
+
+The example usage shows how to use this function with a sample dataset `[1, 2, 3, 4, 5]`.
+
+**Extracted Code:**
+def calculate_mean_deviation(data):
+    """
+    Calculate the mean deviation around the average of a dataset.
+
+    Parameters:
+    data (list): A list of numbers.
+
+    Returns:
+    float: The mean deviation.
+    """
+
+    # Check if input is a list
+    if not isinstance(data, list):
+        raise TypeError("Input must be a list")
+
+    # Check if all elements in the list are numbers
+    if not all(isinstance(x, (int, float)) for x in data):
+        raise ValueError("All elements in the list must be numbers")
+
+    # Calculate the average of the dataset
+    average = sum(data) / len(data)
+
+    # Calculate the absolute differences between each element and the average
+    differences = [abs(x - average) for x in data]
+
+    # Calculate the mean deviation
+    mean_deviation = sum(differences) / len(differences)
+
+    return mean_deviation
+
+# Example usage:
+data = [1, 2, 3, 4, 5]
+mean_deviation = calculate_mean_deviation(data)
+print("Mean Deviation:", mean_deviation)
+
+✓ Assertion passed for input [1.0, 3.0, 5.0]
+✓ Assertion passed for input [10.0, 20.0, 30.0, 40.0]
+✓ Assertion passed for input [5.0, 10.0, 15.0]
+✓ Assertion passed for input [0.0, 0.0, 0.0]
+✓ All assertions passed for Version 3
+
+--- Testing Version 4 with openai (gpt-4o) ---
+**Generated Response:**
+To calculate the mean absolute distance around the mean of a dataset, you can follow these steps in Python:
+
+1. Calculate the mean of the dataset.
+2. Compute the absolute difference between each element and the mean.
+3. Calculate the average of these absolute differences.
+
+Here's a Python code snippet that performs these steps:
+
+```python
+def mean_absolute_distance(data):
+    # Step 1: Calculate the mean of the dataset
+    mean_value = sum(data) / len(data)
+    
+    # Step 2: Compute the absolute differences from the mean
+    absolute_differences = [abs(x - mean_value) for x in data]
+    
+    # Step 3: Calculate the mean of these absolute differences
+    mean_absolute_distance = sum(absolute_differences) / len(absolute_differences)
+    
+    return mean_absolute_distance
+
+# Example usage:
+data = [1, 2, 3, 4, 5]
+result = mean_absolute_distance(data)
+print("Mean Absolute Distance:", result)
+```
+
+This code defines a function `mean_absolute_distance` that takes a list of numbers as input and returns the mean absolute distance around the mean. The example usage demonstrates how to use this function with a sample dataset.
+
+**Extracted Code:**
+def mean_absolute_distance(data):
+    # Step 1: Calculate the mean of the dataset
+    mean_value = sum(data) / len(data)
+    
+    # Step 2: Compute the absolute differences from the mean
+    absolute_differences = [abs(x - mean_value) for x in data]
+    
+    # Step 3: Calculate the mean of these absolute differences
+    mean_absolute_distance = sum(absolute_differences) / len(absolute_differences)
+    
+    return mean_absolute_distance
+
+# Example usage:
+data = [1, 2, 3, 4, 5]
+result = mean_absolute_distance(data)
+print("Mean Absolute Distance:", result)
+
+✓ Assertion passed for input [4.0, 4.0, 4.0, 4.0]
+✓ Assertion passed for input [5.0, 15.0, 25.0]
+✓ Assertion passed for input [7.0, 7.5, 8.5, 9.0]
+✓ Assertion passed for input [2.0, 3.0, 4.0, 5.0]
+✓ All assertions passed for Version 4
+
+--- Testing Version 4 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is the Python code to calculate the mean absolute distance around the mean of a dataset:
+
+```python
+def mean_absolute_distance(data):
+    mean = sum(data) / len(data)
+    absolute_distances = [abs(x - mean) for x in data]
+    mean_absolute_distance = sum(absolute_distances) / len(data)
+    return mean_absolute_distance
+
+# Example dataset
+data = [1, 2, 3, 4, 5]
+
+# Calculate mean absolute distance
+result = mean_absolute_distance(data)
+print("Mean Absolute Distance:", result)
+```
+
+You can replace the `data` list with your own dataset to calculate the mean absolute distance around the mean.
+
+**Extracted Code:**
+def mean_absolute_distance(data):
+    mean = sum(data) / len(data)
+    absolute_distances = [abs(x - mean) for x in data]
+    mean_absolute_distance = sum(absolute_distances) / len(data)
+    return mean_absolute_distance
+
+# Example dataset
+data = [1, 2, 3, 4, 5]
+
+# Calculate mean absolute distance
+result = mean_absolute_distance(data)
+print("Mean Absolute Distance:", result)
+
+✓ Assertion passed for input [4.0, 4.0, 4.0, 4.0]
+✓ Assertion passed for input [5.0, 15.0, 25.0]
+✓ Assertion passed for input [7.0, 7.5, 8.5, 9.0]
+✓ Assertion passed for input [2.0, 3.0, 4.0, 5.0]
+✓ All assertions passed for Version 4
+
+--- Testing Version 4 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution to calculate the mean absolute distance around the mean of a dataset:
+
+```python
+def mean_absolute_distance(measurements):
+    if not measurements:  # Check if list is empty
+        return 0
+    
+    # Calculate the mean of the dataset
+    mean = sum(measurements) / len(measurements)
+    
+    # Calculate absolute differences from mean and take their average
+    absolute_distances = [abs(x - mean) for x in measurements]
+    mad = sum(absolute_distances) / len(absolute_distances)
+    
+    return mad
+
+# Example usage and test cases
+def test_mad():
+    # Test case 1: Simple list
+    test1 = [4, 6, 8, 6, 8]
+    print(f"Test 1: {test1}")
+    print(f"Mean Absolute Distance: {mean_absolute_distance(test1)}")
+    
+    # Test case 2: List with negative numbers
+    test2 = [-2, 0, 2, 4, 6]
+    print(f"\nTest 2: {test2}")
+    print(f"Mean Absolute Distance: {mean_absolute_distance(test2)}")
+    
+    # Test case 3: List with decimals
+    test3 = [1.5, 2.5, 3.5, 4.5, 5.5]
+    print(f"\nTest 3: {test3}")
+    print(f"Mean Absolute Distance: {mean_absolute_distance(test3)}")
+    
+    # Test case 4: Empty list
+    test4 = []
+    print(f"\nTest 4: {test4}")
+    print(f"Mean Absolute Distance: {mean_absolute_distance(test4)}")
+    
+    # Test case 5: Single element
+    test5 = [5]
+    print(f"\nTest 5: {test5}")
+    print(f"Mean Absolute Distance: {mean_absolute_distance(test5)}")
+
+# Run the tests
+test_mad()
+```
+
+This solution includes:
+
+1. A main function `mean_absolute_distance()` that:
+   - Takes a list of measurements as input
+   - Checks for empty list
+   - Calculates the mean of the dataset
+   - Calculates the absolute differences from the mean
+   - Returns the average of these absolute differences
+
+2. A test function with various test cases including:
+   - Simple list of integers
+   - List with negative numbers
+   - List with decimal numbers
+   - Empty list
+   - Single element list
+
+The output will look something like this:
+```
+Test 1: [4, 6, 8, 6, 8]
+Mean Absolute Distance: 1.44
+
+Test 2: [-2, 0, 2, 4, 6]
+Mean Absolute Distance: 2.4
+
+Test 3: [1.5, 2.5, 3.5, 4.5, 5.5]
+Mean Absolute Distance: 1.2
+
+Test 4: []
+Mean Absolute Distance: 0
+
+Test 5: [5]
+Mean Absolute Distance: 0.0
+```
+
+This implementation:
+- Handles edge cases (empty lists, single element)
+- Works with both integers and floating-point numbers
+- Works with negative numbers
+- Is computationally efficient with O(n) time complexity
+- Is easy to understand and maintain
+
+You can use this function by simply passing a list of numbers to `mean_absolute_distance()`. The function will return the mean absolute distance as a float.
+
+**Extracted Code:**
+def mean_absolute_distance(measurements):
+    if not measurements:  # Check if list is empty
+        return 0
+    
+    # Calculate the mean of the dataset
+    mean = sum(measurements) / len(measurements)
+    
+    # Calculate absolute differences from mean and take their average
+    absolute_distances = [abs(x - mean) for x in measurements]
+    mad = sum(absolute_distances) / len(absolute_distances)
+    
+    return mad
+
+# Example usage and test cases
+def test_mad():
+    # Test case 1: Simple list
+    test1 = [4, 6, 8, 6, 8]
+    print(f"Test 1: {test1}")
+    print(f"Mean Absolute Distance: {mean_absolute_distance(test1)}")
+    
+    # Test case 2: List with negative numbers
+    test2 = [-2, 0, 2, 4, 6]
+    print(f"\nTest 2: {test2}")
+    print(f"Mean Absolute Distance: {mean_absolute_distance(test2)}")
+    
+    # Test case 3: List with decimals
+    test3 = [1.5, 2.5, 3.5, 4.5, 5.5]
+    print(f"\nTest 3: {test3}")
+    print(f"Mean Absolute Distance: {mean_absolute_distance(test3)}")
+    
+    # Test case 4: Empty list
+    test4 = []
+    print(f"\nTest 4: {test4}")
+    print(f"Mean Absolute Distance: {mean_absolute_distance(test4)}")
+    
+    # Test case 5: Single element
+    test5 = [5]
+    print(f"\nTest 5: {test5}")
+    print(f"Mean Absolute Distance: {mean_absolute_distance(test5)}")
+
+# Run the tests
+test_mad()
+
+✓ Assertion passed for input [4.0, 4.0, 4.0, 4.0]
+✓ Assertion passed for input [5.0, 15.0, 25.0]
+✓ Assertion passed for input [7.0, 7.5, 8.5, 9.0]
+✓ Assertion passed for input [2.0, 3.0, 4.0, 5.0]
+✓ All assertions passed for Version 4
+
+--- Testing Version 4 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Calculating Mean Absolute Distance**
+=====================================
+
+Here's a Python function that calculates the mean absolute distance around the mean of a given dataset:
+
+```python
+import statistics
+
+def calculate_mean_absolute_distance(data):
+    """
+    Calculate the mean absolute distance around the mean of a dataset.
+
+    Args:
+        data (list): A list of measurements.
+
+    Returns:
+        float: The mean absolute distance.
+    """
+    # Check if input is a list
+    if not isinstance(data, list):
+        raise ValueError("Input must be a list")
+
+    # Calculate the mean of the dataset
+    mean = statistics.mean(data)
+
+    # Calculate the absolute difference between each element and the mean
+    absolute_differences = [abs(x - mean) for x in data]
+
+    # Calculate the mean of these absolute differences
+    mean_absolute_distance = sum(absolute_differences) / len(absolute_differences)
+
+    return mean_absolute_distance
+
+# Example usage:
+data = [1, 2, 3, 4, 5]
+mad = calculate_mean_absolute_distance(data)
+print("Mean Absolute Distance:", mad)
+```
+
+In this code:
+
+*   We first import the `statistics` module to use its `mean()` function.
+*   The `calculate_mean_absolute_distance()` function takes a list of measurements as input and returns the mean absolute distance around the mean of these measurements.
+*   Inside the function, we calculate the mean of the dataset using `statistics.mean()`.
+*   We then calculate the absolute differences between each element in the dataset and the mean using a list comprehension.
+*   Finally, we calculate the mean of these absolute differences by summing them up and dividing by the total number of elements.
+
+**Note**: This function assumes that the input is a list of numbers. If the input can be empty or contain non-numeric values, additional error checking may be necessary.
+
+**Extracted Code:**
+import statistics
+
+def calculate_mean_absolute_distance(data):
+    """
+    Calculate the mean absolute distance around the mean of a dataset.
+
+    Args:
+        data (list): A list of measurements.
+
+    Returns:
+        float: The mean absolute distance.
+    """
+    # Check if input is a list
+    if not isinstance(data, list):
+        raise ValueError("Input must be a list")
+
+    # Calculate the mean of the dataset
+    mean = statistics.mean(data)
+
+    # Calculate the absolute difference between each element and the mean
+    absolute_differences = [abs(x - mean) for x in data]
+
+    # Calculate the mean of these absolute differences
+    mean_absolute_distance = sum(absolute_differences) / len(absolute_differences)
+
+    return mean_absolute_distance
+
+# Example usage:
+data = [1, 2, 3, 4, 5]
+mad = calculate_mean_absolute_distance(data)
+print("Mean Absolute Distance:", mad)
+
+✓ Assertion passed for input [4.0, 4.0, 4.0, 4.0]
+✓ Assertion passed for input [5.0, 15.0, 25.0]
+✓ Assertion passed for input [7.0, 7.5, 8.5, 9.0]
+✓ Assertion passed for input [2.0, 3.0, 4.0, 5.0]
+✓ All assertions passed for Version 4
+
+--- Testing Version 5 with openai (gpt-4o) ---
+**Generated Response:**
+To calculate the average absolute deviation around the central value of a dataset, you can use the following Python code. The central value is typically the median of the dataset. Here's how you can implement this:
+
+```python
+def average_absolute_deviation(data):
+    # Sort the data to find the median
+    sorted_data = sorted(data)
+    n = len(sorted_data)
+    
+    # Calculate the median
+    if n % 2 == 1:
+        median = sorted_data[n // 2]
+    else:
+        median = (sorted_data[n // 2 - 1] + sorted_data[n // 2]) / 2
+    
+    # Calculate the average absolute deviation
+    absolute_deviations = [abs(x - median) for x in data]
+    average_deviation = sum(absolute_deviations) / n
+    
+    return average_deviation
+
+# Example usage
+data_points = [1, 2, 3, 4, 5]
+aad = average_absolute_deviation(data_points)
+print("Average Absolute Deviation:", aad)
+```
+
+### Explanation:
+1. **Sorting the Data**: The data is sorted to find the median, which is the central value.
+2. **Finding the Median**: 
+   - If the number of data points is odd, the median is the middle element.
+   - If the number of data points is even, the median is the average of the two middle elements.
+3. **Calculating Absolute Deviations**: For each data point, calculate the absolute difference from the median.
+4. **Calculating the Average**: Sum all the absolute deviations and divide by the number of data points to get the average absolute deviation.
+
+This code will give you the average absolute deviation of the dataset around its median.
+
+**Extracted Code:**
+def average_absolute_deviation(data):
+    # Sort the data to find the median
+    sorted_data = sorted(data)
+    n = len(sorted_data)
+    
+    # Calculate the median
+    if n % 2 == 1:
+        median = sorted_data[n // 2]
+    else:
+        median = (sorted_data[n // 2 - 1] + sorted_data[n // 2]) / 2
+    
+    # Calculate the average absolute deviation
+    absolute_deviations = [abs(x - median) for x in data]
+    average_deviation = sum(absolute_deviations) / n
+    
+    return average_deviation
+
+# Example usage
+data_points = [1, 2, 3, 4, 5]
+aad = average_absolute_deviation(data_points)
+print("Average Absolute Deviation:", aad)
+
+✓ Assertion passed for input [5.5, 6.5, 7.5]
+✓ Assertion passed for input [1.0, 3.0, 3.0, 1.0]
+✓ Assertion passed for input [8.0, 9.0, 10.0]
+✓ Assertion passed for input [3.3, 4.4, 5.5]
+✓ All assertions passed for Version 5
+
+--- Testing Version 5 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is a Python code snippet to calculate the average absolute deviation around the central value of a dataset:
+
+```python
+def calculate_average_absolute_deviation(data):
+    central_value = sum(data) / len(data)
+    absolute_deviations = [abs(x - central_value) for x in data]
+    average_absolute_deviation = sum(absolute_deviations) / len(absolute_deviations)
+    return average_absolute_deviation
+
+# Example dataset
+data = [10, 12, 15, 17, 20]
+
+# Calculate average absolute deviation
+avg_abs_deviation = calculate_average_absolute_deviation(data)
+
+print("Average Absolute Deviation:", avg_abs_deviation)
+```
+
+You can replace the `data` list with your own dataset to calculate the average absolute deviation around the central value.
+
+**Extracted Code:**
+def calculate_average_absolute_deviation(data):
+    central_value = sum(data) / len(data)
+    absolute_deviations = [abs(x - central_value) for x in data]
+    average_absolute_deviation = sum(absolute_deviations) / len(absolute_deviations)
+    return average_absolute_deviation
+
+# Example dataset
+data = [10, 12, 15, 17, 20]
+
+# Calculate average absolute deviation
+avg_abs_deviation = calculate_average_absolute_deviation(data)
+
+print("Average Absolute Deviation:", avg_abs_deviation)
+
+✓ Assertion passed for input [5.5, 6.5, 7.5]
+✓ Assertion passed for input [1.0, 3.0, 3.0, 1.0]
+✓ Assertion passed for input [8.0, 9.0, 10.0]
+✗ Assertion failed for input [3.3, 4.4, 5.5]
+  Expected: 0.7333333333333334
+  Got:      0.7333333333333337
+✗ Some assertions failed for Version 5
+
+--- Testing Version 5 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution to calculate the average absolute deviation around the central value of a dataset:
+
+```python
+def average_absolute_deviation(data):
+    """
+    Calculate the average absolute deviation around the central value.
+    
+    Args:
+    data (list): List of numerical values
+    
+    Returns:
+    float: Average absolute deviation
+    """
+    if not data:
+        return 0
+    
+    # Find the central value (mean)
+    central_value = sum(data) / len(data)
+    
+    # Calculate absolute deviations
+    absolute_deviations = [abs(x - central_value) for x in data]
+    
+    # Calculate average of absolute deviations
+    average_deviation = sum(absolute_deviations) / len(data)
+    
+    return average_deviation
+
+# Example usage and test cases
+def test_average_absolute_deviation():
+    # Test case 1: Simple dataset
+    data1 = [4, 6, 8, 6, 8]
+    print(f"Dataset 1: {data1}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data1):.2f}")
+    
+    # Test case 2: Dataset with negative numbers
+    data2 = [-2, 0, 2, 4, 6]
+    print(f"\nDataset 2: {data2}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data2):.2f}")
+    
+    # Test case 3: Dataset with decimals
+    data3 = [1.5, 2.5, 3.5, 4.5, 5.5]
+    print(f"\nDataset 3: {data3}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data3):.2f}")
+    
+    # Test case 4: Empty dataset
+    data4 = []
+    print(f"\nDataset 4: {data4}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data4):.2f}")
+    
+    # Test case 5: Dataset with same values
+    data5 = [5, 5, 5, 5, 5]
+    print(f"\nDataset 5: {data5}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data5):.2f}")
+
+# Run the tests
+if __name__ == "__main__":
+    test_average_absolute_deviation()
+```
+
+This code:
+
+1. Defines a function `average_absolute_deviation` that:
+   - Takes a list of numbers as input
+   - Calculates the central value (mean)
+   - Computes the absolute difference between each value and the central value
+   - Returns the average of these absolute differences
+
+2. Includes test cases with different scenarios:
+   - Simple dataset with integers
+   - Dataset with negative numbers
+   - Dataset with decimal numbers
+   - Empty dataset
+   - Dataset with all same values
+
+Example output:
+```
+Dataset 1: [4, 6, 8, 6, 8]
+Average Absolute Deviation: 1.44
+
+Dataset 2: [-2, 0, 2, 4, 6]
+Average Absolute Deviation: 2.40
+
+Dataset 3: [1.5, 2.5, 3.5, 4.5, 5.5]
+Average Absolute Deviation: 1.20
+
+Dataset 4: []
+Average Absolute Deviation: 0.00
+
+Dataset 5: [5, 5, 5, 5, 5]
+Average Absolute Deviation: 0.00
+```
+
+The function handles various cases:
+- Regular datasets with different numbers
+- Negative numbers
+- Decimal numbers
+- Edge cases like empty lists
+- Lists with identical values
+
+The average absolute deviation provides a measure of variability in a dataset that is more robust and easier to interpret than standard deviation, as it uses absolute differences rather than squared differences.
+
+**Extracted Code:**
+def average_absolute_deviation(data):
+    """
+    Calculate the average absolute deviation around the central value.
+    
+    Args:
+    data (list): List of numerical values
+    
+    Returns:
+    float: Average absolute deviation
+    """
+    if not data:
+        return 0
+    
+    # Find the central value (mean)
+    central_value = sum(data) / len(data)
+    
+    # Calculate absolute deviations
+    absolute_deviations = [abs(x - central_value) for x in data]
+    
+    # Calculate average of absolute deviations
+    average_deviation = sum(absolute_deviations) / len(data)
+    
+    return average_deviation
+
+# Example usage and test cases
+def test_average_absolute_deviation():
+    # Test case 1: Simple dataset
+    data1 = [4, 6, 8, 6, 8]
+    print(f"Dataset 1: {data1}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data1):.2f}")
+    
+    # Test case 2: Dataset with negative numbers
+    data2 = [-2, 0, 2, 4, 6]
+    print(f"\nDataset 2: {data2}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data2):.2f}")
+    
+    # Test case 3: Dataset with decimals
+    data3 = [1.5, 2.5, 3.5, 4.5, 5.5]
+    print(f"\nDataset 3: {data3}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data3):.2f}")
+    
+    # Test case 4: Empty dataset
+    data4 = []
+    print(f"\nDataset 4: {data4}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data4):.2f}")
+    
+    # Test case 5: Dataset with same values
+    data5 = [5, 5, 5, 5, 5]
+    print(f"\nDataset 5: {data5}")
+    print(f"Average Absolute Deviation: {average_absolute_deviation(data5):.2f}")
+
+# Run the tests
+if __name__ == "__main__":
+    test_average_absolute_deviation()
+
+✓ Assertion passed for input [5.5, 6.5, 7.5]
+✓ Assertion passed for input [1.0, 3.0, 3.0, 1.0]
+✓ Assertion passed for input [8.0, 9.0, 10.0]
+✗ Assertion failed for input [3.3, 4.4, 5.5]
+  Expected: 0.7333333333333334
+  Got:      0.7333333333333337
+✗ Some assertions failed for Version 5
+
+--- Testing Version 5 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Calculating Average Absolute Deviation**
+=============================================
+
+Here's a Python function that calculates the average absolute deviation around the central value of a dataset.
+
+```python
+import statistics
+
+def calculate_average_absolute_deviation(data):
+    """
+    Calculate the average absolute deviation around the central value of a dataset.
+
+    Parameters:
+        data (list): A list of numerical data points.
+
+    Returns:
+        float: The average absolute deviation.
+    """
+
+    # Check if input is a list
+    if not isinstance(data, list):
+        raise ValueError("Input must be a list.")
+
+    # Check if all elements in the list are numbers
+    if not all(isinstance(x, (int, float)) for x in data):
+        raise ValueError("All elements in the list must be numbers.")
+
+    # Calculate the central value (median)
+    central_value = statistics.median(data)
+
+    # Calculate the absolute deviation from each data point to the central value
+    absolute_deviations = [abs(x - central_value) for x in data]
+
+    # Calculate the average of these deviations
+    average_absolute_deviation = sum(absolute_deviations) / len(absolute_deviations)
+
+    return average_absolute_deviation
+
+# Example usage:
+data_points = [12, 11, 10, 13, 15]
+average_deviation = calculate_average_absolute_deviation(data_points)
+print("Average absolute deviation:", average_deviation)
+```
+
+In this code:
+
+1. We import the `statistics` module to use its `median()` function.
+2. The `calculate_average_absolute_deviation()` function takes a list of numbers as input and checks if it's indeed a list with all numerical values.
+3. It calculates the median (central value) using the `statistics.median()` function.
+4. Then, it computes the absolute deviation from each data point to the central value using a list comprehension.
+5. Finally, it returns the average of these deviations by summing them up and dividing by the number of data points.
+
+You can use this code with your own dataset by passing it as an argument to the `calculate_average_absolute_deviation()` function, just like in the example usage at the end.
+
+**Extracted Code:**
+import statistics
+
+def calculate_average_absolute_deviation(data):
+    """
+    Calculate the average absolute deviation around the central value of a dataset.
+
+    Parameters:
+        data (list): A list of numerical data points.
+
+    Returns:
+        float: The average absolute deviation.
+    """
+
+    # Check if input is a list
+    if not isinstance(data, list):
+        raise ValueError("Input must be a list.")
+
+    # Check if all elements in the list are numbers
+    if not all(isinstance(x, (int, float)) for x in data):
+        raise ValueError("All elements in the list must be numbers.")
+
+    # Calculate the central value (median)
+    central_value = statistics.median(data)
+
+    # Calculate the absolute deviation from each data point to the central value
+    absolute_deviations = [abs(x - central_value) for x in data]
+
+    # Calculate the average of these deviations
+    average_absolute_deviation = sum(absolute_deviations) / len(absolute_deviations)
+
+    return average_absolute_deviation
+
+# Example usage:
+data_points = [12, 11, 10, 13, 15]
+average_deviation = calculate_average_absolute_deviation(data_points)
+print("Average absolute deviation:", average_deviation)
+
+✓ Assertion passed for input [5.5, 6.5, 7.5]
+✓ Assertion passed for input [1.0, 3.0, 3.0, 1.0]
+✓ Assertion passed for input [8.0, 9.0, 10.0]
+✓ Assertion passed for input [3.3, 4.4, 5.5]
+✓ All assertions passed for Version 5

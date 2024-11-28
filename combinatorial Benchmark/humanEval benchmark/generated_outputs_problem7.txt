@@ -1,0 +1,206 @@
+
+=== Testing Problem 7 ===
+Prompt: from typing import List
+def filter_by_substring(strings: List[str], substring: str) -> List[str]:
+    """ Filter an input list of strings only for ones that contain given substring
+    >>> filter_by_substring([], 'a')
+    []
+    >>> filter_by_substring(['abc', 'bacd', 'cde', 'array'], 'a')
+    ['abc', 'bacd', 'array']
+    """
+================================================================================
+
+--- Testing with openai (gpt-4) ---
+**Generated Response:**
+Here is the Python code for the problem:
+
+```python
+def filter_by_substring(strings: List[str], substring: str) -> List[str]:
+    return [s for s in strings if substring in s]
+```
+
+This function uses list comprehension to create a new list that only includes the strings from the input list that contain the given substring. The `in` operator is used to check if the substring is in each string.
+
+**Extracted Code:**
+def filter_by_substring(strings: List[str], substring: str) -> List[str]:
+    return [s for s in strings if substring in s]
+
+Error importing generated code: name 'List' is not defined
+✗ Some assertions failed
+
+--- Testing with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+def filter_by_substring(strings: List[str], substring: str) -> List[str]:
+    return [s for s in strings if substring in s]
+
+**Extracted Code:**
+def filter_by_substring(strings: List[str], substring: str) -> List[str]:
+    return [s for s in strings if substring in s]
+
+Error importing generated code: name 'List' is not defined
+✗ Some assertions failed
+
+--- Testing with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's the Python code to filter a list of strings based on a given substring:
+
+```python
+from typing import List
+
+def filter_by_substring(strings: List[str], substring: str) -> List[str]:
+    """ Filter an input list of strings only for ones that contain given substring
+    >>> filter_by_substring([], 'a')
+    []
+    >>> filter_by_substring(['abc', 'bacd', 'cde', 'array'], 'a')
+    ['abc', 'bacd', 'array']
+    """
+    return [s for s in strings if substring in s]
+```
+
+This solution:
+
+1. Takes two parameters:
+   - `strings`: A list of strings to filter
+   - `substring`: The substring to search for in each string
+
+2. Uses a list comprehension to create a new list containing only the strings that include the substring
+
+3. The `in` operator is used to check if the substring exists within each string
+
+4. Returns the filtered list
+
+Alternative solution using filter() function:
+```python
+def filter_by_substring(strings: List[str], substring: str) -> List[str]:
+    return list(filter(lambda x: substring in x, strings))
+```
+
+Both solutions will:
+- Return an empty list if the input list is empty
+- Return a list of all strings that contain the given substring
+- Preserve the order of the original list
+- Handle both upper and lower case characters as distinct (case-sensitive)
+
+The solution is:
+- Time complexity: O(n * m) where n is the length of the input list and m is the average length of the strings
+- Space complexity: O(k) where k is the number of strings that contain the substring
+
+**Extracted Code:**
+from typing import List
+
+def filter_by_substring(strings: List[str], substring: str) -> List[str]:
+    """ Filter an input list of strings only for ones that contain given substring
+    >>> filter_by_substring([], 'a')
+    []
+    >>> filter_by_substring(['abc', 'bacd', 'cde', 'array'], 'a')
+    ['abc', 'bacd', 'array']
+    """
+    return [s for s in strings if substring in s]
+
+✓ Assertion passed for input {'strings': [], 'substring': 'john'}
+✓ Assertion passed for input {'strings': ['xxx', 'asd', 'xxy', 'john doe', 'xxxAAA', 'xxx'], 'substring': 'xxx'}
+✓ Assertion passed for input {'strings': ['xxx', 'asd', 'aaaxxy', 'john doe', 'xxxAAA', 'xxx'], 'substring': 'xx'}
+✓ Assertion passed for input {'strings': ['grunt', 'trumpet', 'prune', 'gruesome'], 'substring': 'run'}
+✓ All assertions passed
+
+--- Testing with ollama (llama3.1:70b) ---
+**Generated Response:**
+Here is a Python function that filters an input list of strings only for ones that contain a given substring:
+
+```python
+from typing import List
+
+def filter_by_substring(strings: List[str], substring: str) -> List[str]:
+    """
+    Filter an input list of strings only for ones that contain given substring.
+
+    Args:
+        strings (List[str]): The input list of strings.
+        substring (str): The substring to search for.
+
+    Returns:
+        List[str]: A new list containing only the strings that have the substring.
+    """
+
+    # Initialize an empty list to store the filtered strings
+    filtered_strings = []
+
+    # Iterate over each string in the input list
+    for s in strings:
+        # Check if the substring is present in the current string
+        if substring in s:
+            # If it is, append the string to the filtered list
+            filtered_strings.append(s)
+
+    # Return the filtered list of strings
+    return filtered_strings
+
+# Test cases
+print(filter_by_substring([], 'a'))  # []
+print(filter_by_substring(['abc', 'bacd', 'cde', 'array'], 'a'))  # ['abc', 'bacd', 'array']
+```
+
+However, a more concise solution would be to use list comprehension:
+
+```python
+from typing import List
+
+def filter_by_substring(strings: List[str], substring: str) -> List[str]:
+    """
+    Filter an input list of strings only for ones that contain given substring.
+
+    Args:
+        strings (List[str]): The input list of strings.
+        substring (str): The substring to search for.
+
+    Returns:
+        List[str]: A new list containing only the strings that have the substring.
+    """
+
+    # Use list comprehension to filter the strings
+    return [s for s in strings if substring in s]
+
+# Test cases
+print(filter_by_substring([], 'a'))  # []
+print(filter_by_substring(['abc', 'bacd', 'cde', 'array'], 'a'))  # ['abc', 'bacd', 'array']
+```
+
+Both of these functions achieve the same result but the second one is more concise and readable.
+
+**Extracted Code:**
+from typing import List
+
+def filter_by_substring(strings: List[str], substring: str) -> List[str]:
+    """
+    Filter an input list of strings only for ones that contain given substring.
+
+    Args:
+        strings (List[str]): The input list of strings.
+        substring (str): The substring to search for.
+
+    Returns:
+        List[str]: A new list containing only the strings that have the substring.
+    """
+
+    # Initialize an empty list to store the filtered strings
+    filtered_strings = []
+
+    # Iterate over each string in the input list
+    for s in strings:
+        # Check if the substring is present in the current string
+        if substring in s:
+            # If it is, append the string to the filtered list
+            filtered_strings.append(s)
+
+    # Return the filtered list of strings
+    return filtered_strings
+
+# Test cases
+print(filter_by_substring([], 'a'))  # []
+print(filter_by_substring(['abc', 'bacd', 'cde', 'array'], 'a'))  # ['abc', 'bacd', 'array']
+
+✓ Assertion passed for input {'strings': [], 'substring': 'john'}
+✓ Assertion passed for input {'strings': ['xxx', 'asd', 'xxy', 'john doe', 'xxxAAA', 'xxx'], 'substring': 'xxx'}
+✓ Assertion passed for input {'strings': ['xxx', 'asd', 'aaaxxy', 'john doe', 'xxxAAA', 'xxx'], 'substring': 'xx'}
+✓ Assertion passed for input {'strings': ['grunt', 'trumpet', 'prune', 'gruesome'], 'substring': 'run'}
+✓ All assertions passed

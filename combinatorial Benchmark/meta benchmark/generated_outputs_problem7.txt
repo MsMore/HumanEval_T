@@ -1,0 +1,1661 @@
+
+=== Testing Problem 7 ===
+Problem Description: Problem 7
+Meta Prompt: Given an input list of <X>, filter the list to include only those that contain the specified <Y>.
+================================================================================
+
+--- Testing Version 1 with openai (gpt-4o) ---
+**Generated Response:**
+Certainly! You can filter a list of strings to include only those that contain a specified substring using a list comprehension in Python. Here's a simple example of how you can achieve this:
+
+```python
+def filter_strings_by_substring(strings, substring):
+    return [s for s in strings if substring in s]
+
+# Example usage:
+input_list = ["apple", "banana", "cherry", "date", "grape"]
+substring = "ap"
+filtered_list = filter_strings_by_substring(input_list, substring)
+print(filtered_list)  # Output: ['apple', 'grape']
+```
+
+In this code, the `filter_strings_by_substring` function takes two arguments: `strings`, which is the list of strings you want to filter, and `substring`, which is the substring you are looking for. The list comprehension iterates over each string `s` in the `strings` list and includes it in the resulting list only if `substring` is found within `s`.
+
+**Extracted Code:**
+def filter_strings_by_substring(strings, substring):
+    return [s for s in strings if substring in s]
+
+# Example usage:
+input_list = ["apple", "banana", "cherry", "date", "grape"]
+substring = "ap"
+filtered_list = filter_strings_by_substring(input_list, substring)
+print(filtered_list)  # Output: ['apple', 'grape']
+
+✓ Assertion passed for input ([], 'a')
+✓ Assertion passed for input (['abc', 'bacd', 'cde', 'array'], 'a')
+✓ Assertion passed for input (['hello', 'world', 'hell'], 'hell')
+✓ Assertion passed for input (['test', 'text', 'tent'], 'te')
+✓ All assertions passed for Version 1
+
+--- Testing Version 1 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is the Python code to filter a list of strings to include only those that contain a specified substring:
+
+```python
+def filter_strings(input_list, substring):
+    return [s for s in input_list if substring in s]
+
+# Example usage
+input_list = ["apple", "banana", "orange", "grape"]
+substring = "an"
+filtered_list = filter_strings(input_list, substring)
+print(filtered_list)
+```
+
+In this code, the `filter_strings` function takes an input list of strings and a specified substring as arguments. It then uses a list comprehension to filter out only the strings that contain the specified substring. Finally, it returns the filtered list.
+
+**Extracted Code:**
+def filter_strings(input_list, substring):
+    return [s for s in input_list if substring in s]
+
+# Example usage
+input_list = ["apple", "banana", "orange", "grape"]
+substring = "an"
+filtered_list = filter_strings(input_list, substring)
+print(filtered_list)
+
+✓ Assertion passed for input ([], 'a')
+✓ Assertion passed for input (['abc', 'bacd', 'cde', 'array'], 'a')
+✓ Assertion passed for input (['hello', 'world', 'hell'], 'hell')
+✓ Assertion passed for input (['test', 'text', 'tent'], 'te')
+✓ All assertions passed for Version 1
+
+--- Testing Version 1 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution to filter a list of strings based on a substring:
+
+```python
+def filter_by_substring(strings, substring):
+    """
+    Filter a list of strings to include only those containing the specified substring.
+    
+    Args:
+        strings (list): List of strings to filter
+        substring (str): Substring to search for
+        
+    Returns:
+        list: Filtered list containing only strings with the substring
+    """
+    return [s for s in strings if substring.lower() in s.lower()]
+
+# Example usage:
+def main():
+    # Test cases
+    test_strings = [
+        "Hello World",
+        "Python Programming",
+        "OpenAI",
+        "world peace",
+        "WORLD championship"
+    ]
+    
+    # Test with different substrings
+    test_cases = ["world", "python", "x"]
+    
+    for substr in test_cases:
+        filtered_list = filter_by_substring(test_strings, substr)
+        print(f"\nSearching for '{substr}':")
+        print(f"Filtered list: {filtered_list}")
+
+if __name__ == "__main__":
+    main()
+```
+
+Alternative version using the `filter()` function:
+
+```python
+def filter_by_substring(strings, substring):
+    """
+    Filter a list of strings to include only those containing the specified substring.
+    Using filter() function instead of list comprehension.
+    
+    Args:
+        strings (list): List of strings to filter
+        substring (str): Substring to search for
+        
+    Returns:
+        list: Filtered list containing only strings with the substring
+    """
+    return list(filter(lambda x: substring.lower() in x.lower(), strings))
+```
+
+Key features of this solution:
+
+1. Case-insensitive matching: Converts both the string and substring to lowercase for comparison
+2. Flexible input handling: Works with any list of strings and any substring
+3. Returns a new list without modifying the original
+4. Simple and readable implementation
+5. Both list comprehension and filter() versions provided
+
+Example output:
+```python
+Searching for 'world':
+Filtered list: ['Hello World', 'world peace', 'WORLD championship']
+
+Searching for 'python':
+Filtered list: ['Python Programming']
+
+Searching for 'x':
+Filtered list: []
+```
+
+Additional version with more options:
+
+```python
+def filter_by_substring(strings, substring, case_sensitive=False, exact_match=False):
+    """
+    Filter a list of strings with additional options.
+    
+    Args:
+        strings (list): List of strings to filter
+        substring (str): Substring to search for
+        case_sensitive (bool): Whether to perform case-sensitive matching
+        exact_match (bool): Whether to match the entire string
+        
+    Returns:
+        list: Filtered list containing matching strings
+    """
+    if not case_sensitive:
+        substring = substring.lower()
+        
+    def match_string(s):
+        if not case_sensitive:
+            s = s.lower()
+        if exact_match:
+            return s == substring
+        return substring in s
+    
+    return [s for s in strings if match_string(s)]
+
+# Example usage with options:
+def test_advanced_filter():
+    test_strings = [
+        "Hello World",
+        "HELLO",
+        "hello",
+        "Hello there",
+        "World"
+    ]
+    
+    # Test different combinations
+    print("Case-sensitive, substring match:", 
+          filter_by_substring(test_strings, "Hello", case_sensitive=True))
+    
+    print("Case-insensitive, substring match:", 
+          filter_by_substring(test_strings, "hello", case_sensitive=False))
+    
+    print("Case-sensitive, exact match:", 
+          filter_by_substring(test_strings, "Hello", case_sensitive=True, exact_match=True))
+```
+
+This advanced version allows for:
+1. Case-sensitive or case-insensitive matching
+2. Exact string matching or substring matching
+3. More flexible filtering options based on needs
+
+The choice between these versions depends on your specific requirements:
+- Use the simple version for basic substring filtering
+- Use the filter() version if you prefer functional
+
+**Extracted Code:**
+def filter_by_substring(strings, substring):
+    """
+    Filter a list of strings to include only those containing the specified substring.
+    
+    Args:
+        strings (list): List of strings to filter
+        substring (str): Substring to search for
+        
+    Returns:
+        list: Filtered list containing only strings with the substring
+    """
+    return [s for s in strings if substring.lower() in s.lower()]
+
+# Example usage:
+def main():
+    # Test cases
+    test_strings = [
+        "Hello World",
+        "Python Programming",
+        "OpenAI",
+        "world peace",
+        "WORLD championship"
+    ]
+    
+    # Test with different substrings
+    test_cases = ["world", "python", "x"]
+    
+    for substr in test_cases:
+        filtered_list = filter_by_substring(test_strings, substr)
+        print(f"\nSearching for '{substr}':")
+        print(f"Filtered list: {filtered_list}")
+
+if __name__ == "__main__":
+    main()
+
+✓ Assertion passed for input ([], 'a')
+✓ Assertion passed for input (['abc', 'bacd', 'cde', 'array'], 'a')
+✓ Assertion passed for input (['hello', 'world', 'hell'], 'hell')
+✓ Assertion passed for input (['test', 'text', 'tent'], 'te')
+✓ All assertions passed for Version 1
+
+--- Testing Version 1 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Filtering a List of Strings by Substring**
+====================================================
+
+Here is a Python function that filters a list of strings to include only those that contain a specified substring:
+```python
+def filter_by_substring(strings, substring):
+    """
+    Filters a list of strings to include only those that contain the specified substring.
+
+    Args:
+        strings (list): The input list of strings.
+        substring (str): The substring to search for.
+
+    Returns:
+        list: A new list containing only the strings that contain the specified substring.
+    """
+    return [s for s in strings if substring in s]
+```
+**Example Use Case**
+--------------------
+
+```python
+# Input list of strings
+strings = ["hello world", "foo bar", "hello again", "baz qux"]
+
+# Substring to search for
+substring = "hello"
+
+# Filter the list
+filtered_strings = filter_by_substring(strings, substring)
+
+print(filtered_strings)  # Output: ["hello world", "hello again"]
+```
+**Explanation**
+---------------
+
+The `filter_by_substring` function uses a list comprehension to iterate over the input list of strings. For each string, it checks if the specified substring is present using the `in` operator. If the substring is found, the string is included in the new list.
+
+This implementation is concise and efficient, with a time complexity of O(n), where n is the length of the input list.
+
+**Extracted Code:**
+def filter_by_substring(strings, substring):
+    """
+    Filters a list of strings to include only those that contain the specified substring.
+
+    Args:
+        strings (list): The input list of strings.
+        substring (str): The substring to search for.
+
+    Returns:
+        list: A new list containing only the strings that contain the specified substring.
+    """
+    return [s for s in strings if substring in s]
+
+✓ Assertion passed for input ([], 'a')
+✓ Assertion passed for input (['abc', 'bacd', 'cde', 'array'], 'a')
+✓ Assertion passed for input (['hello', 'world', 'hell'], 'hell')
+✓ Assertion passed for input (['test', 'text', 'tent'], 'te')
+✓ All assertions passed for Version 1
+
+--- Testing Version 2 with openai (gpt-4o) ---
+**Generated Response:**
+Certainly! Below is a Python function that takes a list of words and a specified sequence, and returns a new list containing only the words that include the specified sequence.
+
+```python
+def filter_words_by_sequence(words, sequence):
+    """
+    Filters a list of words to include only those that contain the specified sequence.
+
+    :param words: List of words to filter.
+    :param sequence: The sequence to look for in each word.
+    :return: A list of words containing the specified sequence.
+    """
+    return [word for word in words if sequence in word]
+
+# Example usage:
+words_list = ["apple", "banana", "cherry", "date", "grape", "kiwi"]
+sequence = "ap"
+filtered_words = filter_words_by_sequence(words_list, sequence)
+print(filtered_words)  # Output: ['apple', 'grape']
+```
+
+### Explanation:
+- The function `filter_words_by_sequence` takes two arguments: `words` (a list of words) and `sequence` (the sequence to search for).
+- It uses a list comprehension to iterate over each word in the `words` list.
+- The condition `if sequence in word` checks if the sequence is present in the current word.
+- If the condition is true, the word is included in the resulting list.
+- The function returns the filtered list of words.
+
+**Extracted Code:**
+def filter_words_by_sequence(words, sequence):
+    """
+    Filters a list of words to include only those that contain the specified sequence.
+
+    :param words: List of words to filter.
+    :param sequence: The sequence to look for in each word.
+    :return: A list of words containing the specified sequence.
+    """
+    return [word for word in words if sequence in word]
+
+# Example usage:
+words_list = ["apple", "banana", "cherry", "date", "grape", "kiwi"]
+sequence = "ap"
+filtered_words = filter_words_by_sequence(words_list, sequence)
+print(filtered_words)  # Output: ['apple', 'grape']
+
+✓ Assertion passed for input (['apple', 'banana', 'cherry', 'apricot'], 'ap')
+✓ Assertion passed for input (['joy', 'enjoy', 'toy'], 'oy')
+✓ Assertion passed for input (['sunny', 'rainy', 'snowy'], 'nny')
+✓ Assertion passed for input (['abc', 'abcd', 'abcde'], 'bcd')
+✓ All assertions passed for Version 2
+
+--- Testing Version 2 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is the Python code to filter a list of words to include only those that contain a specified sequence:
+
+```python
+def filter_words_by_sequence(word_list, sequence):
+    return [word for word in word_list if sequence in word]
+
+# Example usage
+words = ['apple', 'banana', 'orange', 'grape', 'kiwi']
+sequence = 'an'
+filtered_words = filter_words_by_sequence(words, sequence)
+print(filtered_words)
+```
+
+In this code, the `filter_words_by_sequence` function takes a list of words and a sequence as input, and returns a new list containing only the words that contain the specified sequence. The list comprehension `[word for word in word_list if sequence in word]` is used to filter the words based on the specified sequence.
+
+You can replace the `words` list and `sequence` variable with your own input to test the code with different sequences and word lists.
+
+**Extracted Code:**
+def filter_words_by_sequence(word_list, sequence):
+    return [word for word in word_list if sequence in word]
+
+# Example usage
+words = ['apple', 'banana', 'orange', 'grape', 'kiwi']
+sequence = 'an'
+filtered_words = filter_words_by_sequence(words, sequence)
+print(filtered_words)
+
+✓ Assertion passed for input (['apple', 'banana', 'cherry', 'apricot'], 'ap')
+✓ Assertion passed for input (['joy', 'enjoy', 'toy'], 'oy')
+✓ Assertion passed for input (['sunny', 'rainy', 'snowy'], 'nny')
+✓ Assertion passed for input (['abc', 'abcd', 'abcde'], 'bcd')
+✓ All assertions passed for Version 2
+
+--- Testing Version 2 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution to filter a list of words based on a specified sequence:
+
+```python
+def filter_words_by_sequence(words, sequence):
+    """
+    Filter a list of words to include only those containing the specified sequence.
+    
+    Args:
+        words (list): List of words to filter
+        sequence (str): Sequence to search for in each word
+    
+    Returns:
+        list: Filtered list containing only words with the specified sequence
+    """
+    return [word for word in words if sequence.lower() in word.lower()]
+
+# Example usage
+def main():
+    # Test cases
+    word_list = ["hello", "world", "helicopter", "elephant", "help", "zebra"]
+    
+    # Test different sequences
+    sequences = ["hel", "el", "xyz"]
+    
+    for seq in sequences:
+        filtered_words = filter_words_by_sequence(word_list, seq)
+        print(f"\nWords containing '{seq}': {filtered_words}")
+
+if __name__ == "__main__":
+    main()
+```
+
+Alternative version with more features and options:
+
+```python
+def filter_words_by_sequence(words, sequence, case_sensitive=False, whole_word=False):
+    """
+    Filter a list of words to include only those containing the specified sequence.
+    
+    Args:
+        words (list): List of words to filter
+        sequence (str): Sequence to search for in each word
+        case_sensitive (bool): If True, performs case-sensitive matching
+        whole_word (bool): If True, matches only whole words
+    
+    Returns:
+        list: Filtered list containing only words with the specified sequence
+    """
+    if not words or not sequence:
+        return []
+    
+    filtered_words = []
+    
+    for word in words:
+        if case_sensitive:
+            word_to_check = word
+            seq_to_check = sequence
+        else:
+            word_to_check = word.lower()
+            seq_to_check = sequence.lower()
+            
+        if whole_word:
+            if word_to_check == seq_to_check:
+                filtered_words.append(word)
+        else:
+            if seq_to_check in word_to_check:
+                filtered_words.append(word)
+                
+    return filtered_words
+
+# Example usage
+def main():
+    # Test cases
+    word_list = [
+        "Hello", "HELLO", "hello", 
+        "World", "wonderful", 
+        "Helicopter", 
+        "Help",
+        "Element",
+        "Elephant"
+    ]
+    
+    # Test different scenarios
+    test_cases = [
+        ("hel", False, False),  # Case-insensitive, partial match
+        ("hel", True, False),   # Case-sensitive, partial match
+        ("hello", False, True), # Case-insensitive, whole word
+        ("EL", True, False),    # Case-sensitive, partial match
+    ]
+    
+    for sequence, case_sensitive, whole_word in test_cases:
+        filtered_words = filter_words_by_sequence(
+            word_list, 
+            sequence, 
+            case_sensitive=case_sensitive, 
+            whole_word=whole_word
+        )
+        
+        print(f"\nSequence: '{sequence}'")
+        print(f"Case sensitive: {case_sensitive}")
+        print(f"Whole word: {whole_word}")
+        print(f"Filtered words: {filtered_words}")
+
+if __name__ == "__main__":
+    main()
+```
+
+This code provides two implementations:
+
+1. The first implementation is simple and straightforward, using a list comprehension to filter words containing the specified sequence (case-insensitive).
+
+2. The second implementation is more feature-rich, offering:
+   - Case-sensitive or case-insensitive matching
+   - Whole word or partial word matching
+   - Better error handling
+   - More detailed examples and test cases
+
+Example output from the second implementation:
+```
+Sequence: 'hel'
+Case sensitive: False
+Whole word: False
+Filtered words: ['Hello', 'HELLO', 'hello', 'Helicopter', 'Help']
+
+Sequence:
+
+**Extracted Code:**
+def filter_words_by_sequence(words, sequence):
+    """
+    Filter a list of words to include only those containing the specified sequence.
+    
+    Args:
+        words (list): List of words to filter
+        sequence (str): Sequence to search for in each word
+    
+    Returns:
+        list: Filtered list containing only words with the specified sequence
+    """
+    return [word for word in words if sequence.lower() in word.lower()]
+
+# Example usage
+def main():
+    # Test cases
+    word_list = ["hello", "world", "helicopter", "elephant", "help", "zebra"]
+    
+    # Test different sequences
+    sequences = ["hel", "el", "xyz"]
+    
+    for seq in sequences:
+        filtered_words = filter_words_by_sequence(word_list, seq)
+        print(f"\nWords containing '{seq}': {filtered_words}")
+
+if __name__ == "__main__":
+    main()
+
+✓ Assertion passed for input (['apple', 'banana', 'cherry', 'apricot'], 'ap')
+✓ Assertion passed for input (['joy', 'enjoy', 'toy'], 'oy')
+✓ Assertion passed for input (['sunny', 'rainy', 'snowy'], 'nny')
+✓ Assertion passed for input (['abc', 'abcd', 'abcde'], 'bcd')
+✓ All assertions passed for Version 2
+
+--- Testing Version 2 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Filtering Words with a Specified Sequence**
+====================================================
+
+Here's a Python function that filters a list of words based on the presence of a specified sequence:
+
+```python
+def filter_words(word_list, sequence):
+    """
+    Filter a list of words to include only those that contain the specified sequence.
+
+    Args:
+        word_list (list): List of words to filter.
+        sequence (str): Sequence of characters to search for in each word.
+
+    Returns:
+        list: Filtered list of words containing the specified sequence.
+    """
+    return [word for word in word_list if sequence in word]
+```
+
+**Example Usage**
+---------------
+
+```python
+# Example input list of words
+words = ["hello", "world", "helloworld", "goodbye", "cathedral"]
+
+# Specified sequence to search for
+sequence = "hello"
+
+# Filter the list using the function
+filtered_words = filter_words(words, sequence)
+
+print(filtered_words)  # Output: ["hello", "helloworld"]
+```
+
+In this example, the `filter_words` function uses a list comprehension to create a new list containing only those words that include the specified `sequence`. The result is then returned and stored in the `filtered_words` variable.
+
+**Extracted Code:**
+def filter_words(word_list, sequence):
+    """
+    Filter a list of words to include only those that contain the specified sequence.
+
+    Args:
+        word_list (list): List of words to filter.
+        sequence (str): Sequence of characters to search for in each word.
+
+    Returns:
+        list: Filtered list of words containing the specified sequence.
+    """
+    return [word for word in word_list if sequence in word]
+
+✓ Assertion passed for input (['apple', 'banana', 'cherry', 'apricot'], 'ap')
+✓ Assertion passed for input (['joy', 'enjoy', 'toy'], 'oy')
+✓ Assertion passed for input (['sunny', 'rainy', 'snowy'], 'nny')
+✓ Assertion passed for input (['abc', 'abcd', 'abcde'], 'bcd')
+✓ All assertions passed for Version 2
+
+--- Testing Version 3 with openai (gpt-4o) ---
+**Generated Response:**
+Certainly! To filter a list of text elements based on a specified pattern, you can use Python's built-in capabilities, such as list comprehensions and regular expressions. Here's a simple example using the `re` module to filter elements that contain a specific pattern:
+
+```python
+import re
+
+def filter_by_pattern(text_list, pattern):
+    # Compile the regular expression pattern for better performance
+    regex = re.compile(pattern)
+    
+    # Use a list comprehension to filter elements that match the pattern
+    filtered_list = [text for text in text_list if regex.search(text)]
+    
+    return filtered_list
+
+# Example usage
+text_elements = [
+    "apple pie",
+    "banana bread",
+    "cherry tart",
+    "apple strudel",
+    "blueberry muffin"
+]
+
+pattern = r'apple'  # Example pattern to search for
+
+filtered_elements = filter_by_pattern(text_elements, pattern)
+print(filtered_elements)
+```
+
+In this example, the `filter_by_pattern` function takes a list of text elements and a pattern. It uses the `re.compile` function to compile the pattern into a regular expression object, which is then used to search each text element. The list comprehension filters and returns only those elements that contain the specified pattern. You can modify the `pattern` variable to match any pattern you need.
+
+**Extracted Code:**
+import re
+
+def filter_by_pattern(text_list, pattern):
+    # Compile the regular expression pattern for better performance
+    regex = re.compile(pattern)
+    
+    # Use a list comprehension to filter elements that match the pattern
+    filtered_list = [text for text in text_list if regex.search(text)]
+    
+    return filtered_list
+
+# Example usage
+text_elements = [
+    "apple pie",
+    "banana bread",
+    "cherry tart",
+    "apple strudel",
+    "blueberry muffin"
+]
+
+pattern = r'apple'  # Example pattern to search for
+
+filtered_elements = filter_by_pattern(text_elements, pattern)
+print(filtered_elements)
+
+✓ Assertion passed for input (['pattern', 'repeat', 'petite', 'paint'], 'pat')
+✓ Assertion passed for input (['smile', 'mile', 'tile'], 'ile')
+✓ Assertion passed for input (['clock', 'rock', 'sock'], 'ock')
+✓ Assertion passed for input (['heat', 'neat', 'meat'], 'eat')
+✓ All assertions passed for Version 3
+
+--- Testing Version 3 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is a Python code snippet that filters a list of text elements to include only those that contain a specified pattern:
+
+```python
+def filter_list_by_pattern(input_list, pattern):
+    filtered_list = [text for text in input_list if pattern in text]
+    return filtered_list
+
+# Example usage
+input_list = ["apple", "banana", "orange", "grape", "kiwi"]
+pattern = "an"
+filtered_list = filter_list_by_pattern(input_list, pattern)
+print(filtered_list)
+```
+
+In this code snippet, the `filter_list_by_pattern` function takes an input list and a pattern as arguments. It then uses a list comprehension to filter the input list and include only those elements that contain the specified pattern. Finally, it returns the filtered list.
+
+You can replace the `input_list` and `pattern` variables with your own list of text elements and pattern to test the code with different inputs.
+
+**Extracted Code:**
+def filter_list_by_pattern(input_list, pattern):
+    filtered_list = [text for text in input_list if pattern in text]
+    return filtered_list
+
+# Example usage
+input_list = ["apple", "banana", "orange", "grape", "kiwi"]
+pattern = "an"
+filtered_list = filter_list_by_pattern(input_list, pattern)
+print(filtered_list)
+
+✓ Assertion passed for input (['pattern', 'repeat', 'petite', 'paint'], 'pat')
+✓ Assertion passed for input (['smile', 'mile', 'tile'], 'ile')
+✓ Assertion passed for input (['clock', 'rock', 'sock'], 'ock')
+✓ Assertion passed for input (['heat', 'neat', 'meat'], 'eat')
+✓ All assertions passed for Version 3
+
+--- Testing Version 3 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution to filter a list of text elements based on a specified pattern:
+
+```python
+def filter_by_pattern(text_list, pattern, case_sensitive=True):
+    """
+    Filter a list of text elements to include only those containing the specified pattern.
+    
+    Args:
+        text_list (list): List of text elements to filter
+        pattern (str): Pattern to search for
+        case_sensitive (bool): Whether the search should be case-sensitive (default: True)
+    
+    Returns:
+        list: Filtered list containing only elements with the pattern
+    """
+    if not case_sensitive:
+        pattern = pattern.lower()
+        return [text for text in text_list if pattern in text.lower()]
+    return [text for text in text_list if pattern in text]
+
+# Example usage:
+def main():
+    # Test cases
+    sample_list = [
+        "Hello World",
+        "Python Programming",
+        "OpenAI ChatGPT",
+        "world of coding",
+        "Machine Learning",
+        "World Peace"
+    ]
+    
+    # Test 1: Case-sensitive search
+    pattern1 = "World"
+    result1 = filter_by_pattern(sample_list, pattern1)
+    print(f"Case-sensitive search for '{pattern1}':")
+    print(result1)
+    
+    # Test 2: Case-insensitive search
+    pattern2 = "world"
+    result2 = filter_by_pattern(sample_list, pattern2, case_sensitive=False)
+    print(f"\nCase-insensitive search for '{pattern2}':")
+    print(result2)
+    
+    # Test 3: Pattern not found
+    pattern3 = "xyz"
+    result3 = filter_by_pattern(sample_list, pattern3)
+    print(f"\nSearch for non-existent pattern '{pattern3}':")
+    print(result3)
+
+if __name__ == "__main__":
+    main()
+```
+
+This solution includes:
+
+1. A main function `filter_by_pattern` that takes three parameters:
+   - text_list: The input list of text elements
+   - pattern: The pattern to search for
+   - case_sensitive: A boolean flag to determine if the search should be case-sensitive
+
+2. The function handles both case-sensitive and case-insensitive searches.
+
+3. It uses list comprehension for efficient filtering.
+
+4. Example usage with different test cases.
+
+Example output:
+```
+Case-sensitive search for 'World':
+['Hello World', 'World Peace']
+
+Case-insensitive search for 'world':
+['Hello World', 'world of coding', 'World Peace']
+
+Search for non-existent pattern 'xyz':
+[]
+```
+
+Alternative implementation using regular expressions:
+
+```python
+import re
+
+def filter_by_pattern_regex(text_list, pattern, case_sensitive=True):
+    """
+    Filter a list of text elements using regex pattern matching.
+    
+    Args:
+        text_list (list): List of text elements to filter
+        pattern (str): Pattern to search for
+        case_sensitive (bool): Whether the search should be case-sensitive
+    
+    Returns:
+        list: Filtered list containing only elements with the pattern
+    """
+    flags = 0 if case_sensitive else re.IGNORECASE
+    regex = re.compile(pattern, flags)
+    return [text for text in text_list if regex.search(text)]
+
+# Example usage with regex:
+def main_regex():
+    sample_list = [
+        "Hello World",
+        "Python Programming",
+        "OpenAI ChatGPT",
+        "world of coding",
+        "Machine Learning",
+        "World Peace"
+    ]
+    
+    # Test with regex pattern
+    pattern = r"world|python"
+    result = filter_by_pattern_regex(sample_list, pattern, case_sensitive=False)
+    print(f"Regex search for pattern '{pattern}' (case-insensitive):")
+    print(result)
+
+if __name__ == "__main__":
+    main_regex()
+```
+
+The regex version offers more flexibility for complex pattern matching, supporting:
+- Regular expression patterns
+- More complex search criteria
+- Multiple pattern matching in
+
+**Extracted Code:**
+def filter_by_pattern(text_list, pattern, case_sensitive=True):
+    """
+    Filter a list of text elements to include only those containing the specified pattern.
+    
+    Args:
+        text_list (list): List of text elements to filter
+        pattern (str): Pattern to search for
+        case_sensitive (bool): Whether the search should be case-sensitive (default: True)
+    
+    Returns:
+        list: Filtered list containing only elements with the pattern
+    """
+    if not case_sensitive:
+        pattern = pattern.lower()
+        return [text for text in text_list if pattern in text.lower()]
+    return [text for text in text_list if pattern in text]
+
+# Example usage:
+def main():
+    # Test cases
+    sample_list = [
+        "Hello World",
+        "Python Programming",
+        "OpenAI ChatGPT",
+        "world of coding",
+        "Machine Learning",
+        "World Peace"
+    ]
+    
+    # Test 1: Case-sensitive search
+    pattern1 = "World"
+    result1 = filter_by_pattern(sample_list, pattern1)
+    print(f"Case-sensitive search for '{pattern1}':")
+    print(result1)
+    
+    # Test 2: Case-insensitive search
+    pattern2 = "world"
+    result2 = filter_by_pattern(sample_list, pattern2, case_sensitive=False)
+    print(f"\nCase-insensitive search for '{pattern2}':")
+    print(result2)
+    
+    # Test 3: Pattern not found
+    pattern3 = "xyz"
+    result3 = filter_by_pattern(sample_list, pattern3)
+    print(f"\nSearch for non-existent pattern '{pattern3}':")
+    print(result3)
+
+if __name__ == "__main__":
+    main()
+
+✓ Assertion passed for input (['pattern', 'repeat', 'petite', 'paint'], 'pat')
+✓ Assertion passed for input (['smile', 'mile', 'tile'], 'ile')
+✓ Assertion passed for input (['clock', 'rock', 'sock'], 'ock')
+✓ Assertion passed for input (['heat', 'neat', 'meat'], 'eat')
+✓ All assertions passed for Version 3
+
+--- Testing Version 3 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Filtering Text Elements by Pattern**
+=====================================
+
+Here is a Python function that filters a list of text elements based on a specified pattern:
+
+```python
+import re
+
+def filter_by_pattern(text_elements, pattern):
+    """
+    Filter a list of text elements to include only those that contain the specified pattern.
+
+    Args:
+        text_elements (list): A list of text elements.
+        pattern (str): The pattern to search for in each text element.
+
+    Returns:
+        list: A filtered list of text elements containing the specified pattern.
+    """
+    return [element for element in text_elements if re.search(pattern, element)]
+
+# Example usage
+text_elements = [
+    "Hello world",
+    "This is a test",
+    "Python programming",
+    "No match found"
+]
+
+pattern = r"world|test"
+
+filtered_text_elements = filter_by_pattern(text_elements, pattern)
+
+print(filtered_text_elements)
+```
+
+**Output**
+
+```python
+['Hello world', 'This is a test']
+```
+
+In this code:
+
+*   We import the `re` module for regular expression matching.
+*   The `filter_by_pattern` function takes two arguments: `text_elements` (a list of text elements) and `pattern` (the pattern to search for).
+*   Inside the function, we use a list comprehension with `re.search` to filter the `text_elements` based on whether each element contains the specified `pattern`.
+*   Finally, we demonstrate how to call the function with an example usage.
+
+You can adjust this code as needed for your specific application.
+
+**Extracted Code:**
+import re
+
+def filter_by_pattern(text_elements, pattern):
+    """
+    Filter a list of text elements to include only those that contain the specified pattern.
+
+    Args:
+        text_elements (list): A list of text elements.
+        pattern (str): The pattern to search for in each text element.
+
+    Returns:
+        list: A filtered list of text elements containing the specified pattern.
+    """
+    return [element for element in text_elements if re.search(pattern, element)]
+
+# Example usage
+text_elements = [
+    "Hello world",
+    "This is a test",
+    "Python programming",
+    "No match found"
+]
+
+pattern = r"world|test"
+
+filtered_text_elements = filter_by_pattern(text_elements, pattern)
+
+print(filtered_text_elements)
+
+✓ Assertion passed for input (['pattern', 'repeat', 'petite', 'paint'], 'pat')
+✓ Assertion passed for input (['smile', 'mile', 'tile'], 'ile')
+✓ Assertion passed for input (['clock', 'rock', 'sock'], 'ock')
+✓ Assertion passed for input (['heat', 'neat', 'meat'], 'eat')
+✓ All assertions passed for Version 3
+
+--- Testing Version 4 with openai (gpt-4o) ---
+**Generated Response:**
+Certainly! You can achieve this by using a simple list comprehension in Python. Here's a function that filters a list of phrases to include only those that contain a specified text fragment:
+
+```python
+def filter_phrases(phrases, text_fragment):
+    """
+    Filters a list of phrases to include only those that contain the specified text fragment.
+
+    :param phrases: List of phrases (strings) to be filtered.
+    :param text_fragment: The text fragment to search for within each phrase.
+    :return: A list of phrases that contain the specified text fragment.
+    """
+    return [phrase for phrase in phrases if text_fragment in phrase]
+
+# Example usage:
+phrases = [
+    "The quick brown fox",
+    "jumps over the lazy dog",
+    "Hello world",
+    "Python programming is fun",
+    "Filter this list"
+]
+
+text_fragment = "the"
+filtered_phrases = filter_phrases(phrases, text_fragment)
+print(filtered_phrases)
+```
+
+In this example, the `filter_phrases` function takes a list of phrases and a text fragment as input. It returns a new list containing only the phrases that include the specified text fragment. The example usage demonstrates how to use this function with a sample list of phrases and a text fragment.
+
+**Extracted Code:**
+def filter_phrases(phrases, text_fragment):
+    """
+    Filters a list of phrases to include only those that contain the specified text fragment.
+
+    :param phrases: List of phrases (strings) to be filtered.
+    :param text_fragment: The text fragment to search for within each phrase.
+    :return: A list of phrases that contain the specified text fragment.
+    """
+    return [phrase for phrase in phrases if text_fragment in phrase]
+
+# Example usage:
+phrases = [
+    "The quick brown fox",
+    "jumps over the lazy dog",
+    "Hello world",
+    "Python programming is fun",
+    "Filter this list"
+]
+
+text_fragment = "the"
+filtered_phrases = filter_phrases(phrases, text_fragment)
+print(filtered_phrases)
+
+✓ Assertion passed for input (['go home', 'stay home', 'no way home'], 'home')
+✓ Assertion passed for input (['big apple', 'apple pie', 'pineapple'], 'apple')
+✓ Assertion passed for input (['fly high', 'so high', 'aim high'], 'high')
+✓ Assertion passed for input (['walk', 'walk away', 'run'], 'walk')
+✓ All assertions passed for Version 4
+
+--- Testing Version 4 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is the Python code to filter a list of phrases to include only those that contain a specified text fragment:
+
+```python
+def filter_phrases(phrases, text_fragment):
+    filtered_phrases = [phrase for phrase in phrases if text_fragment in phrase]
+    return filtered_phrases
+
+# Example input list of phrases
+phrases = ["hello world", "goodbye", "python programming", "hello there"]
+
+# Specified text fragment to filter by
+text_fragment = "hello"
+
+# Filter the list of phrases
+filtered_phrases = filter_phrases(phrases, text_fragment)
+
+# Print the filtered list of phrases
+print(filtered_phrases)
+```
+
+You can replace the `phrases` list and `text_fragment` variable with your own input to test the code with different phrases and text fragments.
+
+**Extracted Code:**
+def filter_phrases(phrases, text_fragment):
+    filtered_phrases = [phrase for phrase in phrases if text_fragment in phrase]
+    return filtered_phrases
+
+# Example input list of phrases
+phrases = ["hello world", "goodbye", "python programming", "hello there"]
+
+# Specified text fragment to filter by
+text_fragment = "hello"
+
+# Filter the list of phrases
+filtered_phrases = filter_phrases(phrases, text_fragment)
+
+# Print the filtered list of phrases
+print(filtered_phrases)
+
+✓ Assertion passed for input (['go home', 'stay home', 'no way home'], 'home')
+✓ Assertion passed for input (['big apple', 'apple pie', 'pineapple'], 'apple')
+✓ Assertion passed for input (['fly high', 'so high', 'aim high'], 'high')
+✓ Assertion passed for input (['walk', 'walk away', 'run'], 'walk')
+✓ All assertions passed for Version 4
+
+--- Testing Version 4 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution that filters a list of phrases based on a specified text fragment:
+
+```python
+def filter_phrases(phrases, fragment):
+    """
+    Filter a list of phrases to include only those containing the specified text fragment.
+    
+    Args:
+        phrases (list): List of strings to filter
+        fragment (str): Text fragment to search for
+        
+    Returns:
+        list: Filtered list containing only phrases that include the fragment
+    """
+    # Convert fragment to lowercase for case-insensitive matching
+    fragment = fragment.lower()
+    
+    # Use list comprehension to filter phrases
+    filtered_phrases = [phrase for phrase in phrases 
+                       if fragment in phrase.lower()]
+    
+    return filtered_phrases
+
+# Example usage:
+if __name__ == "__main__":
+    # Test cases
+    phrases = [
+        "Hello World",
+        "Python Programming",
+        "Data Science",
+        "World Peace",
+        "Programming Languages",
+        "Machine Learning"
+    ]
+    
+    # Test with different fragments
+    print("Original phrases:", phrases)
+    
+    # Test 1: Filter for "world"
+    result1 = filter_phrases(phrases, "world")
+    print("\nFiltered for 'world':", result1)
+    
+    # Test 2: Filter for "programming"
+    result2 = filter_phrases(phrases, "programming")
+    print("\nFiltered for 'programming':", result2)
+    
+    # Test 3: Filter for "data"
+    result3 = filter_phrases(phrases, "data")
+    print("\nFiltered for 'data':", result3)
+```
+
+Alternative version with additional features:
+
+```python
+def filter_phrases_advanced(phrases, fragment, case_sensitive=False, whole_word=False):
+    """
+    Filter a list of phrases with advanced options.
+    
+    Args:
+        phrases (list): List of strings to filter
+        fragment (str): Text fragment to search for
+        case_sensitive (bool): If True, perform case-sensitive matching
+        whole_word (bool): If True, match whole words only
+        
+    Returns:
+        list: Filtered list containing only phrases that match the criteria
+    """
+    if not case_sensitive:
+        fragment = fragment.lower()
+    
+    filtered_phrases = []
+    
+    for phrase in phrases:
+        if whole_word:
+            # Split phrase into words and check if fragment is a complete word
+            words = phrase.split()
+            if case_sensitive:
+                if any(word == fragment for word in words):
+                    filtered_phrases.append(phrase)
+            else:
+                if any(word.lower() == fragment for word in words):
+                    filtered_phrases.append(phrase)
+        else:
+            # Check if fragment is in phrase
+            if case_sensitive:
+                if fragment in phrase:
+                    filtered_phrases.append(phrase)
+            else:
+                if fragment in phrase.lower():
+                    filtered_phrases.append(phrase)
+    
+    return filtered_phrases
+
+# Example usage:
+if __name__ == "__main__":
+    # Test cases
+    phrases = [
+        "Hello World",
+        "Python Programming",
+        "Data Science",
+        "World Peace",
+        "Programming Languages",
+        "Machine Learning"
+    ]
+    
+    print("Original phrases:", phrases)
+    
+    # Test different scenarios
+    print("\nCase-insensitive, partial match for 'world':")
+    print(filter_phrases_advanced(phrases, "world"))
+    
+    print("\nCase-sensitive, partial match for 'World':")
+    print(filter_phrases_advanced(phrases, "World", case_sensitive=True))
+    
+    print("\nWhole word match for 'World':")
+    print(filter_phrases_advanced(phrases, "World", whole_word=True))
+```
+
+This code provides two implementations:
+
+1. The first implementation (`filter_phrases`) is simple and straightforward:
+   - Uses case-insensitive matching by default
+   - Uses list comprehension for concise filtering
+   - Returns phrases containing the fragment anywhere in the text
+
+2. The second implementation (`filter_phrases_advanced`) provides more options:
+   - Supports case-sensitive or case-insensitive matching
+
+**Extracted Code:**
+def filter_phrases(phrases, fragment):
+    """
+    Filter a list of phrases to include only those containing the specified text fragment.
+    
+    Args:
+        phrases (list): List of strings to filter
+        fragment (str): Text fragment to search for
+        
+    Returns:
+        list: Filtered list containing only phrases that include the fragment
+    """
+    # Convert fragment to lowercase for case-insensitive matching
+    fragment = fragment.lower()
+    
+    # Use list comprehension to filter phrases
+    filtered_phrases = [phrase for phrase in phrases 
+                       if fragment in phrase.lower()]
+    
+    return filtered_phrases
+
+# Example usage:
+if __name__ == "__main__":
+    # Test cases
+    phrases = [
+        "Hello World",
+        "Python Programming",
+        "Data Science",
+        "World Peace",
+        "Programming Languages",
+        "Machine Learning"
+    ]
+    
+    # Test with different fragments
+    print("Original phrases:", phrases)
+    
+    # Test 1: Filter for "world"
+    result1 = filter_phrases(phrases, "world")
+    print("\nFiltered for 'world':", result1)
+    
+    # Test 2: Filter for "programming"
+    result2 = filter_phrases(phrases, "programming")
+    print("\nFiltered for 'programming':", result2)
+    
+    # Test 3: Filter for "data"
+    result3 = filter_phrases(phrases, "data")
+    print("\nFiltered for 'data':", result3)
+
+✓ Assertion passed for input (['go home', 'stay home', 'no way home'], 'home')
+✓ Assertion passed for input (['big apple', 'apple pie', 'pineapple'], 'apple')
+✓ Assertion passed for input (['fly high', 'so high', 'aim high'], 'high')
+✓ Assertion passed for input (['walk', 'walk away', 'run'], 'walk')
+✓ All assertions passed for Version 4
+
+--- Testing Version 4 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Filter Phrases by Text Fragment**
+=====================================
+
+Here is a Python function that filters a list of phrases based on a specified text fragment:
+```python
+def filter_phrases(phrases, fragment):
+    """
+    Filter phrases to include only those containing the specified text fragment.
+
+    Args:
+        phrases (list[str]): Input list of phrases.
+        fragment (str): Text fragment to search for in phrases.
+
+    Returns:
+        list[str]: Filtered list of phrases containing the text fragment.
+    """
+    return [phrase for phrase in phrases if fragment.lower() in phrase.lower()]
+```
+**Example Use Case**
+--------------------
+
+```python
+phrases = [
+    "The quick brown fox jumps over the lazy dog",
+    "Hello world this is a test",
+    "Python is an amazing programming language",
+    "The sun rises in the east"
+]
+
+fragment = "the"
+
+filtered_phrases = filter_phrases(phrases, fragment)
+print(filtered_phrases)  # Output: ["The quick brown fox jumps over the lazy dog", "The sun rises in the east"]
+```
+**Explanation**
+
+1. The `filter_phrases` function takes two arguments: a list of phrases (`phrases`) and a text fragment (`fragment`).
+2. We use a list comprehension to iterate through each phrase in the input list.
+3. For each phrase, we check if the `fragment` (converted to lowercase for case-insensitive matching) is present in the phrase (also converted to lowercase).
+4. If the fragment is found, we include the original phrase in the filtered list.
+
+This implementation provides a simple and efficient way to filter phrases based on a specified text fragment.
+
+**Extracted Code:**
+def filter_phrases(phrases, fragment):
+    """
+    Filter phrases to include only those containing the specified text fragment.
+
+    Args:
+        phrases (list[str]): Input list of phrases.
+        fragment (str): Text fragment to search for in phrases.
+
+    Returns:
+        list[str]: Filtered list of phrases containing the text fragment.
+    """
+    return [phrase for phrase in phrases if fragment.lower() in phrase.lower()]
+
+✓ Assertion passed for input (['go home', 'stay home', 'no way home'], 'home')
+✓ Assertion passed for input (['big apple', 'apple pie', 'pineapple'], 'apple')
+✓ Assertion passed for input (['fly high', 'so high', 'aim high'], 'high')
+✓ Assertion passed for input (['walk', 'walk away', 'run'], 'walk')
+✓ All assertions passed for Version 4
+
+--- Testing Version 5 with openai (gpt-4o) ---
+**Generated Response:**
+Certainly! You can achieve this by using a simple list comprehension in Python. Here's a function that takes a list of words and a substring, and returns a new list containing only the words that include the specified substring:
+
+```python
+def filter_words_by_substring(words, substring):
+    """
+    Filters a list of words to include only those that contain the specified substring.
+
+    :param words: List of words to filter.
+    :param substring: Substring to look for in each word.
+    :return: List of words containing the substring.
+    """
+    return [word for word in words if substring in word]
+
+# Example usage:
+words_list = ["apple", "banana", "cherry", "date", "grape", "kiwi"]
+substring = "ap"
+filtered_words = filter_words_by_substring(words_list, substring)
+print(filtered_words)  # Output: ['apple', 'grape']
+```
+
+This function iterates over each word in the input list and checks if the specified substring is present in the word. If it is, the word is included in the resulting list.
+
+**Extracted Code:**
+def filter_words_by_substring(words, substring):
+    """
+    Filters a list of words to include only those that contain the specified substring.
+
+    :param words: List of words to filter.
+    :param substring: Substring to look for in each word.
+    :return: List of words containing the substring.
+    """
+    return [word for word in words if substring in word]
+
+# Example usage:
+words_list = ["apple", "banana", "cherry", "date", "grape", "kiwi"]
+substring = "ap"
+filtered_words = filter_words_by_substring(words_list, substring)
+print(filtered_words)  # Output: ['apple', 'grape']
+
+✓ Assertion passed for input (['star', 'start', 'stare', 'stash'], 'sta')
+✓ Assertion passed for input (['light', 'flight', 'tight'], 'ight')
+✓ Assertion passed for input (['car', 'cart', 'scar', 'carbon'], 'car')
+✓ Assertion passed for input (['red', 'bread', 'read'], 'red')
+✓ All assertions passed for Version 5
+
+--- Testing Version 5 with openai (gpt-3.5-turbo) ---
+**Generated Response:**
+Here is the Python code to filter a list of words to include only those that contain a specified substring:
+
+```python
+def filter_words_by_substring(word_list, substring):
+    filtered_words = [word for word in word_list if substring in word]
+    return filtered_words
+
+# Example usage
+words = ['apple', 'banana', 'orange', 'grape', 'kiwi']
+substring = 'an'
+filtered_words = filter_words_by_substring(words, substring)
+print(filtered_words)
+```
+
+In this code, the `filter_words_by_substring` function takes a list of words and a substring as input, and returns a new list containing only the words that contain the specified substring. The list comprehension `[word for word in word_list if substring in word]` is used to filter the words based on the presence of the substring.
+
+You can replace the `words` list and `substring` variable with your own input to test the code with different values.
+
+**Extracted Code:**
+def filter_words_by_substring(word_list, substring):
+    filtered_words = [word for word in word_list if substring in word]
+    return filtered_words
+
+# Example usage
+words = ['apple', 'banana', 'orange', 'grape', 'kiwi']
+substring = 'an'
+filtered_words = filter_words_by_substring(words, substring)
+print(filtered_words)
+
+✓ Assertion passed for input (['star', 'start', 'stare', 'stash'], 'sta')
+✓ Assertion passed for input (['light', 'flight', 'tight'], 'ight')
+✓ Assertion passed for input (['car', 'cart', 'scar', 'carbon'], 'car')
+✓ Assertion passed for input (['red', 'bread', 'read'], 'red')
+✓ All assertions passed for Version 5
+
+--- Testing Version 5 with anthropic (claude-3-5-sonnet-20241022) ---
+**Generated Response:**
+Here's a Python solution to filter a list of words based on a substring:
+
+```python
+def filter_words_by_substring(words, substring):
+    """
+    Filter a list of words to include only those containing the specified substring.
+    
+    Args:
+        words (list): List of words to filter
+        substring (str): Substring to search for
+    
+    Returns:
+        list: Filtered list containing only words with the substring
+    """
+    return [word for word in words if substring.lower() in word.lower()]
+
+# Example usage:
+def main():
+    # Test cases
+    word_list = ["Hello", "World", "Python", "Programming", "Code", "Computer"]
+    
+    # Test 1: Basic substring search
+    result1 = filter_words_by_substring(word_list, "o")
+    print("Words containing 'o':", result1)
+    
+    # Test 2: Case-insensitive search
+    result2 = filter_words_by_substring(word_list, "COM")
+    print("Words containing 'COM' (case-insensitive):", result2)
+    
+    # Test 3: Empty substring
+    result3 = filter_words_by_substring(word_list, "")
+    print("Words containing empty string:", result3)
+    
+    # Test 4: Substring not found
+    result4 = filter_words_by_substring(word_list, "xyz")
+    print("Words containing 'xyz':", result4)
+
+if __name__ == "__main__":
+    main()
+```
+
+This solution includes:
+
+1. A main function `filter_words_by_substring` that takes two parameters:
+   - `words`: The input list of words to filter
+   - `substring`: The substring to search for in each word
+
+2. The function uses a list comprehension to create a new list containing only the words that include the substring.
+
+3. The search is case-insensitive (converts both the word and substring to lowercase before comparing).
+
+4. Several test cases demonstrating different scenarios.
+
+Alternative implementation using the filter() function:
+
+```python
+def filter_words_by_substring_alt(words, substring):
+    """
+    Alternative implementation using filter() function
+    """
+    return list(filter(lambda word: substring.lower() in word.lower(), words))
+
+# More comprehensive example with error handling:
+def filter_words_by_substring_safe(words, substring):
+    """
+    Safe implementation with error handling
+    
+    Args:
+        words (list): List of words to filter
+        substring (str): Substring to search for
+    
+    Returns:
+        list: Filtered list containing only words with the substring
+    
+    Raises:
+        TypeError: If inputs are not of correct type
+    """
+    # Input validation
+    if not isinstance(words, list):
+        raise TypeError("Input 'words' must be a list")
+    if not isinstance(substring, str):
+        raise TypeError("Input 'substring' must be a string")
+    
+    # Filter words
+    try:
+        return [word for word in words if isinstance(word, str) and substring.lower() in word.lower()]
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        return []
+
+# Additional example usage:
+def additional_examples():
+    # Test data
+    word_list = ["Hello", "World", "Python", "Programming", "Code", "Computer"]
+    
+    try:
+        # Test with various substrings
+        print("Words containing 'pro':", 
+              filter_words_by_substring_safe(word_list, "pro"))
+        
+        # Test with empty list
+        print("Empty list test:", 
+              filter_words_by_substring_safe([], "test"))
+        
+        # Test with invalid input
+        print("Invalid input test:", 
+              filter_words_by_substring_safe(None, "test"))  # Will raise TypeError
+        
+    except TypeError as e:
+        print(f"TypeError occurred: {e}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+
+```
+
+This expanded version includes:
+
+1. An alternative implementation using the `filter()` function
+2. A safer version with error handling
+3. Additional test cases
+
+**Extracted Code:**
+def filter_words_by_substring(words, substring):
+    """
+    Filter a list of words to include only those containing the specified substring.
+    
+    Args:
+        words (list): List of words to filter
+        substring (str): Substring to search for
+    
+    Returns:
+        list: Filtered list containing only words with the substring
+    """
+    return [word for word in words if substring.lower() in word.lower()]
+
+# Example usage:
+def main():
+    # Test cases
+    word_list = ["Hello", "World", "Python", "Programming", "Code", "Computer"]
+    
+    # Test 1: Basic substring search
+    result1 = filter_words_by_substring(word_list, "o")
+    print("Words containing 'o':", result1)
+    
+    # Test 2: Case-insensitive search
+    result2 = filter_words_by_substring(word_list, "COM")
+    print("Words containing 'COM' (case-insensitive):", result2)
+    
+    # Test 3: Empty substring
+    result3 = filter_words_by_substring(word_list, "")
+    print("Words containing empty string:", result3)
+    
+    # Test 4: Substring not found
+    result4 = filter_words_by_substring(word_list, "xyz")
+    print("Words containing 'xyz':", result4)
+
+if __name__ == "__main__":
+    main()
+
+✓ Assertion passed for input (['star', 'start', 'stare', 'stash'], 'sta')
+✓ Assertion passed for input (['light', 'flight', 'tight'], 'ight')
+✓ Assertion passed for input (['car', 'cart', 'scar', 'carbon'], 'car')
+✓ Assertion passed for input (['red', 'bread', 'read'], 'red')
+✓ All assertions passed for Version 5
+
+--- Testing Version 5 with ollama (llama3.1:70b) ---
+**Generated Response:**
+**Filtering a List of Words by Substring**
+=====================================================
+
+Here is a Python function that filters a list of words to include only those that contain a specified substring:
+
+```python
+def filter_by_substring(word_list, substring):
+    """
+    Filter a list of words to include only those that contain the specified substring.
+
+    Args:
+        word_list (list): A list of words to be filtered.
+        substring (str): The substring to search for in each word.
+
+    Returns:
+        list: A new list containing only the words that include the substring.
+    """
+    return [word for word in word_list if substring in word]
+```
+
+**Example Use Case**
+--------------------
+
+```python
+words = ["hello", "world", "helloagain", "foo", "bar"]
+substring = "hello"
+
+filtered_words = filter_by_substring(words, substring)
+print(filtered_words)  # Output: ['hello', 'helloagain']
+```
+
+This code defines a function `filter_by_substring` that takes two arguments: a list of words (`word_list`) and a substring to search for (`substring`). It uses a list comprehension to create a new list containing only the words from `word_list` that include the `substring`. The example use case demonstrates how to call this function with a sample list of words and a specified substring.
+
+**Extracted Code:**
+def filter_by_substring(word_list, substring):
+    """
+    Filter a list of words to include only those that contain the specified substring.
+
+    Args:
+        word_list (list): A list of words to be filtered.
+        substring (str): The substring to search for in each word.
+
+    Returns:
+        list: A new list containing only the words that include the substring.
+    """
+    return [word for word in word_list if substring in word]
+
+✓ Assertion passed for input (['star', 'start', 'stare', 'stash'], 'sta')
+✓ Assertion passed for input (['light', 'flight', 'tight'], 'ight')
+✓ Assertion passed for input (['car', 'cart', 'scar', 'carbon'], 'car')
+✓ Assertion passed for input (['red', 'bread', 'read'], 'red')
+✓ All assertions passed for Version 5
